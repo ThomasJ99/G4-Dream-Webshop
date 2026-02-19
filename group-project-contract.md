@@ -1,7 +1,7 @@
 Kontrakt för versionshantering
-Projekt: ___________________________
-Grupp: ___________________________
-Datum: ___________________________
+Projekt: Future Store
+Grupp: 01
+Datum: 19/02 -26
 ⸻
 1. Syfte
 Syftet med detta kontrakt är att säkerställa:
@@ -12,9 +12,9 @@ Syftet med detta kontrakt är att säkerställa:
 Alla gruppmedlemmar förbinder sig att följa detta dokument.
 ⸻
 2. Verktyg
-• Versionshanteringssystem: __________________ (ex. Git)
-• Repository-plattform: __________________ (ex. GitHub/GitLab/Azure DevOps)
-• Kommunikationskanal vid konflikter: __________________
+• Versionshanteringssystem: Git
+• Repository-plattform: Github
+• Kommunikationskanal vid konflikter: Teams
 ⸻
 3. Branch-struktur
 Vi använder följande branch-struktur:
@@ -102,5 +102,6 @@ Om kontraktet inte följs:
 Genom att skriva under godkänner vi att följa detta kontrakt.
 Namn Signatur Datum
 
+-Velvet ✅
 -Victor ✅
 -Pontus ✅
