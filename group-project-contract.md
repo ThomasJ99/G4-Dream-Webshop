@@ -106,3 +106,4 @@ Namn Signatur Datum
 -Victor ✅
 -Pontus ✅
 -Zahra  ✅
+-Åsa ✅
