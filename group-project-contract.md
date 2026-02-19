@@ -103,3 +103,4 @@ Genom att skriva under godkänner vi att följa detta kontrakt.
 Namn Signatur Datum
 
 -Victor ✅
+-Pontus ✅
