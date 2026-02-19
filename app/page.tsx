@@ -1,4 +1,5 @@
 import type { ProductsResponse } from "./types";
+import InventoryWidget from "../components/dashboard-widget";
 
 const API_URL = "http://localhost:4000";
 const defaultLimit = "6";
@@ -17,8 +18,9 @@ console.log(products);
 
   return (
     <main>
-      <h1>Products</h1>
-      <div>{products.map((product) => <h2 key={product.id}>{product.title} - {product.category?.name}</h2>)}</div>
+      <InventoryWidget />
+      {/* <h1>Products</h1>
+      <div>{products.map((product) => <h2 key={product.id}>{product.title} - {product.category?.name}</h2>)}</div> */}
     </main>
   );
 }
