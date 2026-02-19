@@ -3,6 +3,7 @@ import Image from "next/image";
 import { FilePenLine, Trash } from "lucide-react";
 
 export default function ProductTable({ products }: { products: Product[] }) {
+  const thStyle = "p-4 text-sm font-semibold text-gray-500";
   const tdStyle = "border-t border-gray-300 text-center p-4";
 
   const getColourFromAvailabilityStatus = (
@@ -22,18 +23,14 @@ export default function ProductTable({ products }: { products: Product[] }) {
   return (
     <div className="border border-gray-300 rounded-2xl">
       <table className="w-full overflow-hidden rounded-2xl">
-        <thead className="bg-gray-50  ">
+        <thead className="bg-gray-50">
           <tr className="">
-            <th className="p-4 text-sm font-semibold text-gray-500   rounded-tl-2xl">
-              Product
-            </th>
-            <th className="p-4 text-sm font-semibold text-gray-500">
-              Category
-            </th>
-            <th className="p-4 text-sm font-semibold text-gray-500">Price</th>
-            <th className="p-4 text-sm font-semibold text-gray-500">Stock</th>
-            <th className="p-4 text-sm font-semibold text-gray-500">Status</th>
-            <th className="p-4 text-sm font-semibold text-gray-500">Actions</th>
+            <th className={`${thStyle}`}>Product</th>
+            <th className={`${thStyle}`}>Category</th>
+            <th className={`${thStyle}`}>Price</th>
+            <th className={`${thStyle}`}>Stock</th>
+            <th className={`${thStyle}`}>Status</th>
+            <th className={`${thStyle}`}>Actions</th>
           </tr>
         </thead>
         <tbody>
