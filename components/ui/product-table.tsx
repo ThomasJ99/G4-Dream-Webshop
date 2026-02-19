@@ -1,6 +1,6 @@
 import { Product } from "@/app/types";
 import Image from "next/image";
-import { FilePenLine, LucideFilePenLine, Trash } from "lucide-react";
+import { FilePenLine, Trash } from "lucide-react";
 
 export default function ProductTable({ products }: { products: Product[] }) {
   const tdStyle = "border-t border-gray-300 text-center p-4";
@@ -39,20 +39,22 @@ export default function ProductTable({ products }: { products: Product[] }) {
         <tbody>
           {products.map((product) => (
             <tr key={product.id} className="">
-              <td className={`${tdStyle} text-start flex`}>
-                <Image
-                  className="inline mr-4 border rounded-2xl"
-                  alt="product icon"
-                  unoptimized={true}
-                  width={50}
-                  height={50}
-                  src={product.category?.image ?? ""}
-                ></Image>
-                <div className="inline-block">
-                  <span className="block font-medium">{product.title}</span>
-                  <span className="block font-normal text-gray-400 text-sm">
-                    {`SKU: ${product.sku}`}
-                  </span>
+              <td className={`${tdStyle} text-start`}>
+                <div className="flex">
+                  <Image
+                    className="mr-4 rounded-2xl"
+                    alt="product icon"
+                    unoptimized={true}
+                    width={50}
+                    height={50}
+                    src={product.category?.image ?? ""}
+                  ></Image>
+                  <div>
+                    <span className="block font-medium">{product.title}</span>
+                    <span className="block font-normal text-gray-400 text-sm">
+                      {`SKU: ${product.sku}`}
+                    </span>
+                  </div>
                 </div>
               </td>
               <td className={`${tdStyle}`}>{product.category?.name}</td>
