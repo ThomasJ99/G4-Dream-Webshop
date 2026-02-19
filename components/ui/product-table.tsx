@@ -1,11 +1,26 @@
 import { Product } from "@/app/types";
 import Image from "next/image";
+import { FilePenLine, LucideFilePenLine, Trash } from "lucide-react";
 
 export default function ProductTable({ products }: { products: Product[] }) {
   const tdStyle = "border-t border-gray-300 text-center p-4";
 
+  const getColourFromAvailabilityStatus = (
+    availabilityStatus: string | undefined,
+  ): string => {
+    let colour = "";
+    if (availabilityStatus === "Out of Stock") {
+      colour = "text-red-500";
+    } else if (availabilityStatus === "In Stock") {
+      colour = "text-green-500";
+    } else if (availabilityStatus === "Low Stock") {
+      colour = "text-orange-500";
+    }
+    return colour;
+  };
+
   return (
-    <div className="m-2  border border-gray-300 rounded-2xl">
+    <div className="border border-gray-300 rounded-2xl">
       <table className="w-full overflow-hidden rounded-2xl">
         <thead className="bg-gray-50  ">
           <tr className="">
@@ -24,9 +39,9 @@ export default function ProductTable({ products }: { products: Product[] }) {
         <tbody>
           {products.map((product) => (
             <tr key={product.id} className="">
-              <td className={`${tdStyle} text-start`}>
+              <td className={`${tdStyle} text-start flex`}>
                 <Image
-                  className="inline mr-4"
+                  className="inline mr-4 border rounded-2xl"
                   alt="product icon"
                   unoptimized={true}
                   width={50}
@@ -35,7 +50,7 @@ export default function ProductTable({ products }: { products: Product[] }) {
                 ></Image>
                 <div className="inline-block">
                   <span className="block font-medium">{product.title}</span>
-                  <span className="block font-normal text-gray-400">
+                  <span className="block font-normal text-gray-400 text-sm">
                     {`SKU: ${product.sku}`}
                   </span>
                 </div>
@@ -43,17 +58,26 @@ export default function ProductTable({ products }: { products: Product[] }) {
               <td className={`${tdStyle}`}>{product.category?.name}</td>
               <td className={`${tdStyle}`}> {`${product.price} kr`}</td>
               <td className={`${tdStyle}`}>{product.stock}</td>
-              <td className={`${tdStyle}`}>{product.availabilityStatus}</td>
+              <td
+                className={`${tdStyle} ${getColourFromAvailabilityStatus(product.availabilityStatus)}`}
+              >
+                {product.availabilityStatus}
+              </td>
               <td className={`${tdStyle}`}>
                 <button type="button" className="mr-1">
-                  Edit
+                  <FilePenLine color="purple" size={24} />
                 </button>
-                <button type="button">Delete</button>
+                <button type="button">
+                  <Trash color="red" size={24} />
+                </button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+      <div className="p-4 bg-gray-50 border-t border-t-gray-300 rounded-b-2xl">
+        Pagination stuff..
+      </div>
     </div>
   );
 }
