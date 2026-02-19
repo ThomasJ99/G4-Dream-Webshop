@@ -105,3 +105,4 @@ Namn Signatur Datum
 -Velvet ✅
 -Victor ✅
 -Pontus ✅
+-Åsa ✅
