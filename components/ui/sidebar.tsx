@@ -19,9 +19,6 @@ const NavItem = ({ href, icon, label }: { href: string; icon: React.ReactNode; l
 export default function Sidebar() {
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
   
-  const toggleProfileDropdown = () => {
-      setIsProfileDropdownOpen(!isProfileDropdownOpen);
-  };
   const links = [
     { href: "/products", icon: <Package2 width={18} height={18}/>, label: "Products" },
     { href: "/analytics", icon: <ChartLine width={18} height={18}/>, label: "Analytics" },
@@ -30,9 +27,9 @@ export default function Sidebar() {
     { href: "/settings", icon: <Settings width={18} height={18}/>, label: "Settings" },
   ];
   return (
-    <section className="flex flex-col gap-6 sticky left-0 top-0 h-screen">
-      <header className="p-6 pb-3 border-b border-gray-300 ">
-        <h1 className="text-black font-bold text-3xl mb-2">Future Store</h1>
+    <section className="flex flex-col gap-6 sticky left-0 top-0 h-screen shadow-md border-r  border-gray-300">
+      <header className="p-6 pb-4 border-b  border-gray-300 ">
+        <h1 className="text-black font-bold text-2xl mb-2">Future Store</h1>
         <span className="text-gray-500">Admin Panel</span>
       </header>
       <nav className="p-6 flex-1">
