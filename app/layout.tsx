@@ -21,13 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
      
-      <body className={`${inter.variable} antialiased bg-gray-100`}> 
-        {/*
-          If you want to remove the default background color (bg-gray-100),
-          simply remove it from the <body> className>
-       */}
-
-        {/* <body className={`${inter.variable} antialiased`}> */}
+      <body className={`${inter.variable} antialiased `}> 
         {children}
       </body>
     </html>
