@@ -6,7 +6,7 @@ import { Plus } from "lucide-react";
 
 export default function ProductHeader() {
   return (
-    <div className="bg-white  px-8 py-6 flex items-center justify-between fixed top-0 left-0 right-0 z-50 shadow-sm">         
+    <div className="bg-white  px-8 py-6 flex items-center justify-between shadow-sm"> 
       <div>
         <h1 className="text-2xl font-semibold text-gray-900">
           Product management
