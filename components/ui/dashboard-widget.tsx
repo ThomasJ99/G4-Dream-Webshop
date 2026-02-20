@@ -1,4 +1,4 @@
-// components/dashboard-widget
+// components/ui/dashboard-widget
 
 import { Package2, CheckCircle2, AlertTriangle, XCircle } from "lucide-react";
 
