@@ -23,8 +23,8 @@ export default function Sidebar() {
     { href: "/settings", icon: <Settings width={18} height={18}/>, label: "Settings" },
   ];
   return (
-    <section className="flex flex-col gap-6 min-h-screen">
-      <header className="p-6 border-b border-gray-300">
+    <section className="flex flex-col gap-6 sticky left-0 top-0 h-screen">
+      <header className="p-6 pb-3 border-b border-gray-300 ">
         <h1 className="text-black font-bold text-3xl mb-2">Future Store</h1>
         <span className="text-gray-500">Admin Panel</span>
       </header>
@@ -40,7 +40,7 @@ export default function Sidebar() {
           ))}
         </ul>
       </nav>
-      <footer className="p-6 flex flex-row items-center gap-2 border-t border-gray-300">
+      <footer className="p-6 flex flex-row gap-2 border-t border-gray-300 justify-end">
         <User
           height={52}
           width={52}

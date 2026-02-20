@@ -12,7 +12,7 @@ const inter = Inter({
 export default function Header() {
   return (
     <div
-      className={`${inter.className} bg-white border-b px-8 py-6 flex items-center justify-between`}
+      className={`${inter.className} bg-white border-b border-gray-300 px-8 py-6 flex items-center justify-between sticky top-0 z-10`}
     >
       <div>
         <h1 className="text-2xl font-bold text-gray-900">
