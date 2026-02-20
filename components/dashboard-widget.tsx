@@ -1,8 +1,6 @@
 // components/dashboard-widget
 
 import { Package2, CheckCircle2, AlertTriangle, XCircle } from "lucide-react";
-import { Inter } from "next/font/google";
-const inter = Inter({ subsets: ["latin"] });
 
 const stats = [
   {
@@ -37,9 +35,9 @@ const stats = [
 
 export default function InventoryWidget() {
   return (
-    <div className="grid grid-cols-4 gap-4">
+    <div className={`grid grid-cols-4 gap-4`}>
       {stats.map(({ label, value, icon: Icon, color, bg }) => (
-        <div key={label} className="bg-white rounded-1xl p-5 shadow-sm border border-gray-100">
+        <div key={label} className="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
           <div className="flex items-center justify-between">
             <div>
               <span className="text-xs font-medium text-gray-600">{label}</span>
