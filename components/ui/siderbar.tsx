@@ -2,6 +2,8 @@
 
 import { ChartLine, Package2, Settings, ShoppingCart,User,Users } from "lucide-react";
 import Link from "next/link";
+import ProfileDropdown from "./profile-dropdown";
+import { useState } from "react";
 
 const NavItem = ({ href, icon, label }: { href: string; icon: React.ReactNode; label: string }) => {
   return (
@@ -15,6 +17,11 @@ const NavItem = ({ href, icon, label }: { href: string; icon: React.ReactNode; l
 };
 
 export default function Sidebar() {
+  const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+  
+  const toggleProfileDropdown = () => {
+      setIsProfileDropdownOpen(!isProfileDropdownOpen);
+  };
   const links = [
     { href: "/products", icon: <Package2 width={18} height={18}/>, label: "Products" },
     { href: "/analytics", icon: <ChartLine width={18} height={18}/>, label: "Analytics" },
@@ -40,17 +47,20 @@ export default function Sidebar() {
           ))}
         </ul>
       </nav>
-      <footer className="p-6 flex flex-row gap-2 border-t border-gray-300 justify-end">
+      <footer className="p-6 flex flex-row gap-2 border-t border-gray-300 items-center">
         <User
           height={52}
           width={52}
           className="bg-purple-800 rounded-full p-3 text-white"
         />
-        <div className="flex flex-col">
+        <div onClick={toggleProfileDropdown} className="flex flex-col relative">
           <span className="text-sm font-semibold text-gray-700">
             Admin user
           </span>
           <span className="text-gray-500 text-xs">admin@futurestore.com</span>
+          {isProfileDropdownOpen && (
+             <ProfileDropdown/>
+          )}
         </div>
       </footer>
     </section>
