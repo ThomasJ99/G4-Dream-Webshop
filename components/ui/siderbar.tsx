@@ -24,7 +24,7 @@ export default function Sidebar() {
   ];
   return (
     <section className="flex flex-col gap-6 min-h-screen">
-      <header className="p-6 border-b border-gray-300">
+      <header className="p-6 pb-3 border-b border-gray-300">
         <h1 className="text-black font-bold text-3xl mb-2">Future Store</h1>
         <span className="text-gray-500">Admin Panel</span>
       </header>

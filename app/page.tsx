@@ -1,5 +1,8 @@
 import type { ProductsResponse } from "./types";
 import InventoryWidget from "../components/dashboard-widget";
+import Sidebar from "@/components/ui/siderbar";
+import ProductTable from "@/components/ui/product-table";
+import Header from "@/components/ui/header";
 
 const API_URL = "http://localhost:4000";
 const defaultLimit = "6";
@@ -17,8 +20,19 @@ export default async function Home() {
 console.log(products);
 
   return (
-    <main>
+    <main className="flex flex-row">
+      <Sidebar />
+      
+      <section className="flex flex-col w-full gap-4 bg-gray-100">
+      <Header/>
+      <div className="pr-4 pl-4 flex flex-col gap-4">
       <InventoryWidget />
+      {/* SEARCH WIDGET GOES HERE */}
+      <ProductTable products={products}/>
+      </div>
+      
+      </section>
+
       {/* <h1>Products</h1>
       <div>{products.map((product) => <h2 key={product.id}>{product.title} - {product.category?.name}</h2>)}</div> */}
     </main>
