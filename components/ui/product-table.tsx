@@ -35,7 +35,7 @@ export default function ProductTable({ products }: { products: Product[] }) {
         </thead>
         <tbody>
           {products.map((product) => (
-            <tr key={product.id} className="">
+            <tr key={product.id} className="bg-white">
               <td className={`${tdStyle} text-start`}>
                 <div className="flex">
                   <Image

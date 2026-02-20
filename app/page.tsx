@@ -20,12 +20,12 @@ export default async function Home() {
 console.log(products);
 
   return (
-    <main className="flex flex-row">
+    <main className="flex flex-row min-h-screen">
       <Sidebar />
       
       <section className="flex flex-col w-full gap-4 bg-gray-100">
       <Header/>
-      <div className="pr-4 pl-4 flex flex-col gap-4">
+      <div className="pr-4 pl-4 pb-4 flex flex-col gap-4">
       <InventoryWidget />
       {/* SEARCH WIDGET GOES HERE */}
       <ProductTable products={products}/>
