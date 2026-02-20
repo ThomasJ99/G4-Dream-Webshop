@@ -1,37 +1,37 @@
 "use client";
 
-import Link from "next/link";
+import Link from "next/link"; 
+
 import { Plus } from "lucide-react";
-import { Inter } from "next/font/google";
 
-const inter = Inter({
-  subsets: ["latin"],
-  weight: ["400", "600", "700"],
-});
-
-export default function Header() {
+export default function ProductHeader() {
   return (
-    <div
-      className={`${inter.className} bg-white border-b px-8 py-6 flex items-center justify-between`}
-    >
+    <div className="bg-white  px-8 py-6 flex items-center justify-between fixed top-0 left-0 right-0 z-50 shadow-sm">         
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">
+        <h1 className="text-2xl font-semibold text-gray-900">
           Product management
         </h1>
         <p className="text-sm text-gray-500 mt-1">
           Manage your store inventory
         </p>
       </div>
-
       <Link href="/add-product">
-        <button className="bg-[#7851A9] hover:bg-[#5B21B6] text-white px-5 py-2.5 rounded-md flex items-center gap-2 shadow-sm transition">
+        <button
+          className="bg-[#7851A9] hover:bg-[#5B21B6]
+                     text-white px-5 py-2.5 
+                     rounded-md flex items-center gap-2 
+                     shadow-sm transition"
+        >
+     
           <Plus className="w-5 h-5" />
           <span>Add product</span>
         </button>
       </Link>
+
     </div>
   );
 }
+
 
 // I wrote the code this way because adding a new product requires filling out a form,
 // so we navigate to a separate page instead of using an onClick handler here.
