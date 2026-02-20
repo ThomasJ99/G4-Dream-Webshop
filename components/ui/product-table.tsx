@@ -40,7 +40,7 @@ export default async function ProductTable({
 
   return (
     <div className="border border-gray-300 rounded-2xl">
-      <table className="w-full overflow-hidden rounded-2xl">
+      <table className="w-full overflow-hidden rounded-2xl table-fixed">
         <thead className="bg-gray-50">
           <tr className="">
             <th className={`${thStyle}`}>Product</th>

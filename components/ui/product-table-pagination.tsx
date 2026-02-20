@@ -21,27 +21,19 @@ export default function ProductTablePagination({
   };
 
   return (
-    <div className="flex justify-center gap-4">
-      {currentPage > 1 && (
-        <>
-          <Link scroll={false} href={createPageURL(1)}>
-            First
-          </Link>
-          <Link scroll={false} href={createPageURL(currentPage - 1)}>
-            &larr; Previous
-          </Link>
-        </>
-      )}
-      {currentPage < totalPages && (
-        <>
-          <Link scroll={false} href={createPageURL(currentPage + 1)}>
-            Next &rarr;
-          </Link>
-          <Link scroll={false} href={createPageURL(totalPages)}>
-            Last
-          </Link>
-        </>
-      )}
+    <div className="flex justify-end gap-4">
+      <Link scroll={false} href={createPageURL(1)}>
+        First
+      </Link>
+      <Link scroll={false} href={createPageURL(currentPage - 1)}>
+        &larr; Previous
+      </Link>
+      <Link scroll={false} href={createPageURL(currentPage + 1)}>
+        Next &rarr;
+      </Link>
+      <Link scroll={false} href={createPageURL(totalPages)}>
+        Last
+      </Link>
     </div>
   );
 }
