@@ -1,5 +1,5 @@
 import type { ProductsResponse } from "./types";
-import InventoryWidget from "../components/dashboard-widget";
+import InventoryWidget from "../components/ui/dashboard-widget";
 import Sidebar from "@/components/ui/sidebar";
 import ProductTable from "@/components/ui/product-table";
 import Header from "@/components/ui/header";
