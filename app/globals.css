@@ -25,3 +25,7 @@
   --color-danger:         #ef4444; /* red-500    */
 }
 
+
+body {
+  font-family: var(--font-inter); 
+}

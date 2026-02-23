@@ -1,6 +1,6 @@
 import type { ProductsResponse } from "./types";
 import InventoryWidget from "../components/ui/dashboard-widget";
-import Sidebar from "@/components/ui/siderbar";
+import Sidebar from "@/components/ui/sidebar";
 import ProductTable from "@/components/ui/product-table";
 import Header from "@/components/ui/header";
 import SearchWidget from "../components/ui/search-widget";
