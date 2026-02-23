@@ -4,7 +4,18 @@ const API_URL = "http://localhost:4000";
 
 import { Package2, CheckCircle2, AlertTriangle, XCircle } from 'lucide-react';
 
+// Calculate availability status based on stock quantity
+// stock = 0 → "Out of Stock"
+// stock < 20 → "Low Stock"
+// stock ≥ 20 → "In Stock"
+const getAvailabilityStatus = (stock: number) => {
+  if (stock === 0) return 'Out of Stock';
+  if (stock < 20) return 'Low Stock';
+  return 'In Stock';
+};
+
 export default async function InventoryWidget() {
+  // Fetch all products from the API
   const response = await fetch(`${API_URL}/products`, {
     cache: 'no-store',
   });
@@ -12,10 +23,9 @@ export default async function InventoryWidget() {
   const data = await response.json();
 
   // Extract products array from the wrapper object
-  // From each product, use only availabilityStatus
   const products = Array.isArray(data) ? data : data.products;
 
-  // Calculate statistics based on availabilityStatus
+  // Calculate statistics based on stock quantity using getAvailabilityStatus
   const stats = [
     {
       label: 'Total products',
@@ -27,27 +37,24 @@ export default async function InventoryWidget() {
     },
     {
       label: 'In stock',
-      // Filter products where availabilityStatus equals "In Stock" and count them
-      value: products.filter((p: any) => p.availabilityStatus === 'In Stock')
-        .length,
+      // Filter products where stock is 20 or more and count them
+      value: products.filter((p: any) => getAvailabilityStatus(p.stock) === 'In Stock').length,
       icon: CheckCircle2,
       color: 'text-success',
       bg: 'bg-success/10',
     },
     {
       label: 'Low stock',
-      // Filter products where availabilityStatus equals "Low Stock" and count them
-      value: products.filter((p: any) => p.availabilityStatus === 'Low Stock')
-        .length,
+      // Filter products where stock is between 1-19 and count them
+      value: products.filter((p: any) => getAvailabilityStatus(p.stock) === 'Low Stock').length,
       icon: AlertTriangle,
       color: 'text-warning',
       bg: 'bg-warning/10',
     },
     {
       label: 'Out of stock',
-      // Filter products where availabilityStatus equals "Out of Stock" and count them
-      value: products.filter((p: any) => p.availabilityStatus === 'Out of Stock')
-        .length,
+      // Filter products where stock equals 0 and count them
+      value: products.filter((p: any) => getAvailabilityStatus(p.stock) === 'Out of Stock').length,
       icon: XCircle,
       color: 'text-danger',
       bg: 'bg-danger/10',
@@ -73,7 +80,7 @@ export default async function InventoryWidget() {
                   {value}
                 </h2>
               </div>
-              {/* Display icon */}
+              {/* Display icon with background color */}
               <div className={`${bg} ${color} p-3 rounded-xl`}>
                 <Icon size={25} aria-hidden="true" />
               </div>
