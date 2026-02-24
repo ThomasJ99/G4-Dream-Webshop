@@ -1,4 +1,4 @@
-import { Product } from "@/app/types";
+import { Product } from "@/lib/types";
 import Image from "next/image";
 import { FilePenLine, Trash } from "lucide-react";
 import ProductTablePagination from "./product-table-pagination";

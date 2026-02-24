@@ -1,4 +1,4 @@
-import { ProductsResponse } from "@/app/types";
+import { ProductsResponse } from "@/lib/types";
 
 const API_URL = "http://localhost:4000";
 

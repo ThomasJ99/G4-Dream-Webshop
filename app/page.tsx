@@ -1,4 +1,4 @@
-import type { ProductsResponse } from "./types";
+import type { ProductsResponse } from "../lib/types";
 import InventoryWidget from "../components/ui/dashboard-widget";
 import Sidebar from "@/components/ui/sidebar";
 import ProductTable from "@/components/ui/product-table";
