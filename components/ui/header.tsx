@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link"; 
-
 import { Plus } from "lucide-react";
 
 export default function ProductHeader() {
@@ -16,7 +15,7 @@ export default function ProductHeader() {
         </p>
       </div>
      <Link
-        href="/add-product"
+        href="/products/add-product"
         className="bg-[#7851A9] hover:bg-[#5B21B6]  text-white px-5 py-2.5 rounded-md flex items-center gap-2 shadow-sm transition"
       >
         <Plus className="w-5 h-5" />
@@ -28,5 +27,5 @@ export default function ProductHeader() {
 }
 
 
-// I wrote the code this way because adding a new product requires filling out a form,
-// so we navigate to a separate page instead of using an onClick handler here.
+// // I wrote the code this way because adding a new product requires filling out a form,
+// // so we navigate to a separate page instead of using an onClick handler here.

@@ -1,8 +1,10 @@
 @import "tailwindcss";
 
-@theme {
+/* @theme { */
+:root{
   /* ── Brand ───────────────────────── */
   --color-primary:        #5b21b6; /* purple-800 */
+
 
   /* ── Text ────────────────────────── */
   --color-text-strong:    #000000; /* black      */

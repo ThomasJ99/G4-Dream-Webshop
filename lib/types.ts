@@ -53,3 +53,14 @@ export interface ProductsResponse {
   page: number;
   pages: number;
 }
+
+export type ProductFormData = Pick<
+  Product,
+  | "title"
+  | "brand"
+  | "price"
+  | "description"
+  | "thumbnail"
+  | "categoryId"
+  | "stock"
+>;
