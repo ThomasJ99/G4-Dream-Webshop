@@ -12,11 +12,13 @@ export default function ProductTablePagination({
   const searchParams = useSearchParams();
   const currentPage = Number(searchParams.get("page")) || 1;
   const currentLimit = Number(searchParams.get("limit")) || 5;
+  const currentQuery = searchParams.get("q") || "";
 
   const createPageURL = (pageNumber: number | string) => {
     const params = new URLSearchParams(searchParams.toString());
     params.set("page", pageNumber.toString());
     params.set("limit", currentLimit.toString());
+    params.set("q", currentQuery.toString());
     return `${pathname}?${params.toString()}`;
   };
 
