@@ -1,5 +1,3 @@
-/* components/ui/dashboard-widget */
-
 import "server-only";
 import { getInventoryProducts } from '@/lib/db';
 import { Package2, CheckCircle2, AlertTriangle, XCircle } from 'lucide-react';
