@@ -1,12 +1,8 @@
-import { Product } from "@/lib/types";
 import Image from "next/image";
 import { FilePenLine, Trash } from "lucide-react";
 import ProductTablePagination from "./product-table-pagination";
-import {
-  getSearchParamsAsNumber,
-  getSearchParamsAsString,
-} from "@/utils/getSearchParams";
-import { getProducts } from "@/data/product";
+import { getSearchParamsAsString } from "@/utils/getSearchParams";
+import { getProductsFromParams } from "@/lib/db";
 
 const thStyle = "p-4 text-sm font-semibold text-gray-500";
 const tdStyle =
@@ -35,13 +31,18 @@ export default async function ProductTable({
 }: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
-  const { page = "1", limit = "5" } = await searchParams;
+  const { page = "1", limit = "5", q = "" } = await searchParams;
 
   const currentLimit = getSearchParamsAsString(limit);
   const currentPage = getSearchParamsAsString(page);
-  console.log(currentLimit, currentPage);
+  const currentQuery = getSearchParamsAsString(q);
+  console.log(currentLimit, currentPage, q);
 
-  const { products } = await getProducts(currentLimit, currentPage);
+  const { products } = await getProductsFromParams(
+    currentLimit ?? "",
+    currentPage ?? "",
+    currentQuery ?? "",
+  );
 
   return (
     <div className="border border-gray-300 rounded-2xl">
