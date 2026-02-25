@@ -3,7 +3,7 @@
 import "server-only";
 import { getInventoryProducts } from '@/lib/db';
 import { Package2, CheckCircle2, AlertTriangle, XCircle } from 'lucide-react';
-import type { Product } from '@/app/types';
+import type { Product } from '@/lib/types';
 
 // Pick only the stock property from interface Product
 type ProductForInventoryWidget = Pick<Product, 'stock'>;
