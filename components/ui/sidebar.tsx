@@ -28,8 +28,8 @@ export default function Sidebar() {
   ];
   return (
     <section className="flex flex-col gap-6 sticky left-0 top-0 h-screen shadow-md border-r  border-gray-300">
-      <header className="p-6 pb-4 border-b  border-gray-300 ">
-        <h1 className="text-black font-bold text-2xl mb-2">Future Store</h1>
+      <header className="p-6 pb-2 border-b  border-gray-300 ">
+        <h1 className="text-gray-900 font-bold text-2xl mb-2">Future Store</h1>
         <span className="text-gray-500">Admin Panel</span>
       </header>
       <nav className="p-6 flex-1">
