@@ -9,7 +9,8 @@ import {
 import { getProducts } from "@/data/product";
 
 const thStyle = "p-4 text-sm font-semibold text-gray-500";
-const tdStyle = "border-t border-gray-300 text-center p-4";
+const tdStyle =
+  "border-t border-gray-300 text-center p-4 text-ellipsis truncate";
 
 const getColourFromAvailabilityStatus = (
   availabilityStatus: string | undefined,
@@ -24,6 +25,10 @@ const getColourFromAvailabilityStatus = (
   }
   return colour;
 };
+function titleCaseWord(word: string) {
+  if (!word) return word;
+  return word[0].toUpperCase() + word.substring(1).toLowerCase();
+}
 
 export default async function ProductTable({
   searchParams,
@@ -43,7 +48,7 @@ export default async function ProductTable({
       <table className="w-full overflow-hidden rounded-2xl table-fixed">
         <thead className="bg-gray-50">
           <tr className="">
-            <th className={`${thStyle}`}>Product</th>
+            <th className={`${thStyle} w-[30%]`}>Product</th>
             <th className={`${thStyle}`}>Category</th>
             <th className={`${thStyle}`}>Price</th>
             <th className={`${thStyle}`}>Stock</th>
@@ -73,7 +78,9 @@ export default async function ProductTable({
                 </div>
               </td>
               <td className={`${tdStyle}`}>
-                {product.category?.name ?? product.tags?.toString()}
+                {product.category?.name ??
+                  titleCaseWord(product.tags![0]) ??
+                  ""}
               </td>
               <td className={`${tdStyle}`}> {`${product.price} kr`}</td>
               <td className={`${tdStyle}`}>{product.stock}</td>
