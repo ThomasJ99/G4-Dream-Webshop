@@ -3,6 +3,7 @@ import { FilePenLine, Trash } from "lucide-react";
 import ProductTablePagination from "./product-table-pagination";
 import { getSearchParamsAsString } from "@/utils/getSearchParams";
 import { getProductsFromParams } from "@/lib/db";
+import { ProductActions } from "@/components/ui/delete-actions";
 
 const thStyle = "p-4 text-sm font-semibold text-gray-500";
 const tdStyle =
@@ -79,9 +80,7 @@ export default async function ProductTable({
                 </div>
               </td>
               <td className={`${tdStyle}`}>
-                {product.category?.name ??
-                  titleCaseWord(product.tags![0]) ??
-                  ""}
+                {product.category?.name ?? (product.tags?.[0] ? titleCaseWord(product.tags[0]) : "")}
               </td>
               <td className={`${tdStyle}`}> {`${product.price} kr`}</td>
               <td className={`${tdStyle}`}>{product.stock}</td>
@@ -94,9 +93,7 @@ export default async function ProductTable({
                 <button type="button" className="mr-1">
                   <FilePenLine color="purple" size={24} />
                 </button>
-                <button type="button">
-                  <Trash color="red" size={24} />
-                </button>
+                <ProductActions id={product.id as unknown as string} />
               </td>
             </tr>
           ))}
