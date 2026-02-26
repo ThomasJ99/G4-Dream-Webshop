@@ -28,3 +28,14 @@ export async function addProduct(newProduct: ProductFormData) {
   
   return res;
 }
+
+
+export async function updateProductById(id: string, product: ProductFormData) {
+  const res = await fetch(`${API_URL}/products/${id}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(product),
+  });
+
+  return res;
+}

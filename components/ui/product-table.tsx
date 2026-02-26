@@ -1,30 +1,45 @@
-import { Product } from "@/lib/types";
+import { Product, Category } from "@/lib/types";
 import Image from "next/image";
 import { FilePenLine, Trash } from "lucide-react";
 import ProductTablePagination from "./product-table-pagination";
+import Link from "next/link";
 import {
   getSearchParamsAsNumber,
   getSearchParamsAsString,
 } from "@/utils/getSearchParams";
 import { getProducts } from "@/data/product";
+import { API_URL } from "@/lib/config";
 
 const thStyle = "p-4 text-sm font-semibold text-gray-500";
 const tdStyle =
   "border-t border-gray-300 text-center p-4 text-ellipsis truncate";
 
+// const getColourFromAvailabilityStatus = (
+//   availabilityStatus: string | undefined,
+// ): string => {
+//   let colour = "";
+//   if (availabilityStatus === "Out of Stock") {
+//     colour = "text-red-500";
+//   } else if (availabilityStatus === "In Stock") {
+//     colour = "text-green-500";
+//   } else if (availabilityStatus === "Low Stock") {
+//     colour = "text-orange-500";
+//   }
+//   return colour;
+// };
+
 const getColourFromAvailabilityStatus = (
-  availabilityStatus: string | undefined,
+  stock: number,
 ): string => {
-  let colour = "";
-  if (availabilityStatus === "Out of Stock") {
-    colour = "text-red-500";
-  } else if (availabilityStatus === "In Stock") {
-    colour = "text-green-500";
-  } else if (availabilityStatus === "Low Stock") {
-    colour = "text-orange-500";
+  if (stock === 0) {
+    return "text-red-500";
+  } else if ((stock ?? 0) < 45) {
+    return "text-orange-500";
+  } else {
+    return "text-green-500";
   }
-  return colour;
 };
+
 function titleCaseWord(word: string) {
   if (!word) return word;
   return word[0].toUpperCase() + word.substring(1).toLowerCase();
@@ -42,6 +57,10 @@ export default async function ProductTable({
   console.log(currentLimit, currentPage);
 
   const { products } = await getProducts(currentLimit, currentPage);
+  
+// gjorde fetch här för category
+  const categories: Category[] = await fetch(`${API_URL}/categories`)
+    .then((res) => res.json());
 
   return (
     <div className="border border-gray-300 rounded-2xl">
@@ -77,22 +96,47 @@ export default async function ProductTable({
                   </div>
                 </div>
               </td>
-              <td className={`${tdStyle}`}>
-                {product.category?.name ??
+              {/* <td className={`${tdStyle}`}>
+                 {product.category?.name ??
                   titleCaseWord(product.tags![0]) ??
-                  ""}
+                  ""} 
+
+              </td> */}
+
+              <td className={`${tdStyle}`}>
+                {
+                  categories.find(cat => cat.id === product.categoryId)?.name
+                  ?? titleCaseWord(product.tags![0])
+                  ?? ""
+                }
               </td>
               <td className={`${tdStyle}`}> {`${product.price} kr`}</td>
               <td className={`${tdStyle}`}>{product.stock}</td>
-              <td
+              {/* <td
                 className={`${tdStyle} ${getColourFromAvailabilityStatus(product.availabilityStatus)}`}
               >
                 {product.availabilityStatus}
-              </td>
+              </td> */}
+            <td
+              className={`${tdStyle} ${getColourFromAvailabilityStatus(product.stock ?? 0)}`}
+            >
+              {(product.stock ?? 0) === 0
+                ? "Out of Stock"
+                : (product.stock ?? 0) < 45
+                ? "Low Stock"
+                : "In Stock"}
+            </td>
               <td className={`${tdStyle}`}>
-                <button type="button" className="mr-1">
+                {/* <button type="button" className="mr-1">
                   <FilePenLine color="purple" size={24} />
-                </button>
+                </button> */}
+                
+                <Link href={`/products/edit/${product.id}`}>
+                  <button type="button" className="mr-1">
+                    <FilePenLine color="purple" size={24} />
+                  </button>
+                </Link>
+
                 <button type="button">
                   <Trash color="red" size={24} />
                 </button>
