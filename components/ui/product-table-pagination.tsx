@@ -1,5 +1,6 @@
 "use client";
 
+import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight,} from "lucide-react";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 
@@ -21,21 +22,37 @@ export default function ProductTablePagination({
     params.set("q", currentQuery.toString());
     return `${pathname}?${params.toString()}`;
   };
-
+  //&rarr;
   return (
     <div className="flex justify-end gap-4">
-      <Link scroll={false} href={createPageURL(1)}>
-        First
+
+      <Link scroll={false} className={`${currentPage > 1 ? 'text-purple-800' : 'text-gray-400'} p-1 text-center rounded-lg`}  href={createPageURL(1)}>
+        <ChevronsLeft/>
       </Link>
-      <Link scroll={false} href={createPageURL(currentPage - 1)}>
-        &larr; Previous
+      <Link scroll={false} className={`${currentPage > 1 ? 'text-purple-800' : 'text-gray-400'} p-1 text-center rounded-lg`}  href={createPageURL(Math.max(1, currentPage - 1))}>
+        <ChevronLeft/>
       </Link>
-      <Link scroll={false} href={createPageURL(currentPage + 1)}>
-        Next &rarr;
+
+      <Link scroll={false} className="bg-purple-800 text-white p-1 min-w-10 text-center rounded-lg" href={createPageURL(currentPage)}>
+        {currentPage} 
       </Link>
-      <Link scroll={false} href={createPageURL(totalPages)}>
-        Last
+
+      {currentPage < totalPages && (
+      <>
+      <span className="flex items-end text-purple-800 text-2xl">...</span>
+      <Link className="bg-white text-purple-800 border border-purple-800 p-1 min-w-10 text-center rounded-lg" href={createPageURL(totalPages)}>
+        {totalPages}
       </Link>
+      </>
+      )}
+    
+      <Link scroll={false} className={`${currentPage >= totalPages ? 'text-gray-400' : 'text-purple-800'} p-1 text-center rounded-lg`} href={createPageURL(Math.min(totalPages, currentPage + 1))}>
+        <ChevronRight/>
+      </Link>
+      <Link scroll={false} className={`${currentPage >= totalPages ? 'text-gray-400' : 'text-purple-800'} p-1 text-center rounded-lg`} href={createPageURL(totalPages)}>
+        <ChevronsRight/>
+      </Link>
+      
     </div>
   );
 }
