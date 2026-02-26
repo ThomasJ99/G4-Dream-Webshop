@@ -2,17 +2,17 @@
   "products": [
     {
       "id": 1,
-      "title": "Essence Mascara Lash Princess",
-      "description": "The Essence Mascara Lash Princess is a popular mascara known for its volumizing and lengthening effects. Achieve dramatic lashes with this long-lasting and cruelty-free formula.",
-      "price": 9.99,
+      "title": "aaa",
+      "description": "aaaaaaaaaaaaaa",
+      "price": 60,
       "discountPercentage": 10.48,
       "rating": 2.56,
-      "stock": 99,
+      "stock": 7,
       "tags": [
         "beauty",
         "mascara"
       ],
-      "brand": "Essence",
+      "brand": "a",
       "sku": "BEA-ESS-ESS-001",
       "weight": 4,
       "dimensions": {
@@ -58,13 +58,13 @@
         "https://cdn.dummyjson.com/product-images/beauty/essence-mascara-lash-princess/1.webp"
       ],
       "thumbnail": "https://cdn.dummyjson.com/product-images/beauty/essence-mascara-lash-princess/thumbnail.webp",
-      "categoryId": 1
+      "categoryId": 4
     },
     {
       "id": 2,
-      "title": "Eyeshadow Palette with Mirror",
+      "title": "Eye",
       "description": "The Eyeshadow Palette with Mirror offers a versatile range of eyeshadow shades for creating stunning eye looks. With a built-in mirror, it's convenient for on-the-go makeup application.",
-      "price": 19.99,
+      "price": 19,
       "discountPercentage": 18.19,
       "rating": 2.86,
       "stock": 34,
@@ -118,13 +118,13 @@
         "https://cdn.dummyjson.com/product-images/beauty/eyeshadow-palette-with-mirror/1.webp"
       ],
       "thumbnail": "https://cdn.dummyjson.com/product-images/beauty/eyeshadow-palette-with-mirror/thumbnail.webp",
-      "categoryId": 1
+      "categoryId": 5
     },
     {
       "id": 3,
       "title": "Powder Canister",
       "description": "The Powder Canister is a finely milled setting powder designed to set makeup and control shine. With a lightweight and translucent formula, it provides a smooth and matte finish.",
-      "price": 14.99,
+      "price": 14,
       "discountPercentage": 9.84,
       "rating": 4.64,
       "stock": 89,
@@ -178,7 +178,7 @@
         "https://cdn.dummyjson.com/product-images/beauty/powder-canister/1.webp"
       ],
       "thumbnail": "https://cdn.dummyjson.com/product-images/beauty/powder-canister/thumbnail.webp",
-      "categoryId": 1
+      "categoryId": 6
     },
     {
       "id": 4,
@@ -242,9 +242,9 @@
     },
     {
       "id": 5,
-      "title": "Red Nail Polish",
+      "title": "Red Naileee",
       "description": "The Red Nail Polish offers a rich and glossy red hue for vibrant and polished nails. With a quick-drying formula, it provides a salon-quality finish at home.",
-      "price": 8.99,
+      "price": 8,
       "discountPercentage": 11.44,
       "rating": 4.32,
       "stock": 79,
@@ -11803,6 +11803,51 @@
       ],
       "thumbnail": "https://cdn.dummyjson.com/product-images/womens-watches/women's-wrist-watch/thumbnail.webp",
       "categoryId": 24
+    },
+    {
+      "title": "qqqq",
+      "brand": "qqqqqqqq",
+      "description": "111111111111111111111111111111",
+      "thumbnail": "https://cdn.dummyjson.com/product-images/beauty/red-nail-polish/thumbnail.webp",
+      "price": 10,
+      "categoryId": 2,
+      "stock": 1,
+      "meta": {
+        "createdAt": "2026-02-25T20:31:19.329Z",
+        "updatedAt": "2026-02-25T20:31:19.329Z"
+      },
+      "id": 195,
+      "sku": "FRA-QQQ-QQQ-195"
+    },
+    {
+      "title": "ooo",
+      "brand": "ooooooo",
+      "description": "iiiiiiiiiiiiiiiiiiiiiiiiiiiii",
+      "thumbnail": "http://localhost:3000/products/add-product",
+      "price": 90,
+      "categoryId": 3,
+      "stock": 9,
+      "meta": {
+        "createdAt": "2026-02-25T20:33:59.186Z",
+        "updatedAt": "2026-02-25T20:33:59.186Z"
+      },
+      "id": 196,
+      "sku": "FUR-OOO-OOO-196"
+    },
+    {
+      "title": "zaaaaaazzzzzzzzzzzzz",
+      "brand": "zzzzzzzzzzzz",
+      "description": "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz",
+      "thumbnail": "https://cdn.dummyjson.com/product-images/beauty/essence-mascara-lash-princess/thumbnail.webp",
+      "price": 300,
+      "categoryId": 3,
+      "stock": 990,
+      "meta": {
+        "createdAt": "2026-02-25T22:02:32.353Z",
+        "updatedAt": "2026-02-25T22:02:32.353Z"
+      },
+      "id": 197,
+      "sku": "FUR-ZZZ-ZAA-197"
     }
   ],
   "categories": [
