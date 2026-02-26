@@ -8,6 +8,7 @@ import {
   getSearchParamsAsString,
 } from "@/utils/getSearchParams";
 import { getProductsFromParams } from "@/lib/db";
+import { ProductActions } from "@/components/ui/delete-actions";
 import { API_URL } from "@/lib/config";
 
 const thStyle = "p-4 text-sm font-semibold text-gray-500";
@@ -110,17 +111,14 @@ export default async function ProductTable({searchParams, total}: {searchParams:
                 : "In Stock"}
             </td>
               <td className={`${tdStyle}`}>
-             
-                
+              
                 <Link href={`/products/edit/${product.id}`}>
                   <button type="button" className="mr-1">
                     <FilePenLine color="purple" size={24} />
                   </button>
                 </Link>
 
-                <button type="button">
-                  <Trash color="red" size={24} />
-                </button>
+                 <ProductActions id={product.id as unknown as string} />
               </td>
             </tr>
           ))}

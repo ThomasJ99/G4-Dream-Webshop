@@ -25,6 +25,11 @@ export function ToastListener() {
       const newParams = new URLSearchParams(searchParams.toString());
       newParams.delete("status");
       router.replace(`/?${newParams.toString()}`);
+    } else if (status === "deleted") {
+      toast.success("Product deleted successfully!");
+      const newParams = new URLSearchParams(searchParams.toString());
+      newParams.delete("status");
+      router.replace(`/?${newParams.toString()}`);
     }
   }, [searchParams, router]);
 

@@ -8,7 +8,7 @@ type ProductForInventoryWidget = Pick<Product, 'stock'>;
 const getAvailabilityStatus = (stock: number | null | undefined) => {
   const s = stock ?? 0;
   if (s === 0) return 'Out of Stock';
-  if (s < 20) return 'Low Stock';
+  if (s < 45) return 'Low Stock';
   return 'In Stock';
 };
 

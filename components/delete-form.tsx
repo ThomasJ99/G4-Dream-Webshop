@@ -1,33 +1,57 @@
-import Form from "next/form";
-import {
-  deleteProduct,
-  deleteProductBind,
-} from "@/app/products/create/actions";
+"use client";
 
-// Here we pass the formData along and get the id from that in the action
-export function DeleteForm({ id }: { id: string }) {
+import { useFormStatus } from "react-dom";
+import { useActionState, useEffect } from "react";
+import toast from "react-hot-toast";
+import { deleteProductActionState } from "@/lib/actions";
+
+function DeleteButton() {
+  // Get form submission status from parent form
+  const { pending } = useFormStatus();
   return (
-    <Form action={deleteProduct}>
-      <input hidden readOnly name="id" value={id} />
-      <button className="hover:cursor-pointer" type="submit">
-        Delete
-      </button>
-    </Form>
+    <button
+      className="cursor-pointer disabled:cursor-not-allowed"
+      disabled={pending}
+      type="submit"
+    >
+      {pending ? "Deleting..." : "Delete"}
+    </button>
   );
 }
 
-// With bind we instead pass on/bind our id to the form and pass it along this way
-// doing this we can skip the hidden input
-// https://nextjs.org/docs/app/guides/forms#passing-additional-arguments
-// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind
+export function DeleteFormActionState({
+  id,
+  children,
+  className
+}: {
+  id: string;
+  children?: React.ReactNode;
+  className?: string;
+}) {
+  // Call server action and get state back
+  const [state, formAction] = useActionState(deleteProductActionState, null);
 
-export function DeleteFormBind({ id }: { id: string }) {
-  const deleteWithBind = deleteProductBind.bind(null, id);
+  // Watch for state changes and show toast
+  useEffect(() => {
+    if (state?.message) {
+      // Show success or error toast based on message
+      if (state.message.includes("success")) {
+        toast.success(state.message);
+      } else {
+        toast.error(state.message);
+      }
+    }
+  }, [state]);
+
+  const handleAction = (formData: FormData) => {
+    formAction(formData);
+  };
+
   return (
-    <Form action={deleteWithBind}>
-      <button className="hover:cursor-pointer" type="submit">
-        Delete
-      </button>
-    </Form>
+    <form action={handleAction} className={className}>
+      {/* Hidden input with product id */}
+      <input hidden readOnly name="id" value={id} />
+      {children || <DeleteButton />}
+    </form>
   );
 }

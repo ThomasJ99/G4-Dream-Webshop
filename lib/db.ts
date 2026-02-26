@@ -33,7 +33,7 @@ export async function getProductsFromParams(
       res.json(),
     );
 
-    return await response;
+    return response;
   } catch {
     throw new Error("Api is down eh");
   }

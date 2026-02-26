@@ -26,7 +26,7 @@ export async function addProductActionState(
   const categoryId = formData.get("categoryId") as string;
   const stock = formData.get("stock") as string;
   const brand = formData.get("brand") as string;
- 
+
 
   const newProduct: ProductFormData = {
     title,
@@ -38,22 +38,22 @@ export async function addProductActionState(
     stock: parseInt(stock, 10),
   };
 
-if (!/^https?:\/\/.+/.test(newProduct.thumbnail)) {
-  const state: ActionState = {
-    data: newProduct,
-    errors: { thumbnail: ["Please enter a valid image URL starting with http or https"] },
-    timestamp: Date.now(),
-  };
-  return state;
-}
+  if (!/^https?:\/\/.+/.test(newProduct.thumbnail)) {
+    const state: ActionState = {
+      data: newProduct,
+      errors: { thumbnail: ["Please enter a valid image URL starting with http or https"] },
+      timestamp: Date.now(),
+    };
+    return state;
+  }
 
-if (newProduct.price < 10 || newProduct.price > 100_000) {
-  return {
-    data: newProduct,
-    errors: { price: ["Price must be between 10 and 100,000"] },
-    timestamp: Date.now(),
-  };
-}
+  if (newProduct.price < 10 || newProduct.price > 100_000) {
+    return {
+      data: newProduct,
+      errors: { price: ["Price must be between 10 and 100,000"] },
+      timestamp: Date.now(),
+    };
+  }
 
   //   if (title.length < 3 || title.length > 20) {
   //   return {
@@ -68,7 +68,7 @@ if (newProduct.price < 10 || newProduct.price > 100_000) {
     return {
       message: "Something went wrong... ",
       // data: formData,
-      data:newProduct,
+      data: newProduct,
       timestamp: Date.now(),
     };
   }
@@ -76,9 +76,6 @@ if (newProduct.price < 10 || newProduct.price > 100_000) {
   revalidatePath("/");
   redirect("/?status=success");
 }
-
-
-
 
 export async function updateProduct(formData: FormData) {
   const id = formData.get("id") as string;
@@ -112,3 +109,35 @@ export async function updateProduct(formData: FormData) {
 }
 
 
+/* Delete product */
+
+export async function deleteProductActionState(
+  _prevState: ActionState,
+  formData: FormData,
+): Promise<ActionState> {
+  const id = formData.get("id") as string;
+  console.log("Deleting product with id:", id);
+
+  const res = await fetch(`${API_URL}/products/${id}`, {
+    method: "DELETE",
+  });
+
+  console.log("Response status:", res.status);
+
+  if (!res.ok) {
+    return {
+      message: "Failed to delete product",
+      data: null,
+      timestamp: Date.now(),
+    };
+  }
+
+  revalidatePath("/", "layout");
+
+  console.log("Returning state:", { message: "Product deleted successfully" });
+  return {
+    message: "Product deleted successfully",
+    data: null,
+    timestamp: Date.now(),
+  };
+}
