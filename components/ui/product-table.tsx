@@ -26,12 +26,10 @@ function titleCaseWord(word: string) {
   return word[0].toUpperCase() + word.substring(1).toLowerCase();
 }
 
-export default async function ProductTable({
-  searchParams,
-}: {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-}) {
+export default async function ProductTable({searchParams, total}: {searchParams: Promise<{ [key: string]: string | string[] | undefined}>; total: number}) {
   const { page = "1", limit = "5", q = "" } = await searchParams;
+
+  const totalPages = Math.floor((total+5)/5);
 
   const currentLimit = getSearchParamsAsString(limit);
   const currentPage = getSearchParamsAsString(page);
@@ -103,7 +101,7 @@ export default async function ProductTable({
         </tbody>
       </table>
       <div className="p-4 bg-gray-50 border-t border-t-gray-300 rounded-b-2xl">
-        <ProductTablePagination totalPages={3}></ProductTablePagination>
+        <ProductTablePagination totalPages={totalPages}></ProductTablePagination>
       </div>
     </div>
   );

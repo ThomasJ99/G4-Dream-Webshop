@@ -17,7 +17,7 @@ export default async function Home(params: PageProps<"/">) {
     `${API_URL}/products/?_limit=${defaultLimit}&_sort=id&_order=desc&_expand=category`,
   ).then((res) => res.json());
 
-  console.log(products);
+  console.log(total);
 
   return (
     <main className="flex flex-row min-h-screen">
@@ -28,7 +28,7 @@ export default async function Home(params: PageProps<"/">) {
         <div className="pr-4 pl-4 pb-4 flex flex-col gap-4">
           <InventoryWidget />
           <SearchWidget />
-          <ProductTable searchParams={params.searchParams} />
+          <ProductTable searchParams={params.searchParams} total={total} />
         </div>
       </section>
 
