@@ -36,7 +36,7 @@ function titleCaseWord(word: string) {
 export default async function ProductTable({searchParams, total}: {searchParams: Promise<{ [key: string]: string | string[] | undefined}>; total: number}) {
   const { page = "1", limit = "5", q = "" } = await searchParams;
 
-  const totalPages = Math.floor((total+5)/5);
+  const totalPages = Math.ceil((total)/5);
 
   const currentLimit = getSearchParamsAsString(limit);
   const currentPage = getSearchParamsAsString(page);
