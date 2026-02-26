@@ -119,10 +119,6 @@ export default async function ProductTable({searchParams, total}: {searchParams:
                 </Link>
 
                  <ProductActions id={product.id as unknown as string} />
-
-                <button type="button">
-                  <Trash color="red" size={24} />
-                </button>
               </td>
             </tr>
           ))}
