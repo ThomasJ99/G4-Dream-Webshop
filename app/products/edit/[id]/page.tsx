@@ -1,7 +1,6 @@
 import { API_URL } from "@/lib/config";
 import EditForm from "@/components/ui/edit-form";
 import type { Category, Product } from "@/lib/types";
-// import type { Category, Product } from "@/lib/types";
 
 export default async function UpdatePage({
   params,
@@ -14,9 +13,7 @@ export default async function UpdatePage({
     `${API_URL}/products/${id}`
   ).then((res) => res.json());
 
-  // const categories: Category[] = await fetch(
-  //   `${API_URL}/categories`
-  // ).then((res) => res.json());
+
 
   return (
     <main className="bg-[var(--color-bg-muted)] flex justify-center px-6 py-16">
@@ -26,7 +23,7 @@ export default async function UpdatePage({
         </h1>
           
           <EditForm product={product} />
-        {/* <EditForm product={product} categories={categories} /> */}
+    
          
       </div>
     </main>

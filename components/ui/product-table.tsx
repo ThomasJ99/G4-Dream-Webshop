@@ -7,26 +7,13 @@ import {
   getSearchParamsAsNumber,
   getSearchParamsAsString,
 } from "@/utils/getSearchParams";
-import { getProducts } from "@/data/product";
+import { getProductsFromParams } from "@/lib/db";
 import { API_URL } from "@/lib/config";
 
 const thStyle = "p-4 text-sm font-semibold text-gray-500";
 const tdStyle =
   "border-t border-gray-300 text-center p-4 text-ellipsis truncate";
 
-// const getColourFromAvailabilityStatus = (
-//   availabilityStatus: string | undefined,
-// ): string => {
-//   let colour = "";
-//   if (availabilityStatus === "Out of Stock") {
-//     colour = "text-red-500";
-//   } else if (availabilityStatus === "In Stock") {
-//     colour = "text-green-500";
-//   } else if (availabilityStatus === "Low Stock") {
-//     colour = "text-orange-500";
-//   }
-//   return colour;
-// };
 
 const getColourFromAvailabilityStatus = (
   stock: number,
@@ -50,15 +37,22 @@ export default async function ProductTable({
 }: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
-  const { page = "1", limit = "5" } = await searchParams;
+  const { page = "1", limit = "5", q = "" } = await searchParams;
 
   const currentLimit = getSearchParamsAsString(limit);
   const currentPage = getSearchParamsAsString(page);
-  console.log(currentLimit, currentPage);
+  const currentQuery = getSearchParamsAsString(q);
+  console.log(currentLimit, currentPage, q);
 
-  const { products } = await getProducts(currentLimit, currentPage);
   
-// gjorde fetch här för category
+    const { products } = await getProductsFromParams(
+    currentLimit ?? "",
+    currentPage ?? "",
+    currentQuery ?? "",
+  );
+  
+
+  
   const categories: Category[] = await fetch(`${API_URL}/categories`)
     .then((res) => res.json());
 
@@ -96,12 +90,7 @@ export default async function ProductTable({
                   </div>
                 </div>
               </td>
-              {/* <td className={`${tdStyle}`}>
-                 {product.category?.name ??
-                  titleCaseWord(product.tags![0]) ??
-                  ""} 
 
-              </td> */}
 
               <td className={`${tdStyle}`}>
                 {
@@ -112,11 +101,7 @@ export default async function ProductTable({
               </td>
               <td className={`${tdStyle}`}> {`${product.price} kr`}</td>
               <td className={`${tdStyle}`}>{product.stock}</td>
-              {/* <td
-                className={`${tdStyle} ${getColourFromAvailabilityStatus(product.availabilityStatus)}`}
-              >
-                {product.availabilityStatus}
-              </td> */}
+         
             <td
               className={`${tdStyle} ${getColourFromAvailabilityStatus(product.stock ?? 0)}`}
             >
@@ -127,9 +112,7 @@ export default async function ProductTable({
                 : "In Stock"}
             </td>
               <td className={`${tdStyle}`}>
-                {/* <button type="button" className="mr-1">
-                  <FilePenLine color="purple" size={24} />
-                </button> */}
+             
                 
                 <Link href={`/products/edit/${product.id}`}>
                   <button type="button" className="mr-1">
