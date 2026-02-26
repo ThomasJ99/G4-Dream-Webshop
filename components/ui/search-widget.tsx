@@ -2,7 +2,7 @@
 
 import { ChevronDown, Funnel, Search } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { KeyboardEvent } from "react";
+import { ChangeEvent } from "react";
 
 export default function SearchWidget() {
   const router = useRouter();
@@ -18,13 +18,10 @@ export default function SearchWidget() {
     router.push(`${pathname}?${params.toString()}`);
   };
 
-  const searchHandler = (e: KeyboardEvent) => {
-    if (e.key === "Enter") {
+  const searchHandler = (e: ChangeEvent) => {
       const target = e.target as HTMLInputElement;
       console.log(target.value);
-
       createPageURL(target.value);
-    }
   };
 
   return (
@@ -35,7 +32,7 @@ export default function SearchWidget() {
           type="text"
           placeholder="Search products..."
           className="w-full pl-10 focus:outline-none"
-          onKeyDown={(e) => {
+          onChange={(e) => {
             searchHandler(e);
           }}
         />
