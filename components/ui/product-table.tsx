@@ -44,7 +44,7 @@ export default async function ProductTable({searchParams, total}: {searchParams:
   console.log(currentLimit, currentPage, q);
 
   
-    const { products } = await getProductsFromParams(
+    const { products, pages } = await getProductsFromParams(
     currentLimit ?? "",
     currentPage ?? "",
     currentQuery ?? "",
@@ -125,7 +125,7 @@ export default async function ProductTable({searchParams, total}: {searchParams:
         </tbody>
       </table>
       <div className="p-4 bg-gray-50 border-t border-t-gray-300 rounded-b-2xl">
-        <ProductTablePagination totalPages={totalPages}></ProductTablePagination>
+        <ProductTablePagination totalPages={pages}></ProductTablePagination>
       </div>
     </div>
   );
