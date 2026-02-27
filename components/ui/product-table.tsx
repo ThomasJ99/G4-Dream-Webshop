@@ -118,7 +118,7 @@ export default async function ProductTable({searchParams, total}: {searchParams:
                   </button>
                 </Link>
 
-                 <ProductActions id={product.id as unknown as string} />
+                 <ProductActions id={String(product.id)} />
               </td>
             </tr>
           ))}
