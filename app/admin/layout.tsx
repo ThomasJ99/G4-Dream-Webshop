@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "./globals.css";
+import { Toaster } from "react-hot-toast";
+import { ToastListener } from "@/components/toast-listener";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -20,7 +21,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} antialiased `}>{children}</body>
+      <body className={`${inter.variable} antialiased `}>
+        <Toaster position="top-center" />
+        <ToastListener />
+        {children}
+      </body>
     </html>
   );
 }
