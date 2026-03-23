@@ -1,3 +1,7 @@
+import type { ProductsResponse } from "../../lib/types";
+import Sidebar from "@/components/ui/admin/sidebar";
+import ProductTable from "@/components/ui/admin/product-table";
+import Header from "@/components/ui/admin/header";
 import { getFeaturedProducts } from "@/lib/products";
 import { ProductCard } from "@/components/product-card";
 
