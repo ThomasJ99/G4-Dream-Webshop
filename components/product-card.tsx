@@ -12,6 +12,7 @@ export function ProductCard({ product }: ProductCardProps) {
       <article className="space-y-3">
         <div className="aspect-[3/4] relative overflow-hidden rounded-lg bg-secondary">
           <Image
+            unoptimized
             src={product.image}
             alt={product.name}
             fill
