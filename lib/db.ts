@@ -90,7 +90,6 @@ export async function addProduct(newProduct: ProductFormData) {
   return res;
 }
 
-
 export async function updateProductById(id: string, product: ProductFormData) {
   const res = await fetch(`${API_URL}/products/${id}`, {
     method: "PATCH",
@@ -100,4 +99,5 @@ export async function updateProductById(id: string, product: ProductFormData) {
 
   return res;
 }
+
 //#endregion
