@@ -20,13 +20,13 @@ export default function Hero() {
       </div>
 
       {/* Text section */}
-      <section className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 lg:py-32 w-full">
+      <section className="relative mx-auto max-7xl px-4 sm:px-6 lg:px-8 py-20 lg:py-32 w-full">
         <div className="max-w-lg">
           <span className="text-sm font-semibold text-blue-600 uppercase tracking-wide mb-4">
             Spring & Summer 2026
           </span>
 
-          <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-medium tracking-tight text- leading-tight">
+          <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-medium tracking-tight text-balance leading-tight">
             Discover your personal style
           </h1>
 
@@ -35,14 +35,28 @@ export default function Hero() {
             appreciate quality and design.
           </p>
 
-          <div className="bg-blue-600 text-center hover:bg-blue-700 text-white inline-block py-2.5 px-5 mt-8 rounded-lg cursor-pointer">
-            <div className="flex gap-2">
-              <Link href={"/products"}>Explore collection</Link>
+          <div className="inline-block">
+            <Link
+              className="bg-blue-600 text-center hover:bg-blue-700 text-white flex gap-2 py-2.5 px-5 mt-8 rounded-lg cursor-pointer"
+              href={"/products"}
+            >
+              Explore collection
               <ArrowRight className="ml-2 mt-1 size-4" />
-            </div>
+            </Link>
           </div>
         </div>
       </section>
+
+          {/* Shipping info / Badges, will wait with these for now!!!! */}
+      {/* <section className="border-b">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-8 sm:gap-48">
+
+          </div>
+
+        </div>
+          
+      </section> */}
     </header>
   );
 }
