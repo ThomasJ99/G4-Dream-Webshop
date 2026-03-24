@@ -4,23 +4,24 @@ import { ShoppingCart } from "lucide-react";
 
 export default function Navigation() {
   return (
-    <nav className="sticky top-0 flex w-full bg-white/50 backdrop-blur-xs shadow-sm h-14">
+    <nav className="sticky z-100 top-0 flex w-full bg-white/50 backdrop-blur-xs shadow-sm h-14">
       <div className="flex w-[95%] mx-auto h-full">
         <div className="w-[20%] h-full items-center flex">
-          <Link className="" href="#">
-            <h2 className="text-xl font-serif font-bold tracking-tight">
-              DreamShop
-            </h2>
+          <Link
+            className="text-xl font-serif font-bold tracking-tight"
+            href="#"
+          >
+            DreamShop
           </Link>
         </div>
         <ul className="w-[60%] h-full items-center flex gap-10 justify-center">
           <li>
-            <Link className="text-xl" href="#">
+            <Link className="text-xl" href="/products">
               Shop
             </Link>
           </li>
           <li>
-            <Link className="text-xl" href="#">
+            <Link className="text-xl" href="/shop">
               About
             </Link>
           </li>
