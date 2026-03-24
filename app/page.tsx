@@ -26,6 +26,8 @@ export default async function Home() {
     <main>
       <Hero />
 
+      {/*****  TODO: ADD CORRECT LINK HREFS TO CATEGORY LINK  ******/}
+
       {/* Category section */}
       <section className="py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
