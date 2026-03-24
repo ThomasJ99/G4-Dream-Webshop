@@ -4,10 +4,15 @@ export default function SendMessage() {
     e.preventDefault();
     console.log("submit klickat");
 
+    // hårdkodade värden
+    const myData = {
+      content: "blabla",
+    }
+
     const response = await fetch("/api/messages", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ content: "blablabla" }),
+      body: JSON.stringify({ content: myData }),
     });
 
     if (response.ok) {
