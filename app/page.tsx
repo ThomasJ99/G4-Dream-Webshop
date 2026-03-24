@@ -2,6 +2,7 @@ import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { ProductCard } from "@/components/product-card";
+import SendMessage from "@/components/send-message";
 import Hero from "@/components/ui/hero";
 import { categories, getFeaturedProducts } from "@/lib/products";
 
@@ -24,6 +25,7 @@ export default async function Home() {
 
   return (
     <main>
+      <SendMessage></SendMessage>
       <Hero />
 
       {/*****  TODO: ADD CORRECT LINK HREFS TO CATEGORY LINK  ******/}
