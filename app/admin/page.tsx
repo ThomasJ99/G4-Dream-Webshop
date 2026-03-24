@@ -1,9 +1,9 @@
 import type { ProductsResponse } from "../../lib/types";
-import InventoryWidget from "../../components/ui/dashboard-widget";
-import Sidebar from "@/components/ui/sidebar";
-import ProductTable from "@/components/ui/product-table";
-import Header from "@/components/ui/header";
-import SearchWidget from "../../components/ui/search-widget";
+import InventoryWidget from "../../components/ui/admin/dashboard-widget";
+import Sidebar from "@/components/ui/admin/sidebar";
+import ProductTable from "@/components/ui/admin/product-table";
+import Header from "@/components/ui/admin/header";
+import SearchWidget from "../../components/ui/admin/search-widget";
 
 const API_URL = "http://localhost:4000";
 const defaultLimit = "6";

@@ -1,15 +1,18 @@
-import type { ProductsResponse } from "../../lib/types";
-import Sidebar from "@/components/ui/sidebar";
-import ProductTable from "@/components/ui/product-table";
-import Header from "@/components/ui/header";
-
-const API_URL = "http://localhost:4000";
-const defaultLimit = "6";
+import { ProductCard } from "@/components/product-card";
+import Hero from "@/components/ui/hero";
+import { getFeaturedProducts } from "@/lib/products";
 
 export default async function Home(params: PageProps<"/">) {
+  const featuredProducts = getFeaturedProducts();
+
   return (
-    <main className="flex flex-row min-h-screen">
-      <div className="text-[20rem]">Hello world!</div>
+    <main>
+      <Hero />
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {featuredProducts.map((product) => (
+          <ProductCard key={product.id} product={product} />
+        ))}
+      </div>
     </main>
   );
 }
