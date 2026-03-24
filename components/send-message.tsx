@@ -7,7 +7,7 @@ export default function SendMessage() {
     // hårdkodade värden
     const myData = {
       content: "blabla",
-    }
+    };
 
     const response = await fetch("/api/messages", {
       method: "POST",
