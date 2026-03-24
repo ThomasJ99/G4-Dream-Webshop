@@ -77,23 +77,3 @@ export default function Footer() {
     </footer>
   );
 }
-
-// Shop
-// All Products
-// Outerwear
-// Knitwear
-// Accessories
-
-// Support
-// Contact Us
-// Shipping & Returns
-// Size Guide
-// FAQ
-
-// Newsletter
-// Subscribe for updates on new arrivals and exclusive offers.
-
-// input:
-// Your email
-// button:
-// Join
