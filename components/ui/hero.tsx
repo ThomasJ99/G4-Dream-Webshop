@@ -16,7 +16,7 @@ export default function Hero() {
           // Make it load fast when changed to Image
         />
         {/* Gradient looks pretty bad in mobile view */}
-        <div className="absolute inset-0 bg-linear-to-r from-white/95 via-white/70 to-transparent"></div>
+        <div className="absolute inset-0 bg-linear-to-r from-white/95 via-white/70 sm:to-transparent to-white/70 transition-colors"></div>
       </div>
 
       {/* Text section */}
