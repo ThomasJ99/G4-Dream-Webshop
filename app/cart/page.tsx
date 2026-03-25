@@ -21,13 +21,16 @@ export default function Cart() {
       {/* If no products */}
       <section className="text-center py-16">
         <ShoppingBag className="h-16 w-16 mx-auto text-muted-foreground mb-4" />
-        no u {">:)"}
-        <h2 className="font-serif text-2xl leading-loose"> Your cart is empty</h2>
+        <h2 className="font-serif text-2xl leading-loose">
+          {" "}
+          Your cart is empty
+        </h2>
+        
         <span>Looks live you haven't added any items yet.</span>
         <div>
           <Link
             href="/products"
-            className="inline-flex items-center gap-4 border border-black bg-black text-white py-1.5 px-4 mt-6 rounded-lg hover:bg-transparent hover:border-white transition-colors"
+            className="inline-flex items-center gap-4 border border-black bg-black text-white py-1.5 px-4 mt-6 rounded-lg hover:border-white hover:opacity-85 transition-colors"
           >
             Start shopping
           </Link>
