@@ -96,8 +96,7 @@ export default async function ProductDetail({
           <div>
             <h3 className="text-sm font-semibold mb-2">Shipping</h3>
             <p className="text-sm text-muted-foreground">
-              Free shipping on orders over 999 SEK. Standard delivery 3-5
-              business days.
+              {data.shippingInformation}
             </p>
           </div>
         </div>
