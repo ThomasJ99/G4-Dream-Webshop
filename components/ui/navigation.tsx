@@ -1,40 +1,105 @@
 "use client";
 import Link from "next/link";
-import { ShoppingCart } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
+import { ShoppingCart, Menu, X } from "lucide-react";
 
 export default function Navigation() {
+  const [isOpen, setIsOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  useEffect(() => {
+    function handleResize() {
+      if (window.innerWidth >= 768) setIsOpen(false);
+    }
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const menuItems = [
+    { name: "Shop", href: "/products" },
+    { name: "About", href: "/about" },
+  ];
+
   return (
-    <nav className="sticky top-0 flex w-full bg-white/50 backdrop-blur-xs shadow-sm h-14">
-      <div className="flex w-[95%] mx-auto h-full">
-        <div className="w-[20%] h-full items-center flex">
-          <Link className="" href="#">
-            <h2 className="text-xl font-serif font-bold tracking-tight">
-              DreamShop
-            </h2>
+    <header
+      ref={menuRef}
+      className="sticky z-50 top-0 w-full bg-white/50 backdrop-blur-sm shadow-sm"
+    >
+      <nav className="flex items-center justify-between mx-[2.5%] h-16">
+        <div className="flex-1">
+          <Link
+            className="text-xl font-serif font-bold tracking-tight shrink-0 hover:text-blue-400 transition-colors"
+            href="/"
+          >
+            DreamShop
           </Link>
         </div>
-        <ul className="w-[60%] h-full items-center flex gap-10 justify-center">
-          <li>
-            <Link className="text-xl" href="#">
-              Shop
-            </Link>
-          </li>
-          <li>
-            <Link className="text-xl" href="#">
-              About
-            </Link>
-          </li>
+
+        <ul className="hidden md:flex items-center gap-5">
+          {menuItems.map((item) => (
+            <li key={item.name}>
+              <Link
+                className="p-2 text-md font-semibold hover:text-blue-400 transition-colors"
+                href={item.href}
+              >
+                {item.name}
+              </Link>
+            </li>
+          ))}
         </ul>
 
-        <div className="w-[20%] h-full items-center flex justify-end">
-          <Link className="relative p-2 rounded-lg hover:bg-blue-900" href="#">
+        <div className="flex-1 flex items-center justify-end gap-2">
+          <Link
+            className="relative p-2 rounded-sm hover:bg-blue-900/20 hover:text-blue-400 mr-1 transition-colors"
+            href="/cart"
+          >
             <div className="absolute -top-1 -right-1 w-4 h-4 bg-blue-400 rounded-full text-white flex items-center justify-center text-xs">
-              2
+              8
             </div>
-            <ShoppingCart />
+            <ShoppingCart size={24} />
           </Link>
+
+          <div className="md:hidden">
+            <button
+              className="cursor-pointer p-2 mr-1 rounded-sm hover:bg-blue-900/20 hover:text-blue-400 transition-colors"
+              type="button"
+              onClick={() => setIsOpen(!isOpen)}
+            >
+              {isOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+
+      {/* Dropdown */}
+      {isOpen && (
+        <div className="md:hidden border-t border-black px-6 py-2">
+          <ul className="flex flex-col gap-2 items-center">
+            {menuItems.map((item) => (
+              <li key={item.name}>
+                <Link
+                  href={item.href}
+                  // rounded-sm hover:bg-blue-900/20
+                  className="text-md font-semibold block py-1 px-4 hover:text-blue-400 transition-colors"
+                  onClick={() => setIsOpen(false)}
+                >
+                  {item.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </header>
   );
 }
