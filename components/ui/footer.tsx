@@ -4,7 +4,7 @@ import { Input } from "./input";
 
 export default function Footer() {
   return (
-    <footer className=" border-t-1 border-gray-300 mt-20 pt-10 text-sm text-gray-600">
+    <footer className=" border-t-1 border-gray-300 pt-10 text-sm text-gray-600">
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-[90%] lg:w-[60%] mx-auto gap-8 border-b border-gray-300 pb-8">
         <div className="flex flex-col gap-3 col-span-2 md:col-span-1">
           <span className="text-xl font-bold font-serif text-black">
