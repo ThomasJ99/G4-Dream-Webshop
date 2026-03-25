@@ -18,6 +18,31 @@ export default function Cart() {
         {/* TODO: LOGIC FOR AMOUNT OF ITEMS */}
         <span className="text-muted-foreground">(x) items in your cart</span>
       </header>
+
+      {/* If products */}
+      {/* items.length > 0 ? (content below) */}
+      <section className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+        {/* Logic to map through all items */}
+        yes
+        {/* Order info */}
+        <div className="bg-secondary/30 rounded-lg p-6 sticky top-24">
+          <h2 className="font-semibold text-lg">Order Summary</h2>
+
+          <div className="space-y-4">
+            <div className="flex justify-between text-sm">
+              <span className="text-muted-foreground">Subtotal</span>
+              <span>Price nr</span>
+            </div>
+
+            <div className="flex justify-between text-sm text-muted-foreground">
+                <span>Shipping</span>
+                <span>Calculated at checkout</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Conditional render, : () */}
       {/* If no products */}
       <section className="text-center py-16">
         <ShoppingBag className="h-16 w-16 mx-auto text-muted-foreground mb-4" />
@@ -25,7 +50,7 @@ export default function Cart() {
           {" "}
           Your cart is empty
         </h2>
-        
+
         <span>Looks live you haven't added any items yet.</span>
         <div>
           <Link
@@ -35,12 +60,6 @@ export default function Cart() {
             Start shopping
           </Link>
         </div>
-      </section>
-
-      {/* If products */}
-      <section className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-        {/* Logic to map through all items */}
-        yes
       </section>
     </main>
   );
