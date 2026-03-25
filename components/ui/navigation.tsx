@@ -23,7 +23,7 @@ export default function Navigation() {
     }
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  });
+  }, []);
 
   const menuItems = [
     { name: "Shop", href: "/products" },
@@ -38,7 +38,7 @@ export default function Navigation() {
       <nav className="flex items-center justify-between mx-[2.5%] h-16">
         <div className="flex-1">
           <Link
-            className="text-xl font-serif font-bold tracking-tight shrink-0 hover:text-blue-400"
+            className="text-xl font-serif font-bold tracking-tight shrink-0 hover:text-blue-400 transition-colors"
             href="/"
           >
             DreamShop
@@ -49,7 +49,7 @@ export default function Navigation() {
           {menuItems.map((item) => (
             <li key={item.name}>
               <Link
-                className="p-2 text-md font-semibold hover:text-blue-400"
+                className="p-2 text-md font-semibold hover:text-blue-400 transition-colors"
                 href={item.href}
               >
                 {item.name}
@@ -60,18 +60,18 @@ export default function Navigation() {
 
         <div className="flex-1 flex items-center justify-end gap-2">
           <Link
-            className="relative p-2 rounded-sm hover:bg-blue-900/20 hover:text-blue-400 mr-1"
-            href="#"
+            className="relative p-2 rounded-sm hover:bg-blue-900/20 hover:text-blue-400 mr-1 transition-colors"
+            href="/cart"
           >
             <div className="absolute -top-1 -right-1 w-4 h-4 bg-blue-400 rounded-full text-white flex items-center justify-center text-xs">
               8
             </div>
-            <ShoppingCart size={24} className="" />
+            <ShoppingCart size={24} />
           </Link>
 
           <div className="md:hidden">
             <button
-              className="cursor-pointer p-2 mr-1 rounded-sm hover:bg-blue-900/20 hover:text-blue-400"
+              className="cursor-pointer p-2 mr-1 rounded-sm hover:bg-blue-900/20 hover:text-blue-400 transition-colors"
               type="button"
               onClick={() => setIsOpen(!isOpen)}
             >
@@ -90,7 +90,7 @@ export default function Navigation() {
                 <Link
                   href={item.href}
                   // rounded-sm hover:bg-blue-900/20
-                  className="text-md font-semibold block py-1 px-4 hover:text-blue-400"
+                  className="text-md font-semibold block py-1 px-4 hover:text-blue-400 transition-colors"
                   onClick={() => setIsOpen(false)}
                 >
                   {item.name}
