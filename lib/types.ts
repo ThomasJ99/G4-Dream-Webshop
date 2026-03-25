@@ -46,6 +46,17 @@ export interface Product {
   thumbnail: string;
 }
 
+export interface Review {
+  id: number;
+  product_id: number;
+  rating: number;
+  comment?: string;
+  date: string;
+  reviewer_name: string;
+  reviewer_email: string;
+  created_at?: string;
+}
+
 export interface ProductsResponse {
   products: Product[];
   total: number;

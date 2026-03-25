@@ -2,6 +2,7 @@
   "name": "webshop-full",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "mock-server": "json-server --watch server/products.json --middlewares server/middleware.js --port 4000",
