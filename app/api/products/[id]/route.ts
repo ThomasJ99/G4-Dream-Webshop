@@ -4,9 +4,10 @@ import { supabase } from "@/supabaseClient";
 // GET /api/products/[id] - Get a single product
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
+    const { id } = await params;
     const { data, error } = await supabase
       .from("products")
       .select(`
@@ -18,7 +19,7 @@ export async function GET(
           image
         )
       `)
-      .eq("id", params.id)
+      .eq("id", id)
       .single();
 
     if (error) {
