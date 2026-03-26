@@ -1,11 +1,11 @@
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { ProductCard } from "@/components/product-card";
-import SendMessage from "@/components/send-message";
-import Hero from "@/components/ui/hero";
-import { categories, getFeaturedProducts } from "@/lib/products";
 import GetProducts from "@/components/get-products";
+import { ProductCard } from "@/components/product-card";
+import Hero from "@/components/ui/hero";
+import { getCategories } from "@/lib/db/categories-db";
+import { getAllProducts } from "@/lib/db/products-db";
 
 // Maps each clothing category to a representative background image URL
 // Used to display a preview image for each category card in the UI
@@ -19,10 +19,12 @@ const categoryImages: Record<string, string> = {
 };
 
 export default async function Home() {
-  const featuredProducts = getFeaturedProducts();
-  const displayCategories = categories.filter(
-    (c) => c !== "All" && categoryImages[c],
-  );
+  const featuredProducts = (await getAllProducts()).slice(0, 3);
+  const categories = await getCategories();
+  // const displayCategories = categories.filter(
+  //   (c) => c.name !== "All" && categoryImages[c.image],
+  // );
+  const displayCategories = categories.splice(0, 3);
 
   return (
     <main>
@@ -50,14 +52,14 @@ export default async function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             {displayCategories.map((category) => (
               <Link
-                key={category}
+                key={category.id}
                 href={""}
                 className="group relative aspect-4/5 rounded-lg overflow-hidden bg-white/95"
               >
                 {/* Uses the images */}
                 <Image
-                  src={categoryImages[category]}
-                  alt={category}
+                  src={category.image}
+                  alt={category.name}
                   fill
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
@@ -66,7 +68,7 @@ export default async function Home() {
                 <div className="absolute inset-0 bg-linear-to-t from-black/50 to-transparent"></div>
                 <div className="absolute bottom-6 left-6 right-6">
                   <h3 className="text-white font-medium text-xl leading-relaxed">
-                    {category}
+                    {category.name}
                   </h3>
                   <span className="text-white/80 text-sm">
                     Explore collection
