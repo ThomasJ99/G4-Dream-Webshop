@@ -1,16 +1,17 @@
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/supabaseClient";
 
 // GET /api/reviews/[id] - Get a single review
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: number }> },
 ) {
+  const { id } = await params;
   try {
     const { data, error } = await supabase
       .from("reviews")
       .select("*")
-      .eq("id", params.id)
+      .eq("id", id)
       .single();
 
     if (error) {

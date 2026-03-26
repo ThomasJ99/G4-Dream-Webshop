@@ -1,13 +1,15 @@
 "use client";
 
-import { getAllProducts, getProductById } from "@/lib/actions/products/actions";
+import { getProductById } from "@/lib/db/products-db";
+import { getReviewsByProductId } from "@/lib/db/reviews-db";
+//import { getProductById } from "@/lib/products";
 
 export default function GetProducts() {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     console.log("submit klickat");
 
-    const response = await getProductById("15");
+    const response = await getReviewsByProductId("5");
 
     console.log(response);
   };
