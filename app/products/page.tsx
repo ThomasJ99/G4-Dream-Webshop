@@ -3,6 +3,10 @@ import Link from "next/link";
 import { getCategories } from "@/lib/db/categories-db";
 import { getAllProducts } from "@/lib/db/products-db";
 import type { ProductsResponse } from "@/lib/types";
+import {
+  getSearchParamsAsNumber,
+  getSearchParamsAsString,
+} from "@/utils/getSearchParams";
 
 interface Category {
   id: number;
@@ -11,8 +15,14 @@ interface Category {
   slug: string;
 }
 
-export default async function ProductPage() {
-  const data: ProductsResponse = await getAllProducts();
+export default async function ProductPage(params: PageProps<"/">) {
+  const { categoryId = "" } = await params.searchParams;
+
+  const reqParams = new URLSearchParams({
+    categoryId: categoryId.toString(),
+  });
+
+  const data: ProductsResponse = await getAllProducts(reqParams.toString());
   const categories: Category[] = await getCategories();
 
   const { total, products } = data;

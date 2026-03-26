@@ -1,7 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import GetProducts from "@/components/get-products";
 import { ProductCard } from "@/components/product-card";
 import Hero from "@/components/ui/hero";
 import { getCategories } from "@/lib/db/categories-db";
@@ -52,7 +51,7 @@ export default async function Home() {
             {displayCategories.map((category) => (
               <Link
                 key={category.id}
-                href={""}
+                href={`/products/?categoryId=${category.id}`}
                 className="group relative aspect-4/5 rounded-lg overflow-hidden bg-white/95"
               >
                 {/* Uses the images */}
