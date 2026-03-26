@@ -1,9 +1,10 @@
 import type { Product } from "@/lib/types";
+import { API_URL } from "../config";
 
 //#region GET
 
 export async function getAllProducts(): Promise<Product[]> {
-  const response = await fetch("/api/products", {
+  const response = await fetch(`${API_URL}/api/products`, {
     method: "GET",
   });
 
@@ -19,7 +20,7 @@ export async function getAllProducts(): Promise<Product[]> {
 export async function getProductById(id: string): Promise<Product> {
   console.log(id);
   try {
-    const response = await fetch(`/api/products/${id}`, {
+    const response = await fetch(`${API_URL}/api/products/${id}`, {
       method: "GET",
       cache: "no-store",
     });
