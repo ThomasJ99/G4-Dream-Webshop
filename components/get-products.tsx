@@ -10,8 +10,6 @@ export default function GetProducts() {
     console.log("submit klickat");
 
     const response = await getReviewsByProductId("5");
-
-    console.log(response);
   };
 
   return (

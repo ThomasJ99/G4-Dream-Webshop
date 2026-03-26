@@ -1,13 +1,17 @@
 import Image from "next/image";
-import { getProductById } from "@/lib/actions/products/actions";
+import { notFound } from "next/navigation";
+import { getProductById } from "@/lib/db/products-db";
 import type { Product } from "@/lib/types";
 
 export default async function ProductPage({
   params,
 }: PageProps<"/products/[id]">) {
   const { id } = await params;
-
   const data = await getProductById(id);
+  //TODO: make this work
+  // if (!data) {
+  //   notFound();
+  // }
 
   const ProductDetail = ({ product }: { product: Product }) => {
     const productTags = product?.tags?.join(", ");

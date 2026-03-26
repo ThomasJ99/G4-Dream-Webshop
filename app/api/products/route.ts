@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from "next/server";
-import { supabase } from "@/supabaseClient";
+import { type NextRequest, NextResponse } from "next/server";
 import { Product } from "@/lib/types";
+import { supabase } from "@/supabaseClient";
 
 // GET /api/products - Get all products with optional filtering
 export async function GET(request: NextRequest) {
@@ -64,7 +64,7 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({
       products: transformedProducts || [],
-      total: count || 0,
+      total: products.length || 0,
       limit: limit ? parseInt(limit) : undefined,
       page: page ? parseInt(page) : undefined,
     });

@@ -19,7 +19,7 @@ const categoryImages: Record<string, string> = {
 };
 
 export default async function Home() {
-  const featuredProducts = (await getAllProducts()).slice(0, 3);
+  const featuredProducts = (await getAllProducts()).products.slice(0, 3);
   const categories = await getCategories();
   // const displayCategories = categories.filter(
   //   (c) => c.name !== "All" && categoryImages[c.image],
