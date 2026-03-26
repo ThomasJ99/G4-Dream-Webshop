@@ -1,5 +1,6 @@
 import { ChevronLeft, ShoppingBag } from "lucide-react";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 export default function Cart() {
   return (
@@ -23,7 +24,7 @@ export default function Cart() {
       {/* items.length > 0 ? (content below) */}
       <section className="grid grid-cols-1 lg:grid-cols-3 gap-12">
         {/* Logic to map through all items */}
-        yes
+        <div className="mx-auto ps-4">Cardgrid</div>
         {/* Order info */}
         <div className="bg-secondary/30 rounded-lg p-6 sticky top-24">
           <h2 className="font-semibold text-lg">Order Summary</h2>
@@ -35,8 +36,32 @@ export default function Cart() {
             </div>
 
             <div className="flex justify-between text-sm text-muted-foreground">
-                <span>Shipping</span>
-                <span>Calculated at checkout</span>
+              <span>Shipping</span>
+              <span>Calculated at checkout</span>
+            </div>
+
+            <div className="flex justify-between text-sm text-muted-foreground">
+              <span>VAT (included)</span>
+              {/* Format tax price here with math */}
+              <span>Price</span>
+            </div>
+
+            <div className="border-t border-border pt-4 mb-6">
+              <div className="flex justify-between">
+                <span>Total</span>
+                {/* Get the total price as kr */}
+                <span>Total Price</span>
+              </div>
+            </div>
+
+            <div className="text-center">
+              <Button type="button" size={"lg"} className="w-full">
+                Proceed to Checkout
+              </Button>
+
+              <span className="text-xs text-muted-foreground inline-block mt-4">
+                Free shipping on order over 999 SEK
+              </span>
             </div>
           </div>
         </div>
@@ -45,19 +70,17 @@ export default function Cart() {
       {/* Conditional render, : () */}
       {/* If no products */}
       <section className="text-center py-16">
-        <ShoppingBag className="h-16 w-16 mx-auto text-muted-foreground mb-4" />
+        <ShoppingBag className="h-16 w-16 mx-auto text-muted-foreground" />
         <h2 className="font-serif text-2xl leading-loose">
-          {" "}
           Your cart is empty
         </h2>
 
         <span>Looks live you haven't added any items yet.</span>
         <div>
-          <Link
-            href="/products"
-            className="inline-flex items-center gap-4 border border-black bg-black text-white py-1.5 px-4 mt-6 rounded-lg hover:border-white hover:opacity-85 transition-colors"
-          >
-            Start shopping
+          <Link href="/products">
+            <Button type="button" size={"lg"} className="inline-block mt-4">
+              Start shopping
+            </Button>
           </Link>
         </div>
       </section>
