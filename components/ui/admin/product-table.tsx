@@ -1,16 +1,11 @@
-import { FilePenLine, Trash } from "lucide-react";
+import { FilePenLine } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { ProductActions } from "@/components/ui/admin/delete-actions";
-import { API_URL } from "@/lib/config";
-import { getProductsFromParams } from "@/lib/db";
 import { getCategories } from "@/lib/db/categories-db";
 import { getAllProducts } from "@/lib/db/products-db";
-import { type Category, Product, type ProductsResponse } from "@/lib/types";
-import {
-  getSearchParamsAsNumber,
-  getSearchParamsAsString,
-} from "@/utils/getSearchParams";
+import type { Category } from "@/lib/types";
+import { getSearchParamsAsString } from "@/utils/getSearchParams";
 import ProductTablePagination from "./product-table-pagination";
 
 const thStyle = "p-4 text-sm font-semibold text-gray-500";

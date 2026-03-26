@@ -1,15 +1,15 @@
 import "server-only";
-import { getInventoryProducts } from '@/lib/db';
-import { Package2, CheckCircle2, AlertTriangle, XCircle } from 'lucide-react';
-import type { Product } from '@/lib/types';
+import { AlertTriangle, CheckCircle2, Package2, XCircle } from "lucide-react";
+import { getInventoryProducts } from "@/lib/db";
+import type { Product } from "@/lib/types";
 
-type ProductForInventoryWidget = Pick<Product, 'stock'>;
+type ProductForInventoryWidget = Pick<Product, "stock">;
 
 const getAvailabilityStatus = (stock: number | null | undefined) => {
   const s = stock ?? 0;
-  if (s === 0) return 'Out of Stock';
-  if (s < 45) return 'Low Stock';
-  return 'In Stock';
+  if (s === 0) return "Out of Stock";
+  if (s < 45) return "Low Stock";
+  return "In Stock";
 };
 
 export default async function InventoryWidget() {
@@ -18,32 +18,38 @@ export default async function InventoryWidget() {
 
     const stats = [
       {
-        label: 'Total products',
+        label: "Total products",
         value: products.length,
         icon: Package2,
-        iconColor: 'text-purple-800',
-        iconBg: 'bg-purple-100',
+        iconColor: "text-purple-800",
+        iconBg: "bg-purple-100",
       },
       {
-        label: 'In stock',
-        value: products.filter((p) => getAvailabilityStatus(p.stock) === 'In Stock').length,
+        label: "In stock",
+        value: products.filter(
+          (p) => getAvailabilityStatus(p.stock) === "In Stock",
+        ).length,
         icon: CheckCircle2,
-        iconColor: 'text-green-500',
-        iconBg: 'bg-green-100',
+        iconColor: "text-green-500",
+        iconBg: "bg-green-100",
       },
       {
-        label: 'Low stock',
-        value: products.filter((p) => getAvailabilityStatus(p.stock) === 'Low Stock').length,
+        label: "Low stock",
+        value: products.filter(
+          (p) => getAvailabilityStatus(p.stock) === "Low Stock",
+        ).length,
         icon: AlertTriangle,
-        iconColor: 'text-orange-500',
-        iconBg: 'bg-orange-100',
+        iconColor: "text-orange-500",
+        iconBg: "bg-orange-100",
       },
       {
-        label: 'Out of stock',
-        value: products.filter((p) => getAvailabilityStatus(p.stock) === 'Out of Stock').length,
+        label: "Out of stock",
+        value: products.filter(
+          (p) => getAvailabilityStatus(p.stock) === "Out of Stock",
+        ).length,
         icon: XCircle,
-        iconColor: 'text-red-500',
-        iconBg: 'bg-red-100',
+        iconColor: "text-red-500",
+        iconBg: "bg-red-100",
       },
     ];
 
