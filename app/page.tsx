@@ -28,7 +28,6 @@ export default async function Home() {
 
   return (
     <main>
-      <GetProducts />
       <Hero />
 
       {/*****  TODO: ADD CORRECT LINK HREFS TO CATEGORY LINK  ******/}
