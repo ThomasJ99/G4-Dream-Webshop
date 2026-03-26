@@ -22,11 +22,11 @@ export default function About() {
         {/* Text content */}
         <div className="relative z-9 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16 w-full">
           <div className="max-w-2xl space-y-6 text-shadow-md">
-            <p className="text-sm font-medium text-white uppercase tracking-widest">
+            <p className="text-sm text-white uppercase tracking-widest">
               Our Story
             </p>
 
-            <h2 className="font-serif text-4xl sm:text-5xl font-medium text-white text-pretty">
+            <h2 className="font-serif text-4xl sm:text-5xl text-white text-pretty">
               Everything you need, all in one place
             </h2>
 
@@ -68,11 +68,11 @@ export default function About() {
           </div>
 
           <section className="lg:pl-8 space-y-6">
-            <p className="text-sm font-medium text-muted-foreground uppercase tracking-wide mb-4">
+            <p className="text-sm text-muted-foreground uppercase tracking-wide mb-4">
               Our Story
             </p>
 
-            <h2 className="font-serif text-3xl sm:text-4xl font-medium text-pretty">
+            <h2 className="font-serif text-3xl sm:text-4xl text-pretty">
               Everything you need, all in one place
             </h2>
 
