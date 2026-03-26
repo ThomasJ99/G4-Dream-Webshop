@@ -1,5 +1,4 @@
 import { type NextRequest, NextResponse } from "next/server";
-import { Product } from "@/lib/types";
 import { supabase } from "@/supabaseClient";
 
 // GET /api/products - Get all products with optional filtering
