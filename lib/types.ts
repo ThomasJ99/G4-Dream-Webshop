@@ -59,10 +59,10 @@ export interface Review {
 
 export interface ProductsResponse {
   products: Product[];
-  total: number;
-  limit: number;
-  page: number;
-  pages: number;
+  total?: number;
+  limit?: number;
+  page?: number;
+  pages?: number;
 }
 
 export type ProductFormData = Pick<

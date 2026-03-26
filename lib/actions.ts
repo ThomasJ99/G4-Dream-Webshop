@@ -2,10 +2,9 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { API_URL } from "@/lib/config";
 import { addProduct, updateProductById } from "@/lib/db";
 import type { ProductFormData } from "@/lib/types";
-import { API_URL } from "@/lib/config";
-
 
 export type ActionState = {
   message?: string;
@@ -13,7 +12,6 @@ export type ActionState = {
   errors?: Record<string, string[]>;
   timestamp: number;
 } | null;
-
 
 export async function addProductActionState(
   _prevState: ActionState,
@@ -26,7 +24,6 @@ export async function addProductActionState(
   const categoryId = formData.get("categoryId") as string;
   const stock = formData.get("stock") as string;
   const brand = formData.get("brand") as string;
-
 
   const newProduct: ProductFormData = {
     title,
@@ -41,7 +38,11 @@ export async function addProductActionState(
   if (!/^https?:\/\/.+/.test(newProduct.thumbnail)) {
     const state: ActionState = {
       data: newProduct,
-      errors: { thumbnail: ["Please enter a valid image URL starting with http or https"] },
+      errors: {
+        thumbnail: [
+          "Please enter a valid image URL starting with http or https",
+        ],
+      },
       timestamp: Date.now(),
     };
     return state;
@@ -87,7 +88,6 @@ export async function updateProduct(formData: FormData) {
   const stock = formData.get("stock") as string;
   const brand = formData.get("brand") as string;
 
-
   const newProduct = {
     title,
     brand,
@@ -107,7 +107,6 @@ export async function updateProduct(formData: FormData) {
   revalidatePath("/");
   redirect("/?status=updated");
 }
-
 
 /* Delete product */
 

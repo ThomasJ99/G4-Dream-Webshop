@@ -1,25 +1,27 @@
-import { Product } from "@/lib/types";
+import type { Product, ProductsResponse } from "@/lib/types";
+import { API_URL } from "../config";
 
 //#region GET
 
-export async function getAllProducts(): Promise<Product[]> {
-  const response = await fetch("/api/products", {
+export async function getAllProducts(
+  params?: string,
+): Promise<ProductsResponse> {
+  const response = await fetch(`${API_URL}/api/products/?${params}`, {
     method: "GET",
   });
 
   if (!response.ok) {
     console.log("Failed to fetch products.");
-    return [];
+    return { products: [] };
   }
 
   const data = await response.json();
-  return data.products;
+  return data;
 }
 
 export async function getProductById(id: string): Promise<Product> {
-  console.log(id);
   try {
-    const response = await fetch(`/api/products/${id}`, {
+    const response = await fetch(`${API_URL}/api/products/${id}`, {
       method: "GET",
       cache: "no-store",
     });

@@ -1,4 +1,4 @@
-import { Product } from "@/lib/products";
+import type { Product } from "@/lib/types";
 import { ProductCard } from "./product-card";
 
 interface ProductCardProps {
@@ -6,6 +6,7 @@ interface ProductCardProps {
 }
 
 export default function ProductGrid({ products }: ProductCardProps) {
+  console.log(products[0]);
   return (
     <div>
       {products.length > 0 ? (

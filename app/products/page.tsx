@@ -1,6 +1,8 @@
-import type { ProductsResponse } from "@/lib/types";
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
+import { getCategories } from "@/lib/db/categories-db";
+import { getAllProducts } from "@/lib/db/products-db";
+import type { ProductsResponse } from "@/lib/types";
 
 interface Category {
   id: number;
@@ -9,34 +11,9 @@ interface Category {
   slug: string;
 }
 
-// Fetch functions
-const getAllProducts = async () => {
-  const response = await fetch("http://localhost:4000/products");
-
-  if (!response.ok) {
-    throw new Error("Unable to get products");
-  }
-
-  const data = await response.json();
-
-  return data;
-};
-
-const getAllCategories = async () => {
-  const response = await fetch("http://localhost:4000/categories");
-
-  if (!response.ok) {
-    throw new Error("Unable to get categories");
-  }
-
-  const data = await response.json();
-
-  return data;
-};
-
 export default async function ProductPage() {
   const data: ProductsResponse = await getAllProducts();
-  const categories: Category[] = await getAllCategories();
+  const categories: Category[] = await getCategories();
 
   const { total, products } = data;
 
@@ -65,7 +42,9 @@ export default async function ProductPage() {
       <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {products.map((product) => {
           const firstImage = product.images?.[0];
-          const productCategory = categories.find((category) => category.id === product.categoryId);
+          const productCategory = categories.find(
+            (category) => category.id === product.categoryId,
+          );
 
           return (
             <Link key={product.id} href={`/products/${product.id}`}>

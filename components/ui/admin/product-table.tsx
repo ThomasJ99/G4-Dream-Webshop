@@ -1,15 +1,12 @@
-import { Product, Category } from "@/lib/types";
+import { FilePenLine } from "lucide-react";
 import Image from "next/image";
-import { FilePenLine, Trash } from "lucide-react";
-import ProductTablePagination from "./product-table-pagination";
 import Link from "next/link";
-import {
-  getSearchParamsAsNumber,
-  getSearchParamsAsString,
-} from "@/utils/getSearchParams";
-import { getProductsFromParams } from "@/lib/db";
 import { ProductActions } from "@/components/ui/admin/delete-actions";
-import { API_URL } from "@/lib/config";
+import { getCategories } from "@/lib/db/categories-db";
+import { getAllProducts } from "@/lib/db/products-db";
+import type { Category } from "@/lib/types";
+import { getSearchParamsAsString } from "@/utils/getSearchParams";
+import ProductTablePagination from "./product-table-pagination";
 
 const thStyle = "p-4 text-sm font-semibold text-gray-500";
 const tdStyle =
@@ -32,29 +29,26 @@ function titleCaseWord(word: string) {
 
 export default async function ProductTable({
   searchParams,
-  total,
 }: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-  total: number;
 }) {
   const { page = "1", limit = "5", q = "" } = await searchParams;
-
-  const totalPages = Math.ceil(total / 5);
 
   const currentLimit = getSearchParamsAsString(limit);
   const currentPage = getSearchParamsAsString(page);
   const currentQuery = getSearchParamsAsString(q);
-  console.log(currentLimit, currentPage, q);
 
-  const { products, pages } = await getProductsFromParams(
-    currentLimit ?? "",
-    currentPage ?? "",
-    currentQuery ?? "",
-  );
+  const params = new URLSearchParams({
+    _limit: limit.toString(),
+    _page: page.toString(),
+  });
 
-  const categories: Category[] = await fetch(`${API_URL}/categories`).then(
-    (res) => res.json(),
-  );
+  const { products, pages, total } = await getAllProducts(params.toString());
+  console.log(page);
+  const totalProducts = total ?? 0;
+  const totalPages = Math.ceil(totalProducts);
+
+  const categories: Category[] = await getCategories();
 
   return (
     <div className="border border-gray-300 rounded-2xl">
@@ -123,7 +117,9 @@ export default async function ProductTable({
         </tbody>
       </table>
       <div className="p-4 bg-gray-50 border-t border-t-gray-300 rounded-b-2xl">
-        <ProductTablePagination totalPages={pages}></ProductTablePagination>
+        <ProductTablePagination
+          totalPages={totalPages ?? 0}
+        ></ProductTablePagination>
       </div>
     </div>
   );
