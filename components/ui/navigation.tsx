@@ -1,11 +1,13 @@
 "use client";
+import { Menu, ShoppingCart, X } from "lucide-react";
 import Link from "next/link";
-import { useState, useRef, useEffect } from "react";
-import { ShoppingCart, Menu, X } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -29,6 +31,8 @@ export default function Navigation() {
     { name: "Shop", href: "/products" },
     { name: "About", href: "/about" },
   ];
+
+  if (pathname.includes("admin")) return null;
 
   return (
     <header
