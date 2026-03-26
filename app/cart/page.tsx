@@ -15,7 +15,9 @@ export default function Cart() {
           Continue shopping
         </Link>
 
-        <h1 className="font-serif text-3xl sm:text-4xl">Shopping Cart</h1>
+        <h1 className="font-serif text-3xl sm:text-4xl leading-relaxed">
+          Shopping Cart
+        </h1>
         {/* TODO: LOGIC FOR AMOUNT OF ITEMS */}
         <span className="text-muted-foreground">(x) items in your cart</span>
       </header>
