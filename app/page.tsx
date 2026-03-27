@@ -1,10 +1,13 @@
+import { randomUUID } from "crypto";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { ProductCard } from "@/components/product-card";
 import Hero from "@/components/ui/hero";
+import { getCartItemsByUserIdOrCartId } from "@/lib/db/cart-db";
 import { getCategories } from "@/lib/db/categories-db";
 import { getAllProducts } from "@/lib/db/products-db";
+import { supabase } from "@/supabaseClient";
 
 // Maps each clothing category to a representative background image URL
 // Used to display a preview image for each category card in the UI
@@ -23,8 +26,15 @@ export default async function Home() {
   // const displayCategories = categories.filter(
   //   (c) => c.name !== "All" && categoryImages[c.image],
   // );
-  const displayCategories = categories.splice(0, 3);
 
+  const uid = randomUUID();
+  console.log(uid);
+
+  const displayCategories = categories.splice(0, 3);
+  const params = new URLSearchParams({
+    _cartId: "1",
+  });
+  const cartItem = await getCartItemsByUserIdOrCartId("2");
   return (
     <main>
       <Hero />
