@@ -1,9 +1,7 @@
 import { API_URL } from "../config";
 import type { CartItem } from "../types";
 
-export async function getCartItemsByUserIdOrCartId(
-  id: string,
-): Promise<CartItem[]> {
+export async function getCartItemsByUserId(id: string): Promise<CartItem[]> {
   console.log(id);
   try {
     const response = await fetch(`${API_URL}/api/cart/?_userId=${id}`, {
@@ -26,4 +24,14 @@ export async function getCartItemsByUserIdOrCartId(
     }
     throw new Error("Failed to fetch product");
   }
+}
+
+export async function createCart() {
+  try {
+    const response = await fetch(`${API_URL}/api/carts`, {
+      method: "POST",
+    });
+
+    return response.json();
+  } catch {}
 }

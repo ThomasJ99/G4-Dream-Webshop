@@ -1,10 +1,11 @@
 import { randomUUID } from "crypto";
 import { ArrowRight } from "lucide-react";
+import { cookies } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
 import { ProductCard } from "@/components/product-card";
 import Hero from "@/components/ui/hero";
-import { getCartItemsByUserIdOrCartId } from "@/lib/db/cart-db";
+import { createCart, getCartItemsByUserId } from "@/lib/db/carts-db";
 import { getCategories } from "@/lib/db/categories-db";
 import { getAllProducts } from "@/lib/db/products-db";
 import { supabase } from "@/supabaseClient";
@@ -21,20 +22,26 @@ const categoryImages: Record<string, string> = {
 };
 
 export default async function Home() {
+  const cookieStore = await cookies();
+  const cartId = cookieStore.get("cartId")?.value;
+
+  const hasCookie = cookieStore.has("cartId");
+  console.log("has: " + hasCookie);
+
+  console.log("COOOKIES " + cartId?.toString());
+  if (!cartId) {
+    const cart = await createCart();
+
+    const cartId = cookieStore.get("cartId")?.value;
+    console.log("hej:" + cartId);
+  } else {
+    console.log("Nu har vi cartId: " + cartId);
+  }
   const featuredProducts = (await getAllProducts()).products.slice(0, 3);
   const categories = await getCategories();
-  // const displayCategories = categories.filter(
-  //   (c) => c.name !== "All" && categoryImages[c.image],
-  // );
 
-  const uid = randomUUID();
-  console.log(uid);
+  const displayCategories = categories.splice(0, 4);
 
-  const displayCategories = categories.splice(0, 3);
-  const params = new URLSearchParams({
-    _cartId: "1",
-  });
-  const cartItem = await getCartItemsByUserIdOrCartId("2");
   return (
     <main>
       <Hero />

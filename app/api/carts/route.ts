@@ -1,5 +1,5 @@
+import { cookies } from "next/headers";
 import { type NextRequest, NextResponse } from "next/server";
-import { CartItem } from "@/lib/types";
 import { supabase } from "@/supabaseClient";
 
 // GET /api/cart
@@ -52,70 +52,26 @@ export async function GET(request: NextRequest) {
   }
 }
 
-// POST /api/reviews - Create a new review
+// POST /api/reviews - Create a new cart
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
-    const { product_id, rating, comment, date, reviewerName, reviewerEmail } =
-      body;
-
-    // Validate required fields
-    if (!product_id || !rating || !reviewerName || !reviewerEmail) {
-      return NextResponse.json(
-        {
-          error:
-            "Missing required fields: product_id, rating, reviewerName, reviewerEmail",
-        },
-        { status: 400 },
-      );
-    }
-
-    // Validate rating range
-    if (rating < 1 || rating > 5) {
-      return NextResponse.json(
-        { error: "Rating must be between 1 and 5" },
-        { status: 400 },
-      );
-    }
-
-    // Check if product exists
-    const { data: product, error: productError } = await supabase
-      .from("products")
-      .select("id")
-      .eq("id", product_id)
-      .single();
-
-    if (productError || !product) {
-      return NextResponse.json({ error: "Product not found" }, { status: 404 });
-    }
-
-    const reviewData = {
-      product_id,
-      rating,
-      comment,
-      date: date || new Date().toISOString(),
-      reviewer_name: reviewerName,
-      reviewer_email: reviewerEmail,
-    };
-
     const { data, error } = await supabase
-      .from("reviews")
-      .insert([reviewData])
-      .select();
+      .from("carts")
+      .insert({})
+      .select()
+      .single(); // för att få tillbaka det skapade objektet
 
     if (error) {
-      console.error("Supabase error:", error);
+      console.log("Supabase-fel: ", error.message);
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
-    // Transform response
-    const transformedReview = {
-      ...data[0],
-      reviewerName: data[0].reviewer_name,
-      reviewerEmail: data[0].reviewer_email,
-    };
+    const cookieStore = await cookies();
+    const cartId = data.id.toString();
+    console.log("c: " + cartId);
+    await cookieStore.set("cartId", cartId);
 
-    return NextResponse.json(transformedReview, { status: 201 });
+    return NextResponse.json(data, { status: 200 });
   } catch (error) {
     console.error("Server error:", error);
     return NextResponse.json(
