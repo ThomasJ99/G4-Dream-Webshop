@@ -1,6 +1,6 @@
+import { ChevronLeft } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronLeft } from "lucide-react";
 import { notFound } from "next/navigation";
 import { getProductById } from "@/lib/db/products-db";
 import type { Product } from "@/lib/types";
@@ -15,14 +15,8 @@ export default async function ProductPage({
   } catch {
     notFound();
   }
-  //TODO: make this work
-  // if (!data) {
-  //   notFound();
-  // }
 
   const ProductDetail = ({ product }: { product: Product }) => {
-    const productTags = product?.tags?.join(", ");
-
     return (
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
         {/* image */}
@@ -39,7 +33,7 @@ export default async function ProductPage({
           {/* summary */}
           <div className="flex flex-col gap-2">
             <p className="text-sm text-muted-foreground uppercase tracking-wide">
-              {product.categoryId}
+              {product.category.name}
             </p>
             <h1 className="font-serif text-3xl sm:text-4xl font-medium">
               {product.title}
@@ -88,8 +82,8 @@ export default async function ProductPage({
   return (
     <main className="p-8">
       <Link
-          href={"/products"}
-          className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground transition-colors"
+        href={"/products"}
+        className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground transition-colors"
       >
         <ChevronLeft className="h-4 w-4 mr-1" />
         Back to Products
