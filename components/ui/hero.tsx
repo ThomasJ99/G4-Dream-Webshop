@@ -21,8 +21,8 @@ export default function Hero() {
 
       {/* Text section */}
       <section className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 lg:py-32 w-full">
-        <div className="max-w-lg">
-          <span className="text-sm font-semibold text-blue-600 uppercase tracking-wide">
+        <div className="max-w-lg text-shadow-xs">
+          <span className="text-sm font-semibold text-blue-600 uppercase tracking-wide ps-1">
             Spring & Summer 2026
           </span>
 
@@ -30,7 +30,7 @@ export default function Hero() {
             Discover your personal style
           </h1>
 
-          <p className="mt-6 text-lg text-black/90 max-w-md leading-relaxed">
+          <p className="mt-6 text-lg text-black max-w-md leading-relaxed">
             Timeless fashion and accessories — carefully curated for those who
             appreciate quality and design.
           </p>
