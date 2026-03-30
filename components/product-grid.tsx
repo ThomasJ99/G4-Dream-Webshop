@@ -11,11 +11,12 @@ export default function ProductGrid({ products, categories }: ProductCardProps) 
   return (
     <div>
       {products.length > 0 ? (
+        // TODO: SHOULD ADD SOME PX ON SMALLER SCREENS - look at homepage for px values
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
-          {products.map((product) => {
+          {products.map((product, index) => {
             const category = categories.find((category) => category.id === product.categoryId);
 
-            return <ProductCard key={product.id} product={product} category={category} />;
+            return <ProductCard key={product.id} product={product} category={category} index={index} />;
           })}
         </div>
       ) : (

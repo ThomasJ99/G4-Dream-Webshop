@@ -57,6 +57,15 @@ export interface Review {
   created_at?: string;
 }
 
+export interface CartItem {
+  id: number;
+  cart_id?: number;
+  product_id: number;
+  user_id?: number;
+  quantity: number;
+  created_at?: string;
+}
+
 export interface ProductsResponse {
   products: Product[];
   total?: number;
