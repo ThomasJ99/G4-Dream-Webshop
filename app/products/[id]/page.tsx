@@ -2,6 +2,7 @@ import Form from "next/form";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { addToCart } from "@/lib/actions/cart-actions";
+import AddFavorite from "@/components/ui/add-favorite";
 import { getProductById } from "@/lib/db/products-db";
 import type { Product } from "@/lib/types";
 
@@ -39,7 +40,10 @@ export default async function ProductPage({
             <h1 className="font-serif text-3xl sm:text-4xl font-medium">
               {product.title}
             </h1>
-            <p className="text-2xl font-medium mt-4">{product.price} kr</p>
+            <div className="flex items-end justify-between">
+              <p className="text-2xl font-medium mt-4">{product.price} kr</p>
+              <AddFavorite productID={product.id} />
+            </div>
           </div>
 
           {/* description */}
