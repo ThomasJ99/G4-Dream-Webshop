@@ -16,6 +16,7 @@ export function ProductCard({ product, category, index = 0 }: ProductCardProps) 
 
   return (
     <motion.div
+    // Card animations, initial is the initial card value | animate is what it gets set to | transition handles the duration and smoothness
       initial={{ opacity: 0, y: 24, filter: "blur(2px)" }}
       animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
       transition={{delay: index * 0.08, duration: 0.4, ease: "easeOut"}}
