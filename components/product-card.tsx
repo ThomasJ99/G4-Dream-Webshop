@@ -1,12 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
-import type { Product } from "@/lib/types";
+import type { Category, Product } from "@/lib/types";
 
 interface ProductCardProps {
   product: Product;
+  category?: Category;
 }
 
-export function ProductCard({ product }: ProductCardProps) {
+export function ProductCard({ product, category }: ProductCardProps) {
+  // Choose the first image in the array of image urls
   const firstImage = product.images?.[0];
 
   return (
@@ -28,9 +30,7 @@ export function ProductCard({ product }: ProductCardProps) {
           )}
         </div>
         <div className="space-y-1">
-          <p className="text-xs text-muted-foreground uppercase tracking-wide">
-            {product.categoryId}
-          </p>
+          <p className="text-xs text-muted-foreground uppercase tracking-wide">{category?.name}</p>
           <h3 className="font-medium text-foreground group-hover:underline underline-offset-4">
             {product.title}
           </h3>
