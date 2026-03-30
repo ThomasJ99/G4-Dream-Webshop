@@ -2,7 +2,6 @@ import type { Product, ProductsResponse } from "@/lib/types";
 import { API_URL } from "../config";
 
 //#region GET
-
 export async function getAllProducts(
   params?: string,
 ): Promise<ProductsResponse> {

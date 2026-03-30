@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/supabaseClient";
 
 // GET /api/products/[id] - Get a single product

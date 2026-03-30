@@ -1,4 +1,5 @@
 import { ArrowRight } from "lucide-react";
+import { cookies } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
 import { ProductCard } from "@/components/product-card";
@@ -16,11 +17,16 @@ const categoryImages: Record<string, string> = {
 };
 
 export default async function Home() {
-  const featuredProducts = (await getAllProducts()).products.slice(0, 3);
+  // const cart = await getCart();
+  // console.log(cart);
+
+  const cookieStore = await cookies();
+  const cartId = cookieStore.get("cartId")?.value;
+  //console.log(cartId);
+
+  const featuredProducts = (await getAllProducts()).products.slice(0, 4);
   const categories = await getCategories();
-  // const displayCategories = categories.filter(
-  //   (c) => c.name !== "All" && categoryImages[c.image],
-  // );
+
   const displayCategories = categories.splice(0, 3);
 
   return (

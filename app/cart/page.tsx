@@ -1,8 +1,49 @@
 import { ChevronLeft, ShoppingBag } from "lucide-react";
+import { cookies } from "next/headers";
 import Link from "next/link";
+import { CartItemCard } from "@/components/cart-item-card";
 import { Button } from "@/components/ui/button";
+import { getCartAction } from "@/lib/actions/cart-actions";
+import { getCartItemsByIdParams } from "@/lib/db/carts-db";
+import { supabase } from "@/supabaseClient";
 
-export default function Cart() {
+export default async function Cart() {
+  const cookieStore = await cookies();
+  const cartId = cookieStore.get("cartId")?.value as string;
+  const reqParams = new URLSearchParams({
+    _cartId: cartId,
+  });
+  console.log(cartId);
+
+  let productWithQuantity: any;
+  if (cartId) {
+    const cartItems = await getCartItemsByIdParams(await reqParams.toString());
+    console.log(cartItems);
+
+    const productIds = cartItems.map(({ product_id }) => product_id);
+
+    const { data, error } = await supabase
+      .from("products")
+      .select(`
+          *,
+          categories (
+            id,
+            name,
+            slug,
+            image
+          )
+        `)
+      .in("id", productIds);
+
+    productWithQuantity = data?.map((item) => ({
+      ...item,
+      quantity: cartItems
+        .filter((i) => i.product_id === item.id)
+        .map((j) => j.quantity),
+    }));
+    console.log(productWithQuantity?.map((i) => i.title));
+  }
+
   return (
     <main>
       {/* Persistent */}
@@ -26,7 +67,15 @@ export default function Cart() {
       {/* items.length > 0 ? (content below) */}
       <section className="grid grid-cols-1 lg:grid-cols-3 gap-12">
         {/* Logic to map through all items */}
-        <div className="mx-auto ps-4">Cardgrid</div>
+        <div className="mx-auto ps-4">
+          {productWithQuantity?.map((item) => (
+            <CartItemCard
+              key={item.id}
+              item={item}
+              quantity={item.quantity}
+            ></CartItemCard>
+          ))}
+        </div>
         {/* Order info */}
         <div className="bg-secondary/30 rounded-lg p-6 sticky top-24">
           <h2 className="font-semibold text-lg">Order Summary</h2>
