@@ -3,14 +3,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { ProductActions } from "@/components/ui/admin/delete-actions";
 import { getCategories } from "@/lib/db/categories-db";
-import { getAllProducts } from "@/lib/db/products-db";
+import { getProducts } from "@/lib/db/products-db";
 import type { Category } from "@/lib/types";
 import { getSearchParamsAsString } from "@/utils/getSearchParams";
 import ProductTablePagination from "./product-table-pagination";
 
 const thStyle = "p-4 text-sm font-semibold text-gray-500";
-const tdStyle =
-  "border-t border-gray-300 text-center p-4 text-ellipsis truncate";
+const tdStyle = "border-t border-gray-300 text-center p-4 text-ellipsis truncate";
 
 const getColourFromAvailabilityStatus = (stock: number): string => {
   if (stock === 0) {
@@ -43,7 +42,7 @@ export default async function ProductTable({
     _page: page.toString(),
   });
 
-  const { products, pages, total } = await getAllProducts(params.toString());
+  const { products, pages, total } = await getProducts(params.toString());
   console.log(page);
   const totalProducts = total ?? 0;
   const totalPages = Math.ceil(totalProducts);
@@ -86,17 +85,14 @@ export default async function ProductTable({
               </td>
 
               <td className={`${tdStyle}`}>
-                {categories.find((cat) => cat.id === product.categoryId)
-                  ?.name ??
+                {categories.find((cat) => cat.id === product.categoryId)?.name ??
                   titleCaseWord(product.tags![0]) ??
                   ""}
               </td>
               <td className={`${tdStyle}`}> {`${product.price} kr`}</td>
               <td className={`${tdStyle}`}>{product.stock}</td>
 
-              <td
-                className={`${tdStyle} ${getColourFromAvailabilityStatus(product.stock ?? 0)}`}
-              >
+              <td className={`${tdStyle} ${getColourFromAvailabilityStatus(product.stock ?? 0)}`}>
                 {(product.stock ?? 0) === 0
                   ? "Out of Stock"
                   : (product.stock ?? 0) < 45
@@ -117,9 +113,7 @@ export default async function ProductTable({
         </tbody>
       </table>
       <div className="p-4 bg-gray-50 border-t border-t-gray-300 rounded-b-2xl">
-        <ProductTablePagination
-          totalPages={totalPages ?? 0}
-        ></ProductTablePagination>
+        <ProductTablePagination totalPages={totalPages ?? 0}></ProductTablePagination>
       </div>
     </div>
   );

@@ -2,9 +2,7 @@ import type { Product, ProductsResponse } from "@/lib/types";
 import { API_URL } from "../config";
 
 //#region GET
-export async function getAllProducts(
-  params?: string,
-): Promise<ProductsResponse> {
+export async function getProducts(params?: string): Promise<ProductsResponse> {
   const response = await fetch(`${API_URL}/api/products/?${params}`, {
     method: "GET",
   });

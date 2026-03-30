@@ -2,7 +2,7 @@ import Header from "@/components/ui/admin/header";
 import ProductTable from "@/components/ui/admin/product-table";
 import Sidebar from "@/components/ui/admin/sidebar";
 import { API_URL } from "@/lib/config";
-import { getAllProducts } from "@/lib/db/products-db";
+import { getProducts } from "@/lib/db/products-db";
 import InventoryWidget from "../../components/ui/admin/dashboard-widget";
 import SearchWidget from "../../components/ui/admin/search-widget";
 import type { ProductsResponse } from "../../lib/types";
