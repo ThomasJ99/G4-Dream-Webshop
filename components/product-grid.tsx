@@ -4,9 +4,10 @@ import { ProductCard } from "./product-card";
 interface ProductCardProps {
   products: Product[];
   categories: Category[];
+  index?: number;
 }
 
-export default function ProductGrid({ products, categories }: ProductCardProps) {
+export default function ProductGrid({ products, categories, index = 0 }: ProductCardProps) {
   console.log(products[0]);
   return (
     <div>
@@ -15,7 +16,7 @@ export default function ProductGrid({ products, categories }: ProductCardProps) 
           {products.map((product) => {
             const category = categories.find((category) => category.id === product.categoryId);
 
-            return <ProductCard key={product.id} product={product} category={category} />;
+            return <ProductCard key={product.id} product={product} category={category} index={index} />;
           })}
         </div>
       ) : (
