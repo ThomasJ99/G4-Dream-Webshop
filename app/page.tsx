@@ -4,7 +4,7 @@ import Link from "next/link";
 import { ProductCard } from "@/components/product-card";
 import Hero from "@/components/ui/hero";
 import { getCategories } from "@/lib/db/categories-db";
-import { getAllProducts } from "@/lib/db/products-db";
+import { getProducts } from "@/lib/db/products-db";
 
 // Maps each clothing category to a representative background image URL
 // Used to display a preview image for each category card in the UI
@@ -16,7 +16,7 @@ const categoryImages: Record<string, string> = {
 };
 
 export default async function Home() {
-  const featuredProducts = (await getAllProducts()).products.slice(0, 3);
+  const featuredProducts = (await getProducts()).products.slice(0, 3);
   const categories = await getCategories();
   // const displayCategories = categories.filter(
   //   (c) => c.name !== "All" && categoryImages[c.image],
