@@ -1,4 +1,5 @@
 import { ChevronLeft, ShoppingBag } from "lucide-react";
+import { cookies } from "next/headers";
 import Link from "next/link";
 import { CartItemCard } from "@/components/cart-item-card";
 import { Button } from "@/components/ui/button";
@@ -7,37 +8,41 @@ import { getCartItemsByIdParams } from "@/lib/db/carts-db";
 import { supabase } from "@/supabaseClient";
 
 export default async function Cart() {
-  const cartId = (await getCartAction()) as string;
+  const cookieStore = await cookies();
+  const cartId = cookieStore.get("cartId")?.value as string;
   const reqParams = new URLSearchParams({
     _cartId: cartId,
   });
   console.log(cartId);
-  const cartItems = await getCartItemsByIdParams(await reqParams.toString());
-  console.log(cartItems);
 
-  const productIds = cartItems.map(({ product_id }) => product_id);
+  let productWithQuantity: any;
+  if (cartId) {
+    const cartItems = await getCartItemsByIdParams(await reqParams.toString());
+    console.log(cartItems);
 
-  const { data, error } = await supabase
-    .from("products")
-    .select(`
-        *,
-        categories (
-          id,
-          name,
-          slug,
-          image
-        )
-      `)
-    .in("id", productIds);
+    const productIds = cartItems.map(({ product_id }) => product_id);
 
-  const productWithQuantity = data?.map((item) => ({
-    ...item,
-    quantity: cartItems
-      .filter((i) => i.product_id === item.id)
-      .map((j) => j.quantity),
-  }));
+    const { data, error } = await supabase
+      .from("products")
+      .select(`
+          *,
+          categories (
+            id,
+            name,
+            slug,
+            image
+          )
+        `)
+      .in("id", productIds);
 
-  console.log(productWithQuantity?.map((i) => i.title));
+    productWithQuantity = data?.map((item) => ({
+      ...item,
+      quantity: cartItems
+        .filter((i) => i.product_id === item.id)
+        .map((j) => j.quantity),
+    }));
+    console.log(productWithQuantity?.map((i) => i.title));
+  }
 
   return (
     <main>
