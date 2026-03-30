@@ -17,7 +17,7 @@ export default function AddFavorite({ productID }: { productID: number }) {
   return (
     <Button className="w-fit" onClick={() => setClicked((c) => !c)}>
       <Star
-        className={`transition-transform duration-500 ${clicked ? "scale-110 rotate-[360deg]" : ""}`}
+        className={`transition-transform duration-500 ${clicked ? "scale-120 rotate-[360deg]" : ""}`}
         fill={clicked ? "gold" : "white"}
         stroke={clicked ? "gold" : "white"}
       />
