@@ -8,7 +8,7 @@ export default function Hero() {
       <div className="absolute inset-0">
         <Image
           src={
-            "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1920&q=80"
+            "https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=1920&q=80"
           }
           alt="Dream Webshop hero image"
           fill
@@ -21,18 +21,17 @@ export default function Hero() {
 
       {/* Text section */}
       <section className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 lg:py-32 w-full">
-        <div className="max-w-lg">
-          <span className="text-sm font-semibold text-blue-600 uppercase tracking-wide">
-            Spring & Summer 2026
+        <div className="max-w-lg text-shadow-xs">
+          <span className="text-sm font-semibold text-blue-600 uppercase tracking-wide ps-1">
+            New arrivals
           </span>
 
           <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-medium tracking-tight text-balance leading-tight">
-            Discover your personal style
+            Everything you need, all in one place
           </h1>
 
-          <p className="mt-6 text-lg text-black/90 max-w-md leading-relaxed">
-            Timeless fashion and accessories — carefully curated for those who
-            appreciate quality and design.
+          <p className="mt-6 text-lg text-black max-w-md leading-relaxed text-balance">
+            From electronics to furniture to beauty and fashion - curated products from trusted brands, all in one place.
           </p>
 
           <Link
