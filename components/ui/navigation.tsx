@@ -39,7 +39,7 @@ export default function Navigation() {
       ref={menuRef}
       className="sticky z-50 top-0 w-full bg-white/50 backdrop-blur-sm shadow-sm"
     >
-      <nav className="flex items-center justify-between mx-[2.5%] h-16">
+      <nav className="flex items-center justify-between mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16">
         <div className="flex-1">
           <Link
             className="text-xl font-serif font-bold tracking-tight shrink-0 hover:text-blue-400 transition-colors"
@@ -64,7 +64,7 @@ export default function Navigation() {
 
         <div className="flex-1 flex items-center justify-end gap-2">
           <Link
-            className="relative p-2 rounded-sm hover:bg-blue-900/20 hover:text-blue-400 mr-1 transition-colors"
+            className="relative p-2 rounded-sm hover:bg-blue-900/20 hover:text-blue-400 transition-colors"
             href="/cart"
           >
             <div className="absolute -top-1 -right-1 w-4 h-4 bg-blue-400 rounded-full text-white flex items-center justify-center text-xs">
@@ -75,7 +75,7 @@ export default function Navigation() {
 
           <div className="md:hidden">
             <button
-              className="cursor-pointer p-2 mr-1 rounded-sm hover:bg-blue-900/20 hover:text-blue-400 transition-colors"
+              className="cursor-pointer p-2 rounded-sm hover:bg-blue-900/20 hover:text-blue-400 transition-colors"
               type="button"
               onClick={() => setIsOpen(!isOpen)}
             >
