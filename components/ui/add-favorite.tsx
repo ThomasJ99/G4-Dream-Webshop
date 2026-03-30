@@ -15,7 +15,10 @@ export default function AddFavorite({ productID }: { productID: number }) {
     console.log(productID);
   };
   return (
-    <Button className="w-fit" onClick={() => setClicked((c) => !c)}>
+    <Button
+      className="w-fit hover:cursor-pointer"
+      onClick={() => setClicked((c) => !c)}
+    >
       <Star
         className={`transition-transform duration-500 ${clicked ? "scale-120 rotate-[360deg]" : ""}`}
         fill={clicked ? "gold" : "white"}
