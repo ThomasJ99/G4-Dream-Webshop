@@ -6,11 +6,11 @@ export default function About() {
   return (
     <>
       {/* Version 2: Background image with text on top */}
-      <section className="relative min-h-[85vh] flex items-center">
+      <section className="relative min-h-[70vh] flex items-center">
         {/* Background Image */}
         <Image
           src="https://images.unsplash.com/photo-1698858212917-9dbd472abecb?w=1800&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGZyZWUlMjBpbWFnZXMlMjBzdG9ja2hvbG18ZW58MHx8MHx8fDA%3D"
-          alt="Our story"
+          alt="Our story - Image of Stockholm City, Gamla Stan featuring a prominent church"
           fill
           className="object-cover"
           priority
