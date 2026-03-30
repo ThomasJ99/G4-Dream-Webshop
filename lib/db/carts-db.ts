@@ -2,17 +2,18 @@ import { cookies } from "next/headers";
 import { API_URL } from "../config";
 import type { CartItem } from "../types";
 
-export async function getCartItemsByUserId(id: string): Promise<CartItem[]> {
-  console.log(id);
+export async function getCartItemsByIdParams(
+  params: string,
+): Promise<CartItem[]> {
   try {
-    const response = await fetch(`${API_URL}/api/cart/?_userId=${id}`, {
+    const response = await fetch(`${API_URL}/api/cart_items/?${params}`, {
       method: "GET",
       cache: "force-cache",
     });
 
     if (!response.ok) {
       if (response.status === 404) {
-        throw new Error("Product not found");
+        throw new Error("Cart items not found");
       }
       throw new Error(`API error: ${response.status}`);
     }
@@ -23,7 +24,7 @@ export async function getCartItemsByUserId(id: string): Promise<CartItem[]> {
     if (error instanceof Error) {
       throw new Error(error.message);
     }
-    throw new Error("Failed to fetch product");
+    throw new Error("Failed to fetch cart items");
   }
 }
 

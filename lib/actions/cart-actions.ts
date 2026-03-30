@@ -4,8 +4,6 @@ import { supabase } from "@/supabaseClient";
 import { createCart } from "../db/carts-db";
 
 export const getCartAction = async () => {
-  console.log("hej");
-
   const cookieStore = await cookies();
   const cartCookie = cookieStore.get("cartId");
   let cartId = cartCookie?.value;
@@ -16,7 +14,7 @@ export const getCartAction = async () => {
     cookieStore.set("cartId", cart.id);
     cartId = cart.id;
   }
-
+  return cartId;
   //   cookieStore.set("cartId", "1", {
   //     httpOnly: true,
   //     path: "/",
@@ -25,13 +23,10 @@ export const getCartAction = async () => {
 };
 
 export async function addToCart(formData: FormData) {
-  console.log("hej");
-
   const cookieStore = await cookies();
   const cartCookie = cookieStore.get("cartId");
   let cartId = cartCookie?.value;
 
-  console.log(cartCookie);
   if (!cartCookie) {
     const cart = await createCart();
     cookieStore.set("cartId", cart.id);

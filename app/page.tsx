@@ -24,7 +24,7 @@ export default async function Home() {
 
   const cookieStore = await cookies();
   const cartId = cookieStore.get("cartId")?.value;
-  console.log(cartId);
+  //console.log(cartId);
 
   const featuredProducts = (await getAllProducts()).products.slice(0, 4);
   const categories = await getCategories();
