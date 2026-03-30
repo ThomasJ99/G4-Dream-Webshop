@@ -1,5 +1,6 @@
 import { X } from "lucide-react";
 import { ProductCard } from "@/components/product-card";
+import RemoveFavorite from "@/components/ui/delete-favorite";
 
 async function getFavorites() {
   const response = await fetch("http://localhost:3000/api/favorites", {
@@ -39,9 +40,7 @@ export default async function Favorites() {
             {products.map((product) => (
               <div key={product.id} className="relative">
                 <ProductCard product={product} />
-                <button type="button" className="absolute bottom-1 right-2">
-                  <X size="20" />
-                </button>
+                <RemoveFavorite productId={product.id} />
               </div>
             ))}
           </div>
