@@ -1,5 +1,6 @@
 import { cookies } from "next/headers";
 import { type NextRequest, NextResponse } from "next/server";
+import { API_URL } from "@/lib/config";
 import { supabase } from "@/supabaseClient";
 
 // GET /api/cart
@@ -52,7 +53,7 @@ export async function GET(request: NextRequest) {
   }
 }
 
-// POST /api/reviews - Create a new cart
+// POST /api/carts - Create a new cart
 export async function POST(request: NextRequest) {
   try {
     const { data, error } = await supabase
@@ -66,12 +67,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
-    const cookieStore = await cookies();
-    const cartId = data.id.toString();
-    console.log("c: " + cartId);
-    await cookieStore.set("cartId", cartId);
-
-    return NextResponse.json(data, { status: 200 });
+    return await NextResponse.json(data, { status: 200 });
   } catch (error) {
     console.error("Server error:", error);
     return NextResponse.json(

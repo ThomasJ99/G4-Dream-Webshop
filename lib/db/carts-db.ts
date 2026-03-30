@@ -1,3 +1,4 @@
+import { cookies } from "next/headers";
 import { API_URL } from "../config";
 import type { CartItem } from "../types";
 
@@ -26,6 +27,18 @@ export async function getCartItemsByUserId(id: string): Promise<CartItem[]> {
   }
 }
 
+export async function getCart() {
+  try {
+    const response = await fetch(`${API_URL}/api/carts`, {
+      method: "GET",
+    });
+
+    return response.json();
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export async function createCart() {
   try {
     const response = await fetch(`${API_URL}/api/carts`, {
@@ -33,5 +46,7 @@ export async function createCart() {
     });
 
     return response.json();
-  } catch {}
+  } catch (error) {
+    console.log(error);
+  }
 }
