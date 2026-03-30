@@ -8,7 +8,6 @@ export async function getCartItemsByIdParams(
   try {
     const response = await fetch(`${API_URL}/api/cart_items/?${params}`, {
       method: "GET",
-      cache: "force-cache",
     });
 
     if (!response.ok) {

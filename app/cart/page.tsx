@@ -1,7 +1,5 @@
 import { ChevronLeft, ShoppingBag } from "lucide-react";
-import { cookies } from "next/headers";
 import Link from "next/link";
-import { NextResponse } from "next/server";
 import { CartItemCard } from "@/components/cart-item-card";
 import { Button } from "@/components/ui/button";
 import { getCartAction } from "@/lib/actions/cart-actions";
@@ -32,8 +30,14 @@ export default async function Cart() {
       `)
     .in("id", productIds);
 
-  console.log("DATA: " + data?.map((i) => i.title));
-  console.log("ERROR: " + error?.message);
+  const productWithQuantity = data?.map((item) => ({
+    ...item,
+    quantity: cartItems
+      .filter((i) => i.product_id === item.id)
+      .map((j) => j.quantity),
+  }));
+
+  console.log(productWithQuantity?.map((i) => i.title));
 
   return (
     <main>
@@ -59,8 +63,12 @@ export default async function Cart() {
       <section className="grid grid-cols-1 lg:grid-cols-3 gap-12">
         {/* Logic to map through all items */}
         <div className="mx-auto ps-4">
-          {data?.map((item) => (
-            <CartItemCard key={item.id} item={item} quantity={1}></CartItemCard>
+          {productWithQuantity?.map((item) => (
+            <CartItemCard
+              key={item.id}
+              item={item}
+              quantity={item.quantity}
+            ></CartItemCard>
           ))}
         </div>
         {/* Order info */}
