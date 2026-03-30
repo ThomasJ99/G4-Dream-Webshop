@@ -1,4 +1,6 @@
 import Image from "next/image";
+import Link from "next/link";
+import { ChevronLeft } from "lucide-react";
 import { notFound } from "next/navigation";
 import { getProductById } from "@/lib/db/products-db";
 import type { Product } from "@/lib/types";
@@ -7,7 +9,12 @@ export default async function ProductPage({
   params,
 }: PageProps<"/products/[id]">) {
   const { id } = await params;
-  const data = await getProductById(id);
+  let data = {};
+  try {
+    data = await getProductById(id);
+  } catch {
+    notFound();
+  }
   //TODO: make this work
   // if (!data) {
   //   notFound();
@@ -80,12 +87,13 @@ export default async function ProductPage({
 
   return (
     <main className="p-8">
-      <a
-        className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-        href="/products"
+      <Link
+          href={"/products"}
+          className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground transition-colors"
       >
+        <ChevronLeft className="h-4 w-4 mr-1" />
         Back to Products
-      </a>
+      </Link>
 
       <ProductDetail product={data} />
     </main>
