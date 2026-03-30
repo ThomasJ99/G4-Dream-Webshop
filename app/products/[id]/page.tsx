@@ -1,4 +1,6 @@
+import { ChevronLeft } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import AddFavorite from "@/components/ui/add-favorite";
 import { getProductById } from "@/lib/db/products-db";
@@ -8,32 +10,41 @@ export default async function ProductPage({
   params,
 }: PageProps<"/products/[id]">) {
   const { id } = await params;
-  const data = await getProductById(id);
-  //TODO: make this work
-  // if (!data) {
-  //   notFound();
-  // }
+  let data = {};
+
+  try {
+    data = await getProductById(id);
+  } catch {
+    notFound();
+  }
+
+  const ProductImage = ({ img }: { img: string }) => {
+    // next/image src can't be undefined or ""
+    // it is what it is
+    if (!img || img === "") {
+      return null;
+    }
+
+    return (
+      <Image className="object-contain object-center" src={img} fill alt="" />
+    );
+  };
 
   const ProductDetail = ({ product }: { product: Product }) => {
-    const productTags = product?.tags?.join(", ");
+    const imgUrl = product.images?.[0];
 
     return (
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
         {/* image */}
         <div className="aspect-[1/1] relative rounded-lg overflow-hidden bg-secondary">
-          <Image
-            className="object-contain object-center"
-            src={product.images[0]}
-            fill
-            alt=""
-          />
+          <ProductImage img={imgUrl} />
         </div>
 
         <section className="flex flex-col gap-8">
           {/* summary */}
           <div className="flex flex-col gap-2">
             <p className="text-sm text-muted-foreground uppercase tracking-wide">
-              {product.categoryId}
+              {product.category.name}
             </p>
             <h1 className="font-serif text-3xl sm:text-4xl font-medium">
               {product.title}
@@ -84,12 +95,13 @@ export default async function ProductPage({
 
   return (
     <main className="p-8">
-      <a
-        className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-        href="/products"
+      <Link
+        href={"/products"}
+        className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground transition-colors mb-8"
       >
+        <ChevronLeft className="h-4 w-4 mr-1" />
         Back to Products
-      </a>
+      </Link>
 
       <ProductDetail product={data} />
     </main>
