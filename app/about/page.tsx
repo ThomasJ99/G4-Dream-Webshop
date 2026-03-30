@@ -6,7 +6,7 @@ export default function About() {
   return (
     <>
       {/* Version 2: Background image with text on top */}
-      <section className="relative min-h-[70vh] flex items-center">
+      <article className="relative min-h-[70vh] flex items-center">
         {/* Background Image */}
         <Image
           src="https://images.unsplash.com/photo-1698858212917-9dbd472abecb?w=1800&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGZyZWUlMjBpbWFnZXMlMjBzdG9ja2hvbG18ZW58MHx8MHx8fDA%3D"
@@ -20,18 +20,18 @@ export default function About() {
         <div className="absolute inset-0 bg-linear-to-t from-black/80 to-transparent" />
 
         {/* Text content */}
-        <div className="relative z-9 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16 w-full">
+        <section className="relative z-9 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16 w-full">
           <div className="max-w-2xl space-y-6 text-shadow-md">
             <p className="text-sm text-white uppercase tracking-widest">
               Our Story
             </p>
 
-            <h2 className="font-serif text-4xl sm:text-5xl text-white text-pretty">
-              Everything you need, all in one place
-            </h2>
+            <h1 className="font-serif text-4xl sm:text-5xl text-white text-pretty">
+              A store built around you
+            </h1>
 
             <p className="text-white leading-relaxed">
-              At DreamShop, we believe shopping should be simple and enjoyable.
+              At DreamShop, we believe shopping should be simple and enjoyable - everything you need, all in one place.
               From electronics and furniture to beauty and fashion, our curated
               selection brings together the best products across every category.
             </p>
@@ -49,8 +49,8 @@ export default function About() {
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
-        </div>
-      </section>
+        </section>
+      </article>
     </>
   );
 }
