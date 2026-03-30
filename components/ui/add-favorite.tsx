@@ -11,8 +11,11 @@ export default function AddFavorite({ productID }: { productID: number }) {
     console.log(productID);
   };
   return (
-    <Button className="w-fit" onClick={handleClick}>
-      <Star fill="white" />
+    <Button className="w-fit group" onClick={handleClick}>
+      <Star
+        className="transition-transform duration-1000 group-hover:scale-110 group-hover:rotate-[360deg]"
+        fill="white"
+      />
     </Button>
   );
 }
