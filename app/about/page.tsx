@@ -3,7 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default async function About() {
-  await new Promise((resolve) => setTimeout(resolve, 2000))
+  // TODO: REMOVE THIS LINE OF CODE LATER, GOOD TO TEST SKELETONS
+  // await new Promise((resolve) => setTimeout(resolve, 2000))
   return (
     <>
       {/* Version 2: Background image with text on top */}
@@ -57,7 +58,9 @@ export default async function About() {
   );
 }
 
-        /* <section className="py-16 bg-black/1 text-balance">
+// ****** OLD VERSION BELOW: REMOVE NEAR THE END OF THE PROJECT ****** //
+
+/* <section className="py-16 bg-black/1 text-balance">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div className="aspect-square relative rounded-lg overflow-hidden">
