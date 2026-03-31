@@ -30,6 +30,7 @@ export default function Navigation() {
   const menuItems = [
     { name: "Shop", href: "/products" },
     { name: "About", href: "/about" },
+    { name: "Favorites", href: "/favorites" },
   ];
 
   if (pathname.includes("admin")) return null;
