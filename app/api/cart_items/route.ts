@@ -6,7 +6,6 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const userId = searchParams.get("_userId");
     const cartId = searchParams.get("_cartId");
-    console.log("CARTID " + cartId);
     //   const { data, error } = await supabase
     // .from("cart")
     // .select("*")

@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { getCartAction } from "@/lib/actions/cart-actions";
 import { getCartItemsByIdParams } from "@/lib/db/carts-db";
 import { supabase } from "@/supabaseClient";
+import { formatPrice } from "@/utils/utils";
 
 export default async function Cart() {
   const cookieStore = await cookies();
@@ -13,15 +14,14 @@ export default async function Cart() {
   const reqParams = new URLSearchParams({
     _cartId: cartId,
   });
-  console.log(cartId);
 
-  let productWithQuantity: any;
+  let productsWithQuantity: any;
   if (cartId) {
     const cartItems = await getCartItemsByIdParams(await reqParams.toString());
-    console.log(cartItems);
 
     const productIds = cartItems.map(({ product_id }) => product_id);
 
+    //Get products with quantity
     const { data, error } = await supabase
       .from("products")
       .select(`
@@ -35,14 +35,19 @@ export default async function Cart() {
         `)
       .in("id", productIds);
 
-    productWithQuantity = data?.map((item) => ({
+    productsWithQuantity = data?.map((item) => ({
       ...item,
       quantity: cartItems
         .filter((i) => i.product_id === item.id)
         .map((j) => j.quantity),
     }));
-    console.log(productWithQuantity?.map((i) => i.title));
   }
+
+  let totalPrice = 0;
+  productsWithQuantity.map((item) => {
+    totalPrice += +item.price * +item.quantity;
+    return totalPrice;
+  });
 
   return (
     <main>
@@ -60,15 +65,17 @@ export default async function Cart() {
           Shopping Cart
         </h1>
         {/* TODO: LOGIC FOR AMOUNT OF ITEMS */}
-        <span className="text-muted-foreground">(x) items in your cart</span>
+        <span className="text-muted-foreground">
+          {productsWithQuantity.length} items in your cart
+        </span>
       </header>
 
       {/* If products > 0 */}
-      {productWithQuantity?.length > 0 ? (
+      {productsWithQuantity?.length > 0 ? (
         <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-3 gap-12">
           {/* Cart items — spans 2 columns */}
           <div className="lg:col-span-2 space-y-4">
-            {productWithQuantity?.map((item) => (
+            {productsWithQuantity?.map((item) => (
               <CartItemCard
                 key={item.id}
                 item={item}
@@ -101,7 +108,7 @@ export default async function Cart() {
               <div className="border-t border-border pt-4 mb-6">
                 <div className="flex justify-between">
                   <span>Total</span>
-                  {/* Get the total price as kr */}
+                  {formatPrice(totalPrice)}
                   <span>Total Price</span>
                 </div>
               </div>

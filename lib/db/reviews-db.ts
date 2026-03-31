@@ -2,7 +2,6 @@ import { API_URL } from "../config";
 import type { Review } from "../types";
 
 export async function getReviewsByProductId(id: string): Promise<Review[]> {
-  console.log(id);
   try {
     const response = await fetch(`${API_URL}/api/reviews/?productId=${id}`, {
       method: "GET",
