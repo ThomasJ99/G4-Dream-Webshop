@@ -7,17 +7,6 @@ import Hero from "@/components/ui/hero";
 import { getCategories } from "@/lib/db/categories-db";
 import { getProducts } from "@/lib/db/products-db";
 
-// Maps each clothing category to a representative background image URL
-// Used to display a preview image for each category card in the UI
-const categoryImages: Record<string, string> = {
-  Outerwear:
-    "https://images.unsplash.com/photo-1773289338213-5ddb80074720?q=80&w=1587&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  Knitwear:
-    "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&q=80",
-  Accessories:
-    "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&q=80",
-};
-
 export default async function Home() {
   const cookieStore = await cookies();
   const cartId = cookieStore.get("cartId")?.value;
@@ -30,8 +19,6 @@ export default async function Home() {
   return (
     <main>
       <Hero />
-
-      {/*****  TODO: ADD CORRECT LINK HREFS TO CATEGORY LINK  ******/}
 
       {/* Category section */}
       <section className="py-16">
