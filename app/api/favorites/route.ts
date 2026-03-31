@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/supabaseClient";
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     const { data: favorites, error } = await supabase
       .from("favorites")
@@ -23,8 +23,6 @@ export async function GET(request: NextRequest) {
   }
 }
 
-// POST
-
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
@@ -37,6 +35,19 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    const { data: existing } = await supabase
+      .from("favorites")
+      .select("id")
+      .eq("product_id", product_id)
+      .single();
+
+    if (existing) {
+      return NextResponse.json(
+        { error: "Already in favorites" },
+        { status: 409 },
+      );
+    }
+
     const { data, error } = await supabase
       .from("favorites")
       .insert([{ product_id }])
@@ -46,6 +57,7 @@ export async function POST(request: NextRequest) {
       console.error("Supabase error:", error);
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
+
     return NextResponse.json(data[0], { status: 201 });
   } catch (error) {
     console.error("Server error:", error);

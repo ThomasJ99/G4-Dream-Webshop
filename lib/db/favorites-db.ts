@@ -6,10 +6,9 @@ export async function getFavorites() {
   });
 
   if (!response.ok) {
-    console.log("Failed to fetch favorites.");
+    console.error("Failed to fetch favorites.");
     return [];
   }
 
-  const data = await response.json();
-  return data;
+  return response.json();
 }

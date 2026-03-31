@@ -1,22 +1,22 @@
 "use client";
 import { X } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { Button } from "./button";
+import { API_URL } from "@/lib/config";
 
 export default function RemoveFavorite({ productId }: { productId: number }) {
   const router = useRouter();
 
   const handleClick = async (e: React.MouseEvent) => {
-    e.preventDefault(); // prevents Link navigation from ProductCard triggering
+    e.preventDefault();
 
-    const response = await fetch("/api/favorites", {
+    const response = await fetch(`${API_URL}/api/favorites`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ product_id: productId }),
     });
 
     if (response.ok) {
-      router.refresh(); // re-fetches the page data to reflect removal
+      router.refresh();
     } else {
       console.error("Failed to remove favorite");
     }
