@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import AddFavorite from "@/components/ui/add-favorite";
+import { Button } from "@/components/ui/button";
 import { addToCart } from "@/lib/actions/cart-actions";
 import { getProductById } from "@/lib/db/products-db";
 import type { Product } from "@/lib/types";
@@ -22,7 +23,9 @@ export default async function ProductPage({
   }
 
   const ProductDetail = ({ product }: { product: Product }) => {
-    const imgURL = product.images?.[0] || "https://placehold.co/1000x1000/png";
+    const placeholderURL =
+      "https://placehold.co/1000x1000/png?text=No image available";
+    const imgURL = product.images?.[0] || placeholderURL;
     const prettyPrice = formatPrice(product.price);
 
     return (
@@ -61,12 +64,9 @@ export default async function ProductPage({
           {/* add to cart */}
           <Form action={addToCart}>
             <input type="hidden" name="product_id" value={product.id}></input>
-            <button
-              type="submit"
-              className="cursor-pointer inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-primary text-primary-foreground hover:bg-primary/90 h-10 rounded-md px-6 has-[>svg]:px-4 w-full"
-            >
+            <Button type="submit" size={"lg"} className="cursor-pointer w-full">
               Add to Cart
-            </button>
+            </Button>
           </Form>
 
           {/* details and shipping */}
