@@ -7,28 +7,37 @@ import AddFavorite from "@/components/ui/add-favorite";
 import { Button } from "@/components/ui/button";
 import { addToCart } from "@/lib/actions/cart-actions";
 import { getProductById } from "@/lib/db/products-db";
-import type { Product } from "@/lib/types";
 import { formatPrice } from "@/utils/utils";
 
 export default async function ProductPage({
   params,
 }: PageProps<"/products/[id]">) {
   const { id } = await params;
-  let data = {};
+  let product = {};
 
   try {
-    data = await getProductById(id);
+    product = await getProductById(id);
   } catch {
     notFound();
   }
 
-  const ProductDetail = ({ product }: { product: Product }) => {
-    const placeholderURL =
-      "https://placehold.co/1000x1000/png?text=No image available";
-    const imgURL = product.images?.[0] || placeholderURL;
-    const prettyPrice = formatPrice(product.price);
+  const placeholderURL =
+    "https://placehold.co/1000x1000/png?text=No image available";
+  const imgURL = product.images?.[0] || placeholderURL;
+  const prettyPrice = formatPrice(product.price);
 
-    return (
+  return (
+    <main className="">
+      <header className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
+        <Link
+          href={"/products"}
+          className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground transition-colors"
+        >
+          <ChevronLeft className="h-4 w-4 mr-1" />
+          Back to Products
+        </Link>
+      </header>
+
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12">
         {/* image */}
         <div className="relative bg-secondary">
@@ -91,22 +100,6 @@ export default async function ProductPage({
           </div>
         </section>
       </div>
-    );
-  };
-
-  return (
-    <main className="">
-      <header className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
-        <Link
-          href={"/products"}
-          className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground transition-colors"
-        >
-          <ChevronLeft className="h-4 w-4 mr-1" />
-          Back to Products
-        </Link>
-      </header>
-
-      <ProductDetail product={data} />
     </main>
   );
 }
