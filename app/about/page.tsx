@@ -2,7 +2,8 @@ import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function About() {
+export default async function About() {
+  await new Promise((resolve) => setTimeout(resolve, 2000))
   return (
     <>
       {/* Version 2: Background image with text on top */}
@@ -31,9 +32,10 @@ export default function About() {
             </h1>
 
             <p className="text-white leading-relaxed">
-              At DreamShop, we believe shopping should be simple and enjoyable - everything you need, all in one place.
-              From electronics and furniture to beauty and fashion, our curated
-              selection brings together the best products across every category.
+              At DreamShop, we believe shopping should be simple and enjoyable -
+              everything you need, all in one place. From electronics and
+              furniture to beauty and fashion, our curated selection brings
+              together the best products across every category.
             </p>
 
             <p className="text-white leading-relaxed">
