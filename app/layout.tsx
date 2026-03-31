@@ -24,11 +24,14 @@ export default async function RootLayout({
 }>) {
   const cookieStore = await cookies();
   const cartId = cookieStore.get("cartId")?.value as string;
-  const cartItems = await getCartItemsByIdParams(`_cartId=${cartId}`);
+  let cartItems = [];
+  if (cartId) {
+    cartItems = await getCartItemsByIdParams(`_cartId=${cartId}`);
+  }
   return (
     <html lang="en">
       <body className={`${inter.variable} antialiased `}>
-        <Navigation cartItemsLength={cartItems.length} />
+        <Navigation cartItemsLength={cartItems?.length} />
         {children}
         <Footer />
       </body>
