@@ -44,7 +44,7 @@ export default async function Cart() {
   }
 
   let totalPrice = 0;
-  productsWithQuantity.map((item) => {
+  productsWithQuantity?.map((item) => {
     totalPrice += +item.price * +item.quantity;
     return totalPrice;
   });
@@ -66,7 +66,8 @@ export default async function Cart() {
         </h1>
         {/* TODO: LOGIC FOR AMOUNT OF ITEMS */}
         <span className="text-muted-foreground">
-          {productsWithQuantity.length} items in your cart
+          {productsWithQuantity ? productsWithQuantity.length : "0"} items in
+          your cart
         </span>
       </header>
 
@@ -109,7 +110,6 @@ export default async function Cart() {
                 <div className="flex justify-between">
                   <span>Total</span>
                   {formatPrice(totalPrice)}
-                  <span>Total Price</span>
                 </div>
               </div>
 
@@ -133,7 +133,7 @@ export default async function Cart() {
             Your cart is empty
           </h2>
 
-          <span>Looks live you haven't added any items yet.</span>
+          <span>Looks like you haven't added any items yet.</span>
           <div>
             <Link href="/products">
               <Button type="button" size={"lg"} className="inline-block mt-4">
