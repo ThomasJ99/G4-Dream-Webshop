@@ -19,12 +19,8 @@ const categoryImages: Record<string, string> = {
 };
 
 export default async function Home() {
-  // const cart = await getCart();
-  // console.log(cart);
-
   const cookieStore = await cookies();
   const cartId = cookieStore.get("cartId")?.value;
-  //console.log(cartId);
 
   const featuredProducts = (await getProducts()).products.slice(0, 4);
   const categories = await getCategories();

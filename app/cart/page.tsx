@@ -14,7 +14,6 @@ export default async function Cart() {
   const reqParams = new URLSearchParams({
     _cartId: cartId,
   });
-  console.log(cartId);
 
   let productsWithQuantity: any;
   if (cartId) {
@@ -49,8 +48,6 @@ export default async function Cart() {
     totalPrice += +item.price * +item.quantity;
     return totalPrice;
   });
-
-  console.log("total: " + totalPrice);
 
   return (
     <main>

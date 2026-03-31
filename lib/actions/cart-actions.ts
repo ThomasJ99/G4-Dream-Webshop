@@ -9,7 +9,6 @@ export const getCartAction = async () => {
   const cartCookie = cookieStore.get("cartId");
   let cartId = cartCookie?.value;
 
-  console.log(cartCookie);
   if (!cartCookie) {
     const cart = await createCart();
     cookieStore.set("cartId", cart.id);
@@ -107,9 +106,6 @@ export async function removeCartItem(productId: number) {
     .delete()
     .eq("cart_id", cartId)
     .eq("product_id", productId);
-
-  console.log(error);
-  console.log("hej");
 
   refresh();
 }
