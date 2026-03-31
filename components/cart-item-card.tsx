@@ -8,6 +8,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { removeCartItem, updateQuantity } from "@/lib/actions/cart-actions";
 import type { Product } from "@/lib/types";
+import { formatPrice } from "@/utils/utils";
 
 interface CartItemCardProps {
   item: Product;
@@ -56,7 +57,7 @@ export function CartItemCard({ item, quantity }: CartItemCardProps) {
             </p> */}
           </div>
           <p className="font-medium shrink-0">
-            {item.price}
+            {formatPrice(Number(item.price) * quantity)}
             {/* {formatPrice(item.product.price * item.quantity)} */}
           </p>
         </div>

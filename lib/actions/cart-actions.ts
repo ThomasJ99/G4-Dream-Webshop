@@ -68,6 +68,8 @@ export async function addToCart(formData: FormData) {
       quantity: 1,
     });
   }
+
+  refresh();
 }
 
 export async function updateQuantity(productId: number, newQuantity: number) {
@@ -91,6 +93,8 @@ export async function updateQuantity(productId: number, newQuantity: number) {
       })
       .eq("id", existingItem.id);
   }
+
+  refresh();
 }
 
 export async function removeCartItem(productId: number) {
