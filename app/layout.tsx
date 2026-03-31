@@ -31,9 +31,11 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} antialiased `}>
-        <Navigation cartItemsLength={cartItems?.length} />
-        {children}
-        <Footer />
+        <div className="min-h-screen grid grid-rows-[auto_1fr_auto]">
+          <Navigation cartItemsLength={cartItems?.length} />
+          {children}
+          <Footer />
+        </div>
       </body>
     </html>
   );
