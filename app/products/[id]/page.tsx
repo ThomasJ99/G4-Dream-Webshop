@@ -27,8 +27,8 @@ export default async function ProductPage({
   const prettyPrice = formatPrice(product.price);
 
   return (
-    <main>
-      <header className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
+    <main className="my-8">
+      <header className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-8">
         <Link
           href={"/products"}
           className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground transition-colors"
