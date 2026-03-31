@@ -44,7 +44,7 @@ export default async function Cart() {
   }
 
   let totalPrice = 0;
-  productsWithQuantity.map((item) => {
+  productsWithQuantity?.map((item) => {
     totalPrice += +item.price * +item.quantity;
     return totalPrice;
   });
@@ -66,7 +66,8 @@ export default async function Cart() {
         </h1>
         {/* TODO: LOGIC FOR AMOUNT OF ITEMS */}
         <span className="text-muted-foreground">
-          {productsWithQuantity.length} items in your cart
+          {productsWithQuantity ? productsWithQuantity.length : "0"} items in
+          your cart
         </span>
       </header>
 
