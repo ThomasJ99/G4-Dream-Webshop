@@ -134,7 +134,7 @@ export default async function Cart() {
             Your cart is empty
           </h2>
 
-          <span>Looks live you haven't added any items yet.</span>
+          <span>Looks like you haven't added any items yet.</span>
           <div>
             <Link href="/products">
               <Button type="button" size={"lg"} className="inline-block mt-4">
