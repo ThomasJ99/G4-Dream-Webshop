@@ -13,21 +13,21 @@ export default async function ProductPage({
   params,
 }: PageProps<"/products/[id]">) {
   const { id } = await params;
-  let product = {};
 
+  let product = {};
   try {
     product = await getProductById(id);
   } catch {
     notFound();
   }
 
-  const placeholderURL =
+  const imgURL =
+    product.images?.[0] ||
     "https://placehold.co/1000x1000/png?text=No image available";
-  const imgURL = product.images?.[0] || placeholderURL;
   const prettyPrice = formatPrice(product.price);
 
   return (
-    <main className="">
+    <main>
       <header className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
         <Link
           href={"/products"}
