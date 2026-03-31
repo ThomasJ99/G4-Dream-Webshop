@@ -1,9 +1,12 @@
 "use client";
 
 import { Minus, Plus, Trash2 } from "lucide-react";
+import { refresh } from "next/cache";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { removeCartItem, updateQuantity } from "@/lib/actions/cart-actions";
 import type { Product } from "@/lib/types";
 
 interface CartItemCardProps {
@@ -14,13 +17,15 @@ interface CartItemCardProps {
 export function CartItemCard({ item, quantity }: CartItemCardProps) {
   //   const { updateQuantity, removeItem } = useCart();
 
-  //   const handleQuantityChange = (newQuantity: number) => {
-  //     updateQuantity(item.product.id, item.size, item.color, newQuantity);
-  //   };
+  const [itemQuantity, setQuantity] = useState(quantity);
 
-  //   const handleRemove = () => {
-  //     removeItem(item.product.id, item.size, item.color);
-  //   };
+  const handleQuantityChange = (newQuantity: number) => {
+    updateQuantity(item.id, newQuantity);
+  };
+
+  const handleRemove = () => {
+    removeCartItem(item.id);
+  };
 
   return (
     <article className="flex gap-4 sm:gap-6 pb-6 border-b border-border">
@@ -63,21 +68,27 @@ export function CartItemCard({ item, quantity }: CartItemCardProps) {
               variant="ghost"
               size="icon"
               className="h-8 w-8 rounded-none"
-              //   onClick={() => handleQuantityChange(item.quantity - 1)}
-              //   disabled={item.quantity <= 1}
+              onClick={() => {
+                handleQuantityChange(Number(itemQuantity) - 1);
+                setQuantity(Number(itemQuantity) - 1);
+              }}
+              disabled={itemQuantity <= 1}
               aria-label="Decrease quantity"
             >
               <Minus className="h-3 w-3" />
             </Button>
             <span className="w-10 text-center text-sm font-medium">
-              {quantity}
+              {itemQuantity}
             </span>
             <Button
               variant="ghost"
               size="icon"
               className="h-8 w-8 rounded-none"
-              //   onClick={() => handleQuantityChange(item.quantity + 1)}
-              //   disabled={item.quantity >= 10}
+              onClick={() => {
+                handleQuantityChange(Number(itemQuantity) + 1);
+                setQuantity(Number(itemQuantity) + 1);
+              }}
+              disabled={itemQuantity >= 10}
               aria-label="Increase quantity"
             >
               <Plus className="h-3 w-3" />
@@ -89,7 +100,7 @@ export function CartItemCard({ item, quantity }: CartItemCardProps) {
             variant="ghost"
             size="sm"
             className="text-muted-foreground hover:text-destructive"
-            // onClick={handleRemove}
+            onClick={handleRemove}
             aria-label="Remove item"
           >
             <Trash2 className="h-4 w-4 mr-2" />

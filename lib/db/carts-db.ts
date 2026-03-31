@@ -5,6 +5,7 @@ import type { CartItem } from "../types";
 export async function getCartItemsByIdParams(
   params: string,
 ): Promise<CartItem[]> {
+  console.log(params);
   try {
     const response = await fetch(`${API_URL}/api/cart_items/?${params}`, {
       method: "GET",

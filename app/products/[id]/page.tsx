@@ -1,10 +1,10 @@
-import Form from "next/form";
 import { ChevronLeft } from "lucide-react";
+import Form from "next/form";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { addToCart } from "@/lib/actions/cart-actions";
 import AddFavorite from "@/components/ui/add-favorite";
+import { addToCart } from "@/lib/actions/cart-actions";
 import { getProductById } from "@/lib/db/products-db";
 import type { Product } from "@/lib/types";
 
