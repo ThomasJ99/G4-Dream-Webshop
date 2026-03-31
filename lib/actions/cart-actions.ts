@@ -1,4 +1,5 @@
 "use server";
+import { refresh, revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 import { supabase } from "@/supabaseClient";
 import { createCart } from "../db/carts-db";
@@ -8,7 +9,6 @@ export const getCartAction = async () => {
   const cartCookie = cookieStore.get("cartId");
   let cartId = cartCookie?.value;
 
-  console.log(cartCookie);
   if (!cartCookie) {
     const cart = await createCart();
     cookieStore.set("cartId", cart.id);
@@ -67,4 +67,45 @@ export async function addToCart(formData: FormData) {
       quantity: 1,
     });
   }
+
+  refresh();
+}
+
+export async function updateQuantity(productId: number, newQuantity: number) {
+  const cookieStore = await cookies();
+  const cartCookie = cookieStore.get("cartId");
+  const cartId = cartCookie?.value;
+
+  const { data: existingItem } = await supabase
+    .from("cart_items")
+    .select("*")
+    .eq("cart_id", cartId)
+    .eq("product_id", productId)
+    .single();
+
+  if (existingItem) {
+    // 2. Uppdatera quantity
+    await supabase
+      .from("cart_items")
+      .update({
+        quantity: newQuantity,
+      })
+      .eq("id", existingItem.id);
+  }
+
+  refresh();
+}
+
+export async function removeCartItem(productId: number) {
+  const cookieStore = await cookies();
+  const cartCookie = cookieStore.get("cartId");
+  const cartId = cartCookie?.value;
+
+  const { error } = await supabase
+    .from("cart_items")
+    .delete()
+    .eq("cart_id", cartId)
+    .eq("product_id", productId);
+
+  refresh();
 }
