@@ -7,6 +7,7 @@ import AddFavorite from "@/components/ui/add-favorite";
 import { addToCart } from "@/lib/actions/cart-actions";
 import { getProductById } from "@/lib/db/products-db";
 import type { Product } from "@/lib/types";
+import { formatPrice } from "@/utils/utils";
 
 export default async function ProductPage({
   params,
@@ -20,26 +21,21 @@ export default async function ProductPage({
     notFound();
   }
 
-  const ProductImage = ({ img }: { img: string }) => {
-    // next/image src can't be undefined or ""
-    // it is what it is
-    if (!img || img === "") {
-      return null;
-    }
-
-    return (
-      <Image className="object-contain object-center" src={img} fill alt="" />
-    );
-  };
-
   const ProductDetail = ({ product }: { product: Product }) => {
-    const imgUrl = product.images?.[0];
+    const imgURL = product.images?.[0] || "https://placehold.co/1000x1000/png";
+    const prettyPrice = formatPrice(product.price);
 
     return (
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12">
         {/* image */}
-        <div className="aspect-[1/1] relative rounded-lg overflow-hidden bg-secondary">
-          <ProductImage img={imgUrl} />
+        <div className="relative bg-secondary">
+          <Image
+            className="object-cover"
+            src={imgURL}
+            alt=""
+            width={1000}
+            height={1000}
+          />
         </div>
 
         <section className="flex flex-col gap-8">
@@ -52,7 +48,7 @@ export default async function ProductPage({
               {product.title}
             </h1>
             <div className="flex items-end justify-between">
-              <p className="text-2xl font-medium mt-4">{product.price} kr</p>
+              <p className="text-2xl font-medium mt-4">{prettyPrice}</p>
               <AddFavorite productID={product.id} />
             </div>
           </div>
@@ -99,14 +95,16 @@ export default async function ProductPage({
   };
 
   return (
-    <main className="p-8">
-      <Link
-        href={"/products"}
-        className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground transition-colors mb-8"
-      >
-        <ChevronLeft className="h-4 w-4 mr-1" />
-        Back to Products
-      </Link>
+    <main className="">
+      <header className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
+        <Link
+          href={"/products"}
+          className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground transition-colors"
+        >
+          <ChevronLeft className="h-4 w-4 mr-1" />
+          Back to Products
+        </Link>
+      </header>
 
       <ProductDetail product={data} />
     </main>
