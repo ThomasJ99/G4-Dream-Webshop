@@ -110,7 +110,6 @@ export default async function Cart() {
                 <div className="flex justify-between">
                   <span>Total</span>
                   {formatPrice(totalPrice)}
-                  <span>Total Price</span>
                 </div>
               </div>
 
