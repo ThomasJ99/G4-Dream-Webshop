@@ -7,8 +7,8 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const limit = searchParams.get("_limit");
     const page = searchParams.get("_page");
-    const query = searchParams.get("q");
-    const categoryId = searchParams.get("categoryId");
+    const query = searchParams.get("_q");
+    const categoryId = searchParams.get("_categoryId");
 
     let queryBuilder = supabase.from("products").select(
       `

@@ -1,5 +1,6 @@
 import type { Category, Product } from "@/lib/types";
 import { ProductCard } from "./product-card";
+import { SearchParams } from "next/dist/server/request/search-params";
 
 interface ProductCardProps {
   products: Product[];
@@ -16,7 +17,9 @@ export default function ProductGrid({ products, categories }: ProductCardProps) 
           {products.map((product, index) => {
             const category = categories.find((category) => category.id === product.categoryId);
 
-            return <ProductCard key={product.id} product={product} category={category} index={index} />;
+            return (
+              <ProductCard key={product.id} product={product} category={category} index={index} />
+            );
           })}
         </div>
       ) : (
