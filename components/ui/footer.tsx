@@ -25,20 +25,18 @@ export default function Footer() {
     <footer className="border-t border-gray-300 pt-10 text-sm text-gray-600">
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-[2fr_1fr_1fr_2fr] w-[90%] lg:w-[60%] mx-auto gap-8 border-b border-gray-300 pb-8">
         <div className="flex flex-col gap-3 col-span-2 md:col-span-1">
-          <span className="text-xl font-bold font-serif text-black">
-            DreamShop
-          </span>
+          <h2 className="text-xl font-bold font-serif text-black">DreamShop</h2>
           <p className="max-w-[30ch]">
-            At DreamShop, we bring together trusted brands and curated products
-            to make every purchase easy and reliable.
+            We bring together trusted brands and curated products to make every
+            purchase easy and reliable.
           </p>
         </div>
 
         {footerLinks.map((section) => (
           <div key={section.category} className="flex flex-col gap-3">
-            <h2 className="text-base font-bold text-black">
+            <h3 className="text-base font-bold text-black">
               {section.category}
-            </h2>
+            </h3>
             <ul className="flex flex-col gap-2">
               {section.links.map((link) => (
                 <li key={link.name}>
@@ -50,7 +48,7 @@ export default function Footer() {
         ))}
 
         <div className="flex flex-col gap-3">
-          <h2 className="text-base font-bold text-black">Newsletter</h2>
+          <h3 className="text-base font-bold text-black">Newsletter</h3>
           <span>
             Subscribe for updates on new arrivals and exclusive offers.
           </span>
