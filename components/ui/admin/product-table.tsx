@@ -42,7 +42,6 @@ export default async function ProductTable({
     _limit: limit.toString(),
     _page: page.toString(),
   });
-  const paramsss = "_limit=5&_page=1";
   const { products, pages, total } = await getProducts(params.toString());
   console.log(page);
   const totalProducts = total ?? 0;
