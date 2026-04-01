@@ -35,7 +35,6 @@ export default async function ProductPage(params: PageProps<"/">) {
   const leftover = totalProducts % 8;
   let totalPages = (totalProducts - leftover) / 8;
 
-  <<<<<<< feature/pagination
   if (leftover > 0) {
     totalPages += 1;
   }
@@ -44,8 +43,6 @@ export default async function ProductPage(params: PageProps<"/">) {
     totalPages === 1;
   }
 
-  =======
->>>>>>> dev
   return (
     <main className="mx-auto max-w-7xl">
       <h1 className="text-3xl font-serif mt-16">All Products</h1>
