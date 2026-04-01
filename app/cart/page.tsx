@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { getCartAction } from "@/lib/actions/cart-actions";
 import { getCartItemsByIdParams } from "@/lib/db/carts-db";
 import { supabase } from "@/supabaseClient";
+import { formatPrice } from "@/utils/utils";
 
 export default async function Cart() {
   const cookieStore = await cookies();
@@ -13,15 +14,14 @@ export default async function Cart() {
   const reqParams = new URLSearchParams({
     _cartId: cartId,
   });
-  console.log(cartId);
 
-  let productWithQuantity: any;
+  let productsWithQuantity: any;
   if (cartId) {
     const cartItems = await getCartItemsByIdParams(await reqParams.toString());
-    console.log(cartItems);
 
     const productIds = cartItems.map(({ product_id }) => product_id);
 
+    //Get products with quantity
     const { data, error } = await supabase
       .from("products")
       .select(`
@@ -35,14 +35,19 @@ export default async function Cart() {
         `)
       .in("id", productIds);
 
-    productWithQuantity = data?.map((item) => ({
+    productsWithQuantity = data?.map((item) => ({
       ...item,
       quantity: cartItems
         .filter((i) => i.product_id === item.id)
         .map((j) => j.quantity),
     }));
-    console.log(productWithQuantity?.map((i) => i.title));
   }
+
+  let totalPrice = 0;
+  productsWithQuantity?.map((item) => {
+    totalPrice += +item.price * +item.quantity;
+    return totalPrice;
+  });
 
   return (
     <main>
@@ -60,81 +65,84 @@ export default async function Cart() {
           Shopping Cart
         </h1>
         {/* TODO: LOGIC FOR AMOUNT OF ITEMS */}
-        <span className="text-muted-foreground">(x) items in your cart</span>
+        <span className="text-muted-foreground">
+          {productsWithQuantity ? productsWithQuantity.length : "0"} items in
+          your cart
+        </span>
       </header>
 
-      {/* If products */}
-      {/* items.length > 0 ? (content below) */}
-      <section className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-        {/* Logic to map through all items */}
-        <div className="mx-auto ps-4">
-          {productWithQuantity?.map((item) => (
-            <CartItemCard
-              key={item.id}
-              item={item}
-              quantity={item.quantity}
-            ></CartItemCard>
-          ))}
-        </div>
-        {/* Order info */}
-        <div className="bg-secondary/30 rounded-lg p-6 sticky top-24">
-          <h2 className="font-semibold text-lg">Order Summary</h2>
+      {/* If products > 0 */}
+      {productsWithQuantity?.length > 0 ? (
+        <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-3 gap-12">
+          {/* Cart items — spans 2 columns */}
+          <div className="lg:col-span-2 space-y-4">
+            {productsWithQuantity?.map((item) => (
+              <CartItemCard
+                key={item.id}
+                item={item}
+                quantity={item.quantity}
+              />
+            ))}
+          </div>
 
-          <div className="space-y-4">
-            <div className="flex justify-between text-sm">
-              <span className="text-muted-foreground">Subtotal</span>
-              <span>Price nr</span>
-            </div>
+          {/* Order summary — spans 1 column */}
+          <div className="bg-secondary/30 rounded-lg p-6 sticky top-24 h-fit">
+            <h2 className="font-semibold text-lg">Order Summary</h2>
 
-            <div className="flex justify-between text-sm text-muted-foreground">
-              <span>Shipping</span>
-              <span>Calculated at checkout</span>
-            </div>
+            <div className="space-y-4">
+              <div className="flex justify-between text-sm">
+                <span className="text-muted-foreground">Subtotal</span>
+                <span>Price nr</span>
+              </div>
 
-            <div className="flex justify-between text-sm text-muted-foreground">
-              <span>VAT (included)</span>
-              {/* Format tax price here with math */}
-              <span>Price</span>
-            </div>
+              <div className="flex justify-between text-sm text-muted-foreground">
+                <span>Shipping</span>
+                <span>Calculated at checkout</span>
+              </div>
 
-            <div className="border-t border-border pt-4 mb-6">
-              <div className="flex justify-between">
-                <span>Total</span>
-                {/* Get the total price as kr */}
-                <span>Total Price</span>
+              <div className="flex justify-between text-sm text-muted-foreground">
+                <span>VAT (included)</span>
+                {/* Format tax price here with math */}
+                <span>Price</span>
+              </div>
+
+              <div className="border-t border-border pt-4 mb-6">
+                <div className="flex justify-between">
+                  <span>Total</span>
+                  {formatPrice(totalPrice)}
+                </div>
+              </div>
+
+              <div className="text-center">
+                <Button type="button" size={"lg"} className="w-full">
+                  Proceed to Checkout
+                </Button>
+
+                <span className="text-xs text-muted-foreground inline-block mt-4">
+                  Free shipping on order over 999 SEK
+                </span>
               </div>
             </div>
-
-            <div className="text-center">
-              <Button type="button" size={"lg"} className="w-full">
-                Proceed to Checkout
-              </Button>
-
-              <span className="text-xs text-muted-foreground inline-block mt-4">
-                Free shipping on order over 999 SEK
-              </span>
-            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      ) : (
+        <section className="text-center py-16">
+          {/* If 0 products */}
+          <ShoppingBag className="h-16 w-16 mx-auto text-muted-foreground" />
+          <h2 className="font-serif text-2xl leading-loose">
+            Your cart is empty
+          </h2>
 
-      {/* Conditional render, : () */}
-      {/* If no products */}
-      <section className="text-center py-16">
-        <ShoppingBag className="h-16 w-16 mx-auto text-muted-foreground" />
-        <h2 className="font-serif text-2xl leading-loose">
-          Your cart is empty
-        </h2>
-
-        <span>Looks live you haven't added any items yet.</span>
-        <div>
-          <Link href="/products">
-            <Button type="button" size={"lg"} className="inline-block mt-4">
-              Start shopping
-            </Button>
-          </Link>
-        </div>
-      </section>
+          <span>Looks like you haven't added any items yet.</span>
+          <div>
+            <Link href="/products">
+              <Button type="button" size={"lg"} className="inline-block mt-4">
+                Start shopping
+              </Button>
+            </Link>
+          </div>
+        </section>
+      )}
     </main>
   );
 }

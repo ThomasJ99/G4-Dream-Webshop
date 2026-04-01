@@ -19,15 +19,14 @@ const categoryImages: Record<string, string> = {
 };
 
 export default async function Home() {
-  // const cart = await getCart();
-  // console.log(cart);
-
   const cookieStore = await cookies();
   const cartId = cookieStore.get("cartId")?.value;
-  //console.log(cartId);
 
   const featuredProducts = (await getProducts()).products.slice(0, 4);
   const categories = await getCategories();
+  const { products, total } = await getProducts("_limit=2&_page=3");
+  console.log(products);
+  console.log("TOTAL: " + total);
 
   const displayCategories = categories.splice(0, 3);
 

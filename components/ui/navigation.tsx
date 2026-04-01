@@ -4,7 +4,11 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
-export default function Navigation() {
+export default function Navigation({
+  cartItemsLength,
+}: {
+  cartItemsLength: number;
+}) {
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
@@ -30,6 +34,7 @@ export default function Navigation() {
   const menuItems = [
     { name: "Shop", href: "/products" },
     { name: "About", href: "/about" },
+    { name: "Favorites", href: "/favorites" },
   ];
 
   if (pathname.includes("admin")) return null;
@@ -68,7 +73,7 @@ export default function Navigation() {
             href="/cart"
           >
             <div className="absolute -top-1 -right-1 w-4 h-4 bg-blue-400 rounded-full text-white flex items-center justify-center text-xs">
-              8
+              {cartItemsLength}
             </div>
             <ShoppingCart size={24} />
           </Link>

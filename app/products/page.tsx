@@ -1,10 +1,16 @@
+import FilterProducts from "@/components/filter-products";
+import ProductGrid from "@/components/product-grid";
 import { getCategories } from "@/lib/db/categories-db";
 import { getProducts } from "@/lib/db/products-db";
+<<<<<<< feature/pagination
 import type { Category } from "@/lib/types";
 import ProductGrid from "@/components/product-grid";
 import FilterProducts from "@/components/filter-products";
 import { getSearchParamsAsString } from "@/utils/getSearchParams";
 import ProductGridPagination from "@/components/product-grid-pagination";
+=======
+import type { Category, ProductsResponse } from "@/lib/types";
+>>>>>>> dev
 
 export default async function ProductPage(params: PageProps<"/">) {
   // "params: PageProps<'/'>" contains searchParams, able to fetch async without 'use client'
@@ -31,6 +37,7 @@ export default async function ProductPage(params: PageProps<"/">) {
   const leftover = totalProducts % 8;
   let totalPages = (totalProducts - leftover) / 8;
 
+<<<<<<< feature/pagination
   if (leftover > 0) {
     totalPages += 1;
   }
@@ -39,10 +46,14 @@ export default async function ProductPage(params: PageProps<"/">) {
     totalPages === 1;
   }
 
+=======
+>>>>>>> dev
   return (
     <main className="mx-auto max-w-7xl">
       <h1 className="text-3xl font-serif mt-16">All Products</h1>
-      <span className="text-black/60 mb-8 block mt-2">{total} products found</span>
+      <span className="text-black/60 mb-8 block mt-2">
+        {total} products found
+      </span>
 
       <FilterProducts categories={categories} />
 

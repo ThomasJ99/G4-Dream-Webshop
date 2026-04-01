@@ -45,7 +45,6 @@ export async function GET(request: NextRequest) {
     }
 
     const { data: products, error, count } = await queryBuilder;
-
     if (error) {
       console.error("Supabase error:", error);
       return NextResponse.json({ error: error.message }, { status: 500 });
@@ -72,7 +71,10 @@ export async function GET(request: NextRequest) {
     });
   } catch (error) {
     console.error("Server error:", error);
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 },
+    );
   }
 }
 
@@ -134,7 +136,10 @@ export async function POST(request: NextRequest) {
       thumbnail,
     };
 
-    const { data, error } = await supabase.from("products").insert([productData]).select(`
+    const { data, error } = await supabase
+      .from("products")
+      .insert([productData])
+      .select(`
         *,
         categories (
           id,
@@ -165,6 +170,9 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(transformedProduct, { status: 201 });
   } catch (error) {
     console.error("Server error:", error);
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 },
+    );
   }
 }

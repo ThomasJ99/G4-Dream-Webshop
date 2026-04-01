@@ -3,63 +3,59 @@ import { Button } from "./button";
 import { Input } from "./input";
 
 export default function Footer() {
+  const footerLinks = [
+    {
+      category: "Shop",
+      links: [
+        { name: "All Products", href: "/products" },
+        { name: "Favorites", href: "/favorites" },
+        { name: "Cart", href: "/cart" },
+      ],
+    },
+    {
+      category: "Support",
+      links: [
+        { name: "Contact Us", href: "#" },
+        { name: "Suggestions", href: "#" },
+      ],
+    },
+  ];
+
   return (
-    <footer className=" border-t-1 border-gray-300 pt-10 text-sm text-gray-600">
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-[90%] lg:w-[60%] mx-auto gap-8 border-b border-gray-300 pb-8">
+    <footer className="border-t border-gray-300 pt-10 text-sm text-gray-600">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-[2fr_1fr_1fr_2fr] w-[90%] lg:w-[60%] mx-auto gap-8 border-b border-gray-300 pb-8">
         <div className="flex flex-col gap-3 col-span-2 md:col-span-1">
-          <span className="text-xl font-bold font-serif text-black">
-            DreamShop
-          </span>
+          <h2 className="text-xl font-bold font-serif text-black">DreamShop</h2>
           <p className="max-w-[30ch]">
-            Scandinavian fashion for modern living. Timeless design meets
-            sustainable craftsmanship.
+            We bring together trusted brands and curated products to make every
+            purchase easy and reliable.
           </p>
         </div>
 
-        <div className="flex flex-col gap-3 ">
-          <h2 className="text-base font-bold text-black">Shop</h2>
-          <ul className="flex flex-col gap-2">
-            <li>
-              <Link href="/products">All Products</Link>
-            </li>
-            <li>
-              <Link href="#">Outerwear</Link>
-            </li>
-            <li>
-              <Link href="#">Knitwear</Link>
-            </li>
-            <li>
-              <Link href="#">Accessories</Link>
-            </li>
-          </ul>
-        </div>
+        {footerLinks.map((section) => (
+          <div key={section.category} className="flex flex-col gap-3">
+            <h3 className="text-base font-bold text-black">
+              {section.category}
+            </h3>
+            <ul className="flex flex-col gap-2">
+              {section.links.map((link) => (
+                <li key={link.name}>
+                  <Link href={link.href}>{link.name}</Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
 
-        <div className="flex flex-col gap-3 ">
-          <h2 className="text-base font-bold text-black">Support</h2>
-          <ul className="flex flex-col gap-2">
-            <li>
-              <Link href="#">Contact Us</Link>
-            </li>
-            <li>
-              <Link href="#">Shipping & Returns</Link>
-            </li>
-            <li>
-              <Link href="#">Size Guide</Link>
-            </li>
-            <li>
-              <Link href="#">FAQ</Link>
-            </li>
-          </ul>
-        </div>
-
-        <div className="flex flex-col gap-3  ">
-          <h2 className="text-base font-bold text-black">Newsletter</h2>
-          <span className="max-w-[28ch]">
+        <div className="flex flex-col gap-3">
+          <h3 className="text-base font-bold text-black">Newsletter</h3>
+          <span>
             Subscribe for updates on new arrivals and exclusive offers.
           </span>
-          <div className="flex gap-2 max-w-60">
+
+          <div className="flex gap-2 w-full">
             <Input
-              className="min-w-40"
+              className="flex-1 min-w-0"
               autoComplete="email"
               type="email"
               placeholder="Your email"
@@ -69,9 +65,9 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="flex w-[60%] mx-auto my-5 gap-5">
+      <div className="flex w-[90%] lg:w-[60%] mx-auto my-5 gap-5">
         <span className="mr-auto">© 2026 DreamShop. All rights reserved.</span>
-        <div className="flex ml-auto gap-2">
+        <div className="flex ml-auto gap-8">
           <Link href="#">Privacy Policy</Link>
           <Link href="#">Terms of Service</Link>
         </div>
