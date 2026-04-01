@@ -7,10 +7,11 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const limit = searchParams.get("_limit");
     const page = searchParams.get("_page");
-    const query = searchParams.get("q");
-    const categoryId = searchParams.get("categoryId");
+    const query = searchParams.get("_q");
+    const categoryId = searchParams.get("_categoryId");
 
-    let queryBuilder = supabase.from("products").select(`
+    let queryBuilder = supabase.from("products").select(
+      `
         *,
         categories (
           id,
@@ -18,7 +19,9 @@ export async function GET(request: NextRequest) {
           slug,
           image
         )
-      `);
+      `,
+      { count: "exact" },
+    );
 
     // Apply filters
     if (categoryId) {
@@ -63,7 +66,7 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({
       products: transformedProducts || [],
-      total: products.length || 0,
+      total: count || 0,
       limit: limit ? parseInt(limit) : undefined,
       page: page ? parseInt(page) : undefined,
     });
