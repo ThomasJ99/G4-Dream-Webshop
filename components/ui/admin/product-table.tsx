@@ -9,7 +9,8 @@ import { getSearchParamsAsString } from "@/utils/getSearchParams";
 import ProductTablePagination from "./product-table-pagination";
 
 const thStyle = "p-4 text-sm font-semibold text-gray-500";
-const tdStyle = "border-t border-gray-300 text-center p-4 text-ellipsis truncate";
+const tdStyle =
+  "border-t border-gray-300 text-center p-4 text-ellipsis truncate";
 
 const getColourFromAvailabilityStatus = (stock: number): string => {
   if (stock === 0) {
@@ -41,7 +42,7 @@ export default async function ProductTable({
     _limit: limit.toString(),
     _page: page.toString(),
   });
-
+  const paramsss = "_limit=5&_page=1";
   const { products, pages, total } = await getProducts(params.toString());
   console.log(page);
   const totalProducts = total ?? 0;
@@ -85,14 +86,17 @@ export default async function ProductTable({
               </td>
 
               <td className={`${tdStyle}`}>
-                {categories.find((cat) => cat.id === product.categoryId)?.name ??
+                {categories.find((cat) => cat.id === product.categoryId)
+                  ?.name ??
                   titleCaseWord(product.tags![0]) ??
                   ""}
               </td>
               <td className={`${tdStyle}`}> {`${product.price} kr`}</td>
               <td className={`${tdStyle}`}>{product.stock}</td>
 
-              <td className={`${tdStyle} ${getColourFromAvailabilityStatus(product.stock ?? 0)}`}>
+              <td
+                className={`${tdStyle} ${getColourFromAvailabilityStatus(product.stock ?? 0)}`}
+              >
                 {(product.stock ?? 0) === 0
                   ? "Out of Stock"
                   : (product.stock ?? 0) < 45
@@ -113,7 +117,9 @@ export default async function ProductTable({
         </tbody>
       </table>
       <div className="p-4 bg-gray-50 border-t border-t-gray-300 rounded-b-2xl">
-        <ProductTablePagination totalPages={totalPages ?? 0}></ProductTablePagination>
+        <ProductTablePagination
+          totalPages={totalPages ?? 0}
+        ></ProductTablePagination>
       </div>
     </div>
   );

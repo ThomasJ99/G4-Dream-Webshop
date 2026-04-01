@@ -24,6 +24,9 @@ export default async function Home() {
 
   const featuredProducts = (await getProducts()).products.slice(0, 4);
   const categories = await getCategories();
+  const { products, total } = await getProducts("_limit=2&_page=3");
+  console.log(products);
+  console.log("TOTAL: " + total);
 
   const displayCategories = categories.splice(0, 3);
 
