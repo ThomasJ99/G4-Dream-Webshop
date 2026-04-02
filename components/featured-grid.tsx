@@ -1,8 +1,12 @@
-import { ArrowRight, Link } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 import { getProducts } from "@/lib/db/products-db";
 import { ProductCard } from "./product-card";
 
 export default async function FeaturedGrid() {
+  // TODO: REMOVE THIS LINE OF CODE LATER, GOOD TO TEST SKELETONS
+  //   await new Promise((resolve) => setTimeout(resolve, 2000));
+
   const featuredProducts = (await getProducts()).products.slice(0, 4);
 
   return (
