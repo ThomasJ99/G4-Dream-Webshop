@@ -1,21 +1,47 @@
 import FilterProducts from "@/components/filter-products";
 import ProductGrid from "@/components/product-grid";
+import ProductGridPagination from "@/components/product-grid-pagination";
 import { getCategories } from "@/lib/db/categories-db";
 import { getProducts } from "@/lib/db/products-db";
-import type { Category, ProductsResponse } from "@/lib/types";
+import type { Category } from "@/lib/types";
+import { getSearchParamsAsString } from "@/utils/getSearchParams";
 
 export default async function ProductPage(params: PageProps<"/">) {
-  const { categoryId = "", q = "" } = await params.searchParams;
+  // "params: PageProps<'/'>" contains searchParams, able to fetch async without 'use client'
+  const {
+    _categoryId = "",
+    _page = "1",
+    _limit = "8",
+  } = await params.searchParams;
 
-  const reqParams = new URLSearchParams({
-    categoryId: categoryId.toString(),
-    q: q.toString(),
+  const currentLimit = getSearchParamsAsString(_limit) as string;
+  const currentPage = getSearchParamsAsString(_page) as string;
+  const currentCategoryId = getSearchParamsAsString(_categoryId) as string;
+
+  // Create new URL searchParams string
+  const searchParams = new URLSearchParams({
+    _limit: currentLimit.toString(),
+    _page: currentPage.toString(),
+    _categoryId: currentCategoryId.toString(),
   });
 
-  const data: ProductsResponse = await getProducts(reqParams.toString());
+  // getProducts accepts URL string for fetch
+  const { products, total } = await getProducts(searchParams.toString());
+
   const categories: Category[] = await getCategories();
 
-  const { total, products } = data;
+  // Calculate pages
+  const totalProducts = total ?? 0;
+  const leftover = totalProducts % 8;
+  let totalPages = (totalProducts - leftover) / 8;
+
+  if (leftover > 0) {
+    totalPages += 1;
+  }
+
+  if (totalPages < 1) {
+    totalPages === 1;
+  }
 
   return (
     <main className="mx-auto max-w-7xl">
@@ -27,6 +53,8 @@ export default async function ProductPage(params: PageProps<"/">) {
       <FilterProducts categories={categories} />
 
       <ProductGrid products={products} categories={categories}></ProductGrid>
+
+      <ProductGridPagination totalPages={totalPages} />
     </main>
   );
 }
