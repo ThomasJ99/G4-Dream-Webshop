@@ -4,9 +4,12 @@ import Link from "next/link";
 import { getCategories } from "@/lib/db/categories-db";
 
 export default async function CategoryGrid() {
+    // TODO: REMOVE THIS LINE OF CODE LATER, GOOD TO TEST SKELETONS
+  // await new Promise((resolve) => setTimeout(resolve, 2000));
   const categories = await getCategories();
 
   const displayCategories = categories.splice(0, 3);
+
   return (
     <section className="py-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
