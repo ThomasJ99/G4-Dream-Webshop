@@ -83,7 +83,7 @@ export default function AddFavorite({ productID }: { productID: number }) {
       disabled={isFavorite}
     >
       <Star
-        className={`transition-all duration-500 group-hover:scale-110 ${
+        className={`transition-all duration-500 group-hover:scale-120 group-hover:rotate-[360deg] ${
           isFavorite ? "fill-yellow-400 text-yellow-400" : "fill-white"
         }`}
       />
