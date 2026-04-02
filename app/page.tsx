@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import CategoryGrid from "@/components/category-grid";
 import CategoryGridSkeleton from "@/components/category-grid-skeleton";
 import FeaturedGrid from "@/components/featured-grid";
+import FeaturedGridSkeleton from "@/components/featured-grid-skeleton";
 import Hero from "@/components/ui/hero";
 
 export default async function Home() {
@@ -12,12 +13,17 @@ export default async function Home() {
     <main>
       <Hero />
 
+      {/* Suspense around components that need to be async for skeleton to work */}
+
       {/* Category section */}
       <Suspense fallback={<CategoryGridSkeleton />}>
         <CategoryGrid />
       </Suspense>
 
-      <FeaturedGrid />
+      {/* Featured section */}
+      <Suspense fallback={<FeaturedGridSkeleton />}>
+        <FeaturedGrid />
+      </Suspense>
     </main>
   );
 }

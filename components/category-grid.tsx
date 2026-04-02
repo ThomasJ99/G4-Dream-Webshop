@@ -4,7 +4,7 @@ import Link from "next/link";
 import { getCategories } from "@/lib/db/categories-db";
 
 export default async function CategoryGrid() {
-    // TODO: REMOVE THIS LINE OF CODE LATER, GOOD TO TEST SKELETONS
+  // TODO: REMOVE THIS LINE OF CODE LATER, GOOD TO TEST SKELETONS
   // await new Promise((resolve) => setTimeout(resolve, 2000));
   const categories = await getCategories();
 
