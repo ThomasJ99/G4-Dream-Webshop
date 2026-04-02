@@ -7,10 +7,11 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const limit = searchParams.get("_limit");
     const page = searchParams.get("_page");
-    const query = searchParams.get("q");
-    const categoryId = searchParams.get("categoryId");
+    const query = searchParams.get("_q");
+    const categoryId = searchParams.get("_categoryId");
 
-    let queryBuilder = supabase.from("products").select(`
+    let queryBuilder = supabase.from("products").select(
+      `
         *,
         categories (
           id,
@@ -18,7 +19,9 @@ export async function GET(request: NextRequest) {
           slug,
           image
         )
-      `);
+      `,
+      { count: "exact" },
+    );
 
     // Apply filters
     if (categoryId) {
@@ -42,7 +45,6 @@ export async function GET(request: NextRequest) {
     }
 
     const { data: products, error, count } = await queryBuilder;
-
     if (error) {
       console.error("Supabase error:", error);
       return NextResponse.json({ error: error.message }, { status: 500 });
@@ -63,13 +65,16 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({
       products: transformedProducts || [],
-      total: products.length || 0,
+      total: count || 0,
       limit: limit ? parseInt(limit) : undefined,
       page: page ? parseInt(page) : undefined,
     });
   } catch (error) {
     console.error("Server error:", error);
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 },
+    );
   }
 }
 
@@ -131,7 +136,10 @@ export async function POST(request: NextRequest) {
       thumbnail,
     };
 
-    const { data, error } = await supabase.from("products").insert([productData]).select(`
+    const { data, error } = await supabase
+      .from("products")
+      .insert([productData])
+      .select(`
         *,
         categories (
           id,
@@ -162,6 +170,9 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(transformedProduct, { status: 201 });
   } catch (error) {
     console.error("Server error:", error);
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 },
+    );
   }
 }
