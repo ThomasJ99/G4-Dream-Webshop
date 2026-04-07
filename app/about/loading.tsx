@@ -1,6 +1,6 @@
 import { Skeleton } from "@/components/ui/skeleton";
 
-function LoadingPage() {
+export default function LoadingPage() {
   return (
     <article className="relative min-h-[70vh] flex items-center overflow-hidden">
       {/* Background skeleton — fills the whole article */}
@@ -32,5 +32,3 @@ function LoadingPage() {
     </article>
   );
 }
-
-export default LoadingPage;
