@@ -101,7 +101,7 @@ export default function Navigation({
               >
                 {/* Top Bar Wrapper */}
                 <div
-                  className={`w-full transition-transform  ease-in-out ${isOpen ? "duration-800 delay-200 translate-y-[2px]" : "duration-600 translate-y-0 delay-600"}`}
+                  className={`w-full transition-transform  ease-in-out ${isOpen ? "duration-800 delay-200 translate-y-[2px]" : "duration-800 translate-y-0 delay-600"}`}
                 >
                   <div
                     className={`bg-current h-0.5 w-full rounded transition-transform duration-800 ease-in-out ${isOpen ? "duration-800 rotate-45 delay-800" : "duration-800 rotate-0 delay-0"}`}
@@ -109,13 +109,14 @@ export default function Navigation({
                 </div>
 
                 {/* Middle Bar */}
+
                 <div
-                  className={`bg-current h-0.5 w-full rounded transition-transform ease-in-out ${isOpen ? "duration-600 scale-x-0" : "duration-600 delay-800 scale-x-100"}`}
+                  className={`bg-current h-0.5 w-full transition-transform ease-in-out ${isOpen ? "duration-600 scale-x-0" : "duration-600 delay-800 scale-x-100"}`}
                 />
 
                 {/* Bottom Bar Wrapper */}
                 <div
-                  className={`w-full transition-transform  ease-in-out ${isOpen ? "duration-800 delay-200  -translate-y-[2px]" : "duration-800 translate-y-0 delay-200"}`}
+                  className={`w-full transition-transform  ease-in-out ${isOpen ? "duration-800 delay-200  -translate-y-[2px]" : "duration-800 translate-y-0 delay-600"}`}
                 >
                   <div
                     className={`bg-current h-0.5 w-full rounded transition-transform  ease-in-out ${isOpen ? "duration-800 -rotate-45 delay-800" : "duration-800 rotate-0 delay-0"}`}
