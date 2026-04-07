@@ -78,13 +78,50 @@ export default function Navigation({
             <ShoppingCart size={24} />
           </Link>
 
-          <div className="md:hidden">
+          {/* Leaving old Button here for now. */}
+          {/* <div className="md:hidden">
             <button
               className="cursor-pointer p-2 rounded-sm hover:bg-blue-900/20 hover:text-blue-400 transition-colors"
               type="button"
               onClick={() => setIsOpen(!isOpen)}
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div> */}
+
+          {/* New BUTTON */}
+          <div className="md:hidden">
+            <button
+              className=" cursor-pointer p-2 rounded-sm w-10 h-10 flex hover:bg-blue-900/20 hover:text-blue-400 transition-colors focus:outline-none"
+              type="button"
+              onClick={() => setIsOpen(!isOpen)}
+            >
+              <div
+                className={`flex flex-col items-center justify-center w-6 h-6 transition-all duration-1000 ${isOpen ? "gap-0" : "delay-600 gap-1.5"}`}
+              >
+                {/* Top Bar Wrapper */}
+                <div
+                  className={`w-full transition-transform  ease-in-out ${isOpen ? "duration-800 delay-200 translate-y-[2px]" : "duration-600 translate-y-0 delay-600"}`}
+                >
+                  <div
+                    className={`bg-current h-0.5 w-full rounded transition-transform duration-800 ease-in-out ${isOpen ? "duration-800 rotate-45 delay-800" : "duration-800 rotate-0 delay-0"}`}
+                  />
+                </div>
+
+                {/* Middle Bar */}
+                <div
+                  className={`bg-current h-0.5 w-full rounded transition-transform ease-in-out ${isOpen ? "duration-600 scale-x-0" : "duration-600 delay-800 scale-x-100"}`}
+                />
+
+                {/* Bottom Bar Wrapper */}
+                <div
+                  className={`w-full transition-transform  ease-in-out ${isOpen ? "duration-800 delay-200  -translate-y-[2px]" : "duration-800 translate-y-0 delay-200"}`}
+                >
+                  <div
+                    className={`bg-current h-0.5 w-full rounded transition-transform  ease-in-out ${isOpen ? "duration-800 -rotate-45 delay-800" : "duration-800 rotate-0 delay-0"}`}
+                  />
+                </div>
+              </div>
             </button>
           </div>
         </div>
