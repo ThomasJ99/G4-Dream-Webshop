@@ -8,7 +8,7 @@ export default async function CategoryGrid() {
   // await new Promise((resolve) => setTimeout(resolve, 2000));
   const categories = await getCategories();
 
-  const displayCategories = categories.splice(0, 3);
+  const displayCategories = categories.slice(0, 3);
 
   return (
     <section className="py-16">
