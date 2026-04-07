@@ -24,34 +24,35 @@ export default async function CategoryGrid() {
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        <ul className="grid grid-cols-1 sm:grid-cols-3 gap-6">
           {displayCategories.map((category) => (
-            <Link
-              key={category.id}
-              href={`/products/?categoryId=${category.id}`}
-              className="group relative aspect-4/5 rounded-lg overflow-hidden bg-white/95"
-            >
-              {/* Uses the images */}
-              <Image
-                src={category.image}
-                alt={category.name}
-                fill
-                className="object-cover transition-transform duration-500 group-hover:scale-105"
-              />
+            <li key={category.id}>
+              <Link
+                href={`/products/?categoryId=${category.id}`}
+                className="group relative aspect-4/5 rounded-lg overflow-hidden bg-white/95 block"
+              >
+                {/* Uses the images */}
+                <Image
+                  src={category.image}
+                  alt={`Browse ${category.name} products`}
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                />
 
-              {/* Adds bg to card on the bottom for text to pop */}
-              <div className="absolute inset-0 bg-linear-to-t from-black/50 to-transparent"></div>
-              <div className="absolute bottom-6 left-6 right-6">
-                <h3 className="text-white text-xl leading-relaxed">
-                  {category.name}
-                </h3>
-                <span className="text-white/80 text-sm">
-                  Explore collection
-                </span>
-              </div>
-            </Link>
+                {/* Adds bg to card on the bottom for text to pop */}
+                <div className="absolute inset-0 bg-linear-to-t from-black/50 to-transparent"></div>
+                <div className="absolute bottom-6 left-6 right-6">
+                  <h3 className="text-white text-xl leading-relaxed">
+                    {category.name}
+                  </h3>
+                  <span className="text-white/80 text-sm">
+                    Explore collection
+                  </span>
+                </div>
+              </Link>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
   );
