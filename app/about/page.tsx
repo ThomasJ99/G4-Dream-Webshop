@@ -6,9 +6,8 @@ export default async function About() {
   // TODO: REMOVE THIS LINE OF CODE LATER, GOOD TO TEST SKELETONS
   // await new Promise((resolve) => setTimeout(resolve, 2000))
   return (
-    <>
-      {/* Version 2: Background image with text on top */}
-      <article className="relative min-h-[70vh] flex items-center">
+    <article className="relative min-h-[70vh] flex items-center">
+        {/* Version 2: Background image with text on top */}
         {/* Background Image */}
         <Image
           src="https://images.unsplash.com/photo-1698858212917-9dbd472abecb?w=1800&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGZyZWUlMjBpbWFnZXMlMjBzdG9ja2hvbG18ZW58MHx8MHx8fDA%3D"
@@ -24,9 +23,9 @@ export default async function About() {
         {/* Text content */}
         <section className="relative z-9 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16 w-full">
           <div className="max-w-2xl space-y-6 text-shadow-md">
-            <p className="text-sm text-white uppercase tracking-widest">
+            <span className="text-sm text-white uppercase tracking-widest">
               Our Story
-            </p>
+            </span>
 
             <h1 className="font-serif text-4xl sm:text-5xl text-white text-pretty">
               A store built around you
@@ -54,7 +53,6 @@ export default async function About() {
           </div>
         </section>
       </article>
-    </>
   );
 }
 
