@@ -9,13 +9,13 @@ export default function ProductGridPagination({ totalPages }: { totalPages: numb
   const searchParams = useSearchParams();
   const currentPage = Number(searchParams.get("_page") || 1);
   const currentLimit = searchParams.get("_limit") || 8;
-  const currentCategory = searchParams.get("_categoryId") || "";
+  // const currentCategory = searchParams.get("_categoryId") || "";
 
   const createPageURL = (pageNumber: number) => {
     const params = new URLSearchParams(searchParams.toString());
     params.set("_page", pageNumber.toString());
     params.set("_limit", currentLimit.toString());
-    params.set("_categoryId", currentCategory.toString());
+    // params.set("_categoryId", currentCategory.toString());
 
     return `${pathname}?${params.toString()}`;
   };

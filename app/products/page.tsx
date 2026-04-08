@@ -8,21 +8,19 @@ import { getSearchParamsAsString } from "@/utils/getSearchParams";
 
 export default async function ProductPage(params: PageProps<"/">) {
   // "params: PageProps<'/'>" contains searchParams, able to fetch async without 'use client'
-  const {
-    _categoryId = "",
-    _page = "1",
-    _limit = "8",
-  } = await params.searchParams;
+  const { _q = "", _categoryId = "", _page = "1", _limit = "8" } = await params.searchParams;
 
   const currentLimit = getSearchParamsAsString(_limit) as string;
   const currentPage = getSearchParamsAsString(_page) as string;
   const currentCategoryId = getSearchParamsAsString(_categoryId) as string;
+  const currentQuery = getSearchParamsAsString(_q) as string;
 
   // Create new URL searchParams string
   const searchParams = new URLSearchParams({
     _limit: currentLimit.toString(),
     _page: currentPage.toString(),
     _categoryId: currentCategoryId.toString(),
+    _q: currentQuery.toString(),
   });
 
   // getProducts accepts URL string for fetch
@@ -40,15 +38,13 @@ export default async function ProductPage(params: PageProps<"/">) {
   }
 
   if (totalPages < 1) {
-    totalPages === 1;
+    totalPages = 1;
   }
 
   return (
     <main className="mx-auto max-w-7xl">
       <h1 className="text-3xl font-serif mt-16">All Products</h1>
-      <span className="text-black/60 mb-8 block mt-2">
-        {total} products found
-      </span>
+      <span className="text-black/60 mb-8 block mt-2">{total} products found</span>
 
       <FilterProducts categories={categories} />
 
