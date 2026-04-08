@@ -43,9 +43,9 @@ export default function Navigation({
   return (
     <header
       ref={menuRef}
-      className="sticky z-50 top-0 w-full bg-white/50 backdrop-blur-sm shadow-sm"
+      className="sticky z-50 top-0 w-full bg-white/50  shadow-sm"
     >
-      <nav className="flex items-center justify-between mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16">
+      <nav className="flex items-center justify-between backdrop-blur-sm shadow-sm mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16">
         <div className="flex-1">
           <Link
             className="text-xl font-serif font-bold tracking-tight shrink-0 hover:text-blue-400 transition-colors"
@@ -132,35 +132,22 @@ export default function Navigation({
         </div>
       </nav>
 
-      {/* Dropdown */}
-      {/* {isOpen && (
-        <div className="md:hidden border-t border-black px-6 py-2">
-          <ul className="flex flex-col gap-2 items-center">
-            {menuItems.map((item) => (
-              <li key={item.name}>
-                <Link
-                  href={item.href}
-                  className="text-md font-semibold block py-1 px-4 hover:text-blue-400 transition-colors"
-                  onClick={() => setIsOpen(false)}
-                >
-                  {item.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )} */}
-
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 1 }}
-            className="md:hidden border-t border-black  px-6 py-6 overflow-hidden"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{
+              height: { duration: 0.8, ease: "easeInOut" },
+              opacity: { duration: 1.2, ease: "easeInOut" },
+            }}
+            className="md:hidden absolute top-16 w-full
+              
+                 border-t border-black/20 backdrop-blur-sm bg-white/50 shadow-sm 
+                 overflow-hidden z-50"
           >
-            <ul className="flex flex-col gap-3 items-center ">
+            <ul className="flex flex-col gap-3 px-6 py-6 items-center">
               {menuItems.map((item) => (
                 <li key={item.name}>
                   <Link
