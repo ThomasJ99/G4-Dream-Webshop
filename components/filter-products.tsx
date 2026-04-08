@@ -9,6 +9,8 @@ export default function FilterProducts({ categories }: { categories: Category[] 
   const pathname = usePathname();
   const { replace } = useRouter();
 
+  const currentActive = searchParams.get("_categoryId") || "";
+
   const setParam = (key: string, value: string) => {
     const params = new URLSearchParams(searchParams);
 
@@ -45,7 +47,9 @@ export default function FilterProducts({ categories }: { categories: Category[] 
       <div className="hidden md:block">
         <button
           type="button"
-          className="cursor-pointer border-2 border-gray rounded-lg p-2 mr-2 mt-4"
+          className={`cursor-pointer rounded-lg p-2 mr-2 mt-4 border-2 ${
+            currentActive === "" ? "border-purple-800 bg-purple-800 text-white" : "border-gray-300"
+          }`}
           onClick={() => {
             setParam("_categoryId", "");
           }}
@@ -53,18 +57,23 @@ export default function FilterProducts({ categories }: { categories: Category[] 
           All
         </button>
 
-        {categories.map((category) => (
-          <button
-            type="button"
-            key={category.id}
-            className="cursor-pointer border-2 border-gray rounded-lg p-2 mr-2 mt-2"
-            onClick={() => {
-              setParam("_categoryId", category.id.toString());
-            }}
-          >
-            {category.name}
-          </button>
-        ))}
+        {categories.map((category) => {
+          const isActive = currentActive === category.id.toString();
+          return (
+            <button
+              type="button"
+              key={category.id}
+              className={`cursor-pointer rounded-lg p-2 mr-2 mt-2 border-2 ${
+                isActive ? "border-purple-800 bg-purple-800 text-white" : "border-gray-300"
+              }`}
+              onClick={() => {
+                setParam("_categoryId", category.id.toString());
+              }}
+            >
+              {category.name}
+            </button>
+          );
+        })}
       </div>
 
       {/* Category search dropdown */}
@@ -72,7 +81,7 @@ export default function FilterProducts({ categories }: { categories: Category[] 
         name="category"
         id="category"
         className="max-w-md rounded-lg border border-input bg-background p-2 mt-4 md:hidden"
-        defaultValue={searchParams.get("categoryId")?.toString() || ""}
+        value={currentActive}
         onChange={(e) => {
           setParam("_categoryId", e.target.value);
         }}
