@@ -18,6 +18,10 @@ export default function FilterProducts({ categories }: { categories: Category[] 
       params.delete(key);
     }
 
+    if (key === "_categoryId" || key === "_q") {
+      params.set("_page", "1");
+    }
+
     replace(`${pathname}?${params.toString()}`);
   };
 
@@ -32,7 +36,7 @@ export default function FilterProducts({ categories }: { categories: Category[] 
           className="w-full pl-10 pr-10 py-2.5 rounded-lg border border-input bg-background text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
           defaultValue={searchParams.get("q")?.toString() || ""}
           onChange={(e) => {
-            setParam("q", e.target.value);
+            setParam("_q", e.target.value);
           }}
         />
       </form>
@@ -43,7 +47,7 @@ export default function FilterProducts({ categories }: { categories: Category[] 
           type="button"
           className="cursor-pointer border-2 border-gray rounded-lg p-2 mr-2 mt-4"
           onClick={() => {
-            setParam("categoryId", "");
+            setParam("_categoryId", "");
           }}
         >
           All
@@ -55,7 +59,7 @@ export default function FilterProducts({ categories }: { categories: Category[] 
             key={category.id}
             className="cursor-pointer border-2 border-gray rounded-lg p-2 mr-2 mt-2"
             onClick={() => {
-              setParam("categoryId", category.id.toString());
+              setParam("_categoryId", category.id.toString());
             }}
           >
             {category.name}
@@ -70,7 +74,7 @@ export default function FilterProducts({ categories }: { categories: Category[] 
         className="max-w-md rounded-lg border border-input bg-background p-2 mt-4 md:hidden"
         defaultValue={searchParams.get("categoryId")?.toString() || ""}
         onChange={(e) => {
-          setParam("categoryId", e.target.value);
+          setParam("_categoryId", e.target.value);
         }}
       >
         <option value="">All categories</option>
