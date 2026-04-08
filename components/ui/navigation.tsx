@@ -92,34 +92,37 @@ export default function Navigation({
           {/* New BUTTON */}
           <div className="md:hidden">
             <button
-              className=" cursor-pointer p-2 rounded-sm w-10 h-10 flex hover:bg-blue-900/20 hover:text-blue-400 transition-colors focus:outline-none"
+              className="cursor-pointer p-2 rounded-sm w-10 h-10 flex hover:bg-blue-900/20 hover:text-blue-400 focus:outline-none"
               type="button"
               onClick={() => setIsOpen(!isOpen)}
             >
               <div
-                className={`flex flex-col items-center justify-center w-6 h-6 transition-all duration-1000 ${isOpen ? "gap-0" : "delay-600 gap-1.5"}`}
+                className={`flex flex-col items-center justify-center w-6 h-6`}
               >
                 {/* Top Bar Wrapper */}
                 <div
-                  className={`w-full transition-transform  ease-in-out ${isOpen ? "duration-800 delay-200 translate-y-[2px]" : "duration-800 translate-y-0 delay-600"}`}
+                  className={`w-full transition-transform ease-in-out ${isOpen ? "duration-400 delay-100 translate-y-[2px]" : "duration-400 translate-y-0 delay-300"}`}
                 >
                   <div
-                    className={`bg-current h-0.5 w-full rounded transition-transform duration-800 ease-in-out ${isOpen ? "duration-800 rotate-45 delay-800" : "duration-800 rotate-0 delay-0"}`}
+                    className={`bg-current h-[2px] w-full transition-transform duration-400 ease-in-out ${isOpen ? "duration-400 rotate-45 delay-400" : "duration-400 rotate-0 delay-0"}`}
                   />
                 </div>
 
                 {/* Middle Bar */}
-
                 <div
-                  className={`bg-current h-0.5 w-full transition-transform ease-in-out ${isOpen ? "duration-600 scale-x-0" : "duration-600 delay-800 scale-x-100"}`}
-                />
+                  className={`w-full transition-[margin] duration-500 ${isOpen ? "my-0" : "my-2 delay-300"}`}
+                >
+                  <div
+                    className={`bg-current h-[2px] w-full transition-transform ease-in-out ${isOpen ? "duration-300 scale-x-0" : "duration-300 delay-400 scale-x-100"}`}
+                  />
+                </div>
 
                 {/* Bottom Bar Wrapper */}
                 <div
-                  className={`w-full transition-transform  ease-in-out ${isOpen ? "duration-800 delay-200  -translate-y-[2px]" : "duration-800 translate-y-0 delay-600"}`}
+                  className={`w-full transition-transform ease-in-out ${isOpen ? "duration-400 delay-100 -translate-y-[2px]" : "duration-400 translate-y-0 delay-300"}`}
                 >
                   <div
-                    className={`bg-current h-0.5 w-full rounded transition-transform  ease-in-out ${isOpen ? "duration-800 -rotate-45 delay-800" : "duration-800 rotate-0 delay-0"}`}
+                    className={`bg-current h-[2px] w-full transition-transform ease-in-out ${isOpen ? "duration-400 -rotate-45 delay-400" : "duration-400 rotate-0 delay-0"}`}
                   />
                 </div>
               </div>
