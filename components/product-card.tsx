@@ -37,6 +37,11 @@ export function ProductCard({
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
             />
 
+            {/* Style as badges: look at lovable example */}
+            {product.availabilityStatus === "Out of Stock" && (
+              <div className="absolute inset-0 bg-background/60 flex items-center justify-center"></div>
+            )}
+
             {/* Product badges */}
             <div className="absolute top-3 left-3">
               <ProductBadge
@@ -47,6 +52,7 @@ export function ProductCard({
             </div>
           </div>
 
+          {/* Text below image */}
           <div className="space-y-1">
             <p className="text-xs text-muted-foreground uppercase tracking-wide">
               {category?.name}
@@ -55,7 +61,7 @@ export function ProductCard({
             <h3 className="font-medium text-foreground group-hover:underline underline-offset-4">
               {product.title}
             </h3>
-            
+
             <p className="text-sm text-muted-foreground">{`${product.price} kr`}</p>
           </div>
         </article>

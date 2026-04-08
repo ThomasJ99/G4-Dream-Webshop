@@ -15,14 +15,26 @@ export default function ProductBadge({
 }: ProductBadgeProps) {
 
   // If discound is 15 or above and it isnt undefined
-  if (discountPercentage !== undefined && discountPercentage >= 15) {
-    return <span>🔥 Hot</span>;
-  }
-
   if (availabilityStatus === "Out of Stock") {
-    return <span>Sold out</span>;
+    return (
+      <span className="bg-zinc-800 text-white text-xs font-semibold px-2.5 py-1 rounded-full">
+        Sold out
+      </span>
+    );
   }
 
-  if (stock <= 5 && stock !== undefined)
-    return <span>Only {stock} left</span>
+  if (discountPercentage !== undefined && discountPercentage >= 15) {
+    return (
+      <span className="bg-red-500 text-white text-xs font-semibold px-2.5 py-1 rounded-full">
+        Hot
+      </span>
+    );
+  }
+
+  if (stock !== undefined && stock <= 5 )
+    return (
+      <span className="bg-amber-500 text-white text-xs font-semibold px-2.5 py-1 rounded-full">
+        Only {stock} left
+      </span>
+    );
 }
