@@ -1,4 +1,5 @@
 "use client";
+import { AnimatePresence, motion } from "framer-motion";
 import { Menu, ShoppingCart, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -132,14 +133,13 @@ export default function Navigation({
       </nav>
 
       {/* Dropdown */}
-      {isOpen && (
+      {/* {isOpen && (
         <div className="md:hidden border-t border-black px-6 py-2">
           <ul className="flex flex-col gap-2 items-center">
             {menuItems.map((item) => (
               <li key={item.name}>
                 <Link
                   href={item.href}
-                  // rounded-sm hover:bg-blue-900/20
                   className="text-md font-semibold block py-1 px-4 hover:text-blue-400 transition-colors"
                   onClick={() => setIsOpen(false)}
                 >
@@ -149,7 +149,33 @@ export default function Navigation({
             ))}
           </ul>
         </div>
-      )}
+      )} */}
+
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 1 }}
+            className="md:hidden border-t border-black  px-6 py-6 overflow-hidden"
+          >
+            <ul className="flex flex-col gap-3 items-center ">
+              {menuItems.map((item) => (
+                <li key={item.name}>
+                  <Link
+                    href={item.href}
+                    className="text-md font-semibold block py-1 px-4 hover:text-blue-400 transition-colors"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {item.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }
