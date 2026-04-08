@@ -92,7 +92,7 @@ export default function Navigation({
           {/* New BUTTON */}
           <div className="md:hidden">
             <button
-              className="cursor-pointer p-2 rounded-sm w-10 h-10 flex hover:bg-blue-900/20 hover:text-blue-400 focus:outline-none"
+              className="cursor-pointer p-2 rounded-sm w-10 h-10 flex hover:bg-blue-900/20 hover:text-blue-400 transition-colors focus:outline-none"
               type="button"
               onClick={() => setIsOpen(!isOpen)}
             >
