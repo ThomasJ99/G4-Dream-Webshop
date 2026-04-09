@@ -14,16 +14,14 @@ A modern e-commerce storefront built with Next.js and Supabase, focused on scala
 
 ## Tech Stack
 
-| Tool | Purpose |
-|------|---------|
-| Next.js | Framework, App Router, Server Components |
-| TypeScript | Type safety |
-| Tailwind CSS | Styling |
-| Supabase | Database & authentication |
-| shadcn/ui | UI component primitives |
-| Framer Motion | Animations |
-| Lucide React | Icons |
-| Biome | Linting & formatting |
+ Next.js | Framework, App Router, Server Components 
+ TypeScript | Type safety 
+ Tailwind CSS | Styling 
+ Supabase | Database & *authentication* 
+ shadcn/ui | UI component primitives 
+ Framer Motion | Animations 
+ Lucide React | Icons 
+ Biome | Linting & formatting 
 
 ---
 
@@ -45,7 +43,7 @@ A modern e-commerce storefront built with Next.js and Supabase, focused on scala
 
 ### Filtering System
 Filters are driven entirely by URL parameters — no global state required:
-/products?_categoryId=3&_q=shirt&_limit=12&_page=2
+`/products?_categoryId=3&_q=shirt&_limit=12&_page=2`
 
 This gives you shareable filtered URLs, server-side filtering, and zero client-side state overhead.
 
@@ -62,6 +60,7 @@ The project follows a strict server/client split using Next.js App Router conven
 
 **Server components** handle data fetching, filtering, pagination, and layout rendering.  
 **Client components** handle interactions — filters, cart, favorites, and form submissions.
+```
 src/
 ├── app/
 │   ├── page.tsx
@@ -91,7 +90,7 @@ src/
 │   └── config.ts
 │
 └── utils/
-
+```
 ---
 
 ## Getting Started
