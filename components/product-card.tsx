@@ -48,6 +48,7 @@ export function ProductCard({
                 availabilityStatus={product.availabilityStatus}
                 discountPercentage={product.discountPercentage}
                 stock={product.stock}
+                rating={product.rating}
               />
             </div>
           </div>
