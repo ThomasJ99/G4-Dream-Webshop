@@ -43,7 +43,7 @@ export default async function ProductTable({
     _page: page.toString(),
   });
   const { products, pages, total } = await getProducts(params.toString());
-  console.log(page);
+
   const totalProducts = total ?? 0;
   const totalPages = Math.ceil(totalProducts);
 
