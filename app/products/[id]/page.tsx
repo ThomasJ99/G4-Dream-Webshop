@@ -1,4 +1,4 @@
-import { ChevronLeft } from "lucide-react";
+import { ChevronLeft, Package } from "lucide-react";
 import Form from "next/form";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { addToCart } from "@/lib/actions/cart-actions";
 import { getProductById } from "@/lib/db/products-db";
 import { formatPrice } from "@/utils/utils";
+import ProductBadge from "@/components/product-badge";
 
 export default async function ProductPage({
   params,
@@ -69,6 +70,16 @@ export default async function ProductPage({
           <p className="text-muted-foreground leading-relaxed">
             {product.description}
           </p>
+
+          <div className="inline-flex gap-2">
+            <Package className="text-slate-600 w-5" />
+            <ProductBadge
+              availabilityStatus={product.availabilityStatus}
+              discountPercentage={product.discountPercentage}
+              stock={product.stock}
+              rating={product.rating}
+            />
+          </div>
 
           {/* add to cart */}
           <Form action={addToCart}>
