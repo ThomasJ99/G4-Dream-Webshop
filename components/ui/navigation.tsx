@@ -139,8 +139,8 @@ export default function Navigation({
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{
-              height: { duration: 0.8, ease: "easeInOut" },
-              opacity: { duration: 1.2, ease: "easeInOut" },
+              height: { duration: 0.7, ease: "easeInOut" },
+              opacity: { duration: 0.7, ease: "easeInOut" },
             }}
             className="md:hidden absolute top-16 w-full
               
