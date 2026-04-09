@@ -16,7 +16,7 @@ export default function ProductBadge({
   stock,
   rating,
 }: ProductBadgeProps) {
-  // FÖR FRAMTIDA THOMAS: TÄNK PÅ PRIORITERING AV ALLA DESSA BADGES,
+  // FÖR FRAMTIDA MIG: TÄNK PÅ PRIORITERING AV ALLA DESSA BADGES,
   // VISSA VILL MAN NOG SKA HA HÖGRE PRIORITET ÄN ANDRA
 
   // If discound is 15 or above and it isnt undefined
@@ -28,13 +28,12 @@ export default function ProductBadge({
     );
   }
 
-  if (rating !== undefined && rating >= 4.5) {
+  if (stock !== undefined && stock <= 5)
     return (
-      <span className="bg-blue-400 text-white text-xs font-semibold px-2.5 py-1 rounded-full">
-        Popular
+      <span className="bg-amber-500 text-white text-xs font-semibold px-2.5 py-1 rounded-full">
+        Only {stock} left
       </span>
     );
-  }
 
   if (discountPercentage !== undefined && discountPercentage >= 15) {
     return (
@@ -44,10 +43,11 @@ export default function ProductBadge({
     );
   }
 
-  if (stock !== undefined && stock <= 5)
+  if (rating !== undefined && rating >= 4.5) {
     return (
-      <span className="bg-amber-500 text-white text-xs font-semibold px-2.5 py-1 rounded-full">
-        Only {stock} left
+      <span className="bg-blue-400 text-white text-xs font-semibold px-2.5 py-1 rounded-full">
+        Popular
       </span>
     );
+  }
 }
