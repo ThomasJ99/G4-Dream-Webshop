@@ -16,9 +16,6 @@ export default function ProductBadge({
   stock,
   rating,
 }: ProductBadgeProps) {
-  // FÖR FRAMTIDA MIG: TÄNK PÅ PRIORITERING AV ALLA DESSA BADGES,
-  // VISSA VILL MAN NOG SKA HA HÖGRE PRIORITET ÄN ANDRA
-
   // If discound is 15 or above and it isnt undefined
   if (availabilityStatus === "Out of Stock") {
     return (
@@ -50,4 +47,7 @@ export default function ProductBadge({
       </span>
     );
   }
+
+  // Return null here because they can be undefined
+  return null
 }
