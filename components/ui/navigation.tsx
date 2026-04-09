@@ -45,7 +45,7 @@ export default function Navigation({
       ref={menuRef}
       className="sticky z-50 top-0 w-full bg-white/50  shadow-sm"
     >
-      <nav className="flex items-center justify-between backdrop-blur-sm shadow-sm mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16">
+      <nav className="flex items-center justify-between backdrop-blur-sm mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16">
         <div className="flex-1">
           <Link
             className="text-xl font-serif font-bold tracking-tight shrink-0 hover:text-blue-400 transition-colors"
