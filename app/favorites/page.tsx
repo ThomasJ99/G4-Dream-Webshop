@@ -1,5 +1,6 @@
 import { ProductCard } from "@/components/product-card";
 import RemoveFavorite from "@/components/ui/delete-favorite";
+import { Skeleton } from "@/components/ui/skeleton";
 import { API_URL } from "@/lib/config";
 import { getFavorites } from "@/lib/db/favorites-db";
 
@@ -12,6 +13,9 @@ async function getProduct(id: number) {
 }
 
 export default async function Favorites() {
+  await new Promise((resolve) => setTimeout(resolve, 5000));
+  // await new Promise(() => {}); // This promise never resolves → loading.tsx stays forever
+
   const favorites = await getFavorites();
   const products = await Promise.all(
     favorites.map((fav: { product_id: number }) => getProduct(fav.product_id)),
