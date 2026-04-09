@@ -9,10 +9,9 @@ import { addToCart } from "@/lib/actions/cart-actions";
 import { getProductById } from "@/lib/db/products-db";
 import { formatPrice } from "@/utils/utils";
 import ProductBadge from "@/components/product-badge";
+import { getReviewsByProductId } from "@/lib/db/reviews-db";
 
-export default async function ProductPage({
-  params,
-}: PageProps<"/products/[id]">) {
+export default async function ProductPage({ params }: PageProps<"/products/[id]">) {
   const { id } = await params;
 
   let product = {};
@@ -22,9 +21,10 @@ export default async function ProductPage({
     notFound();
   }
 
+  const reviews = await getReviewsByProductId(id);
+
   const imgURL =
-    product.images?.[0] ||
-    "https://placehold.co/1000x1000/png?text=No image available";
+    product.images?.[0] || "https://placehold.co/1000x1000/png?text=No image available";
   const prettyPrice = formatPrice(product.price);
 
   return (
@@ -42,13 +42,7 @@ export default async function ProductPage({
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12">
         {/* image */}
         <div className="relative bg-secondary">
-          <Image
-            className="object-cover"
-            src={imgURL}
-            alt=""
-            width={1000}
-            height={1000}
-          />
+          <Image className="object-cover" src={imgURL} alt="" width={1000} height={1000} />
         </div>
 
         <section className="flex flex-col gap-8">
@@ -57,9 +51,7 @@ export default async function ProductPage({
             <p className="text-sm text-muted-foreground uppercase tracking-wide">
               {product.category.name}
             </p>
-            <h1 className="font-serif text-3xl sm:text-4xl font-medium">
-              {product.title}
-            </h1>
+            <h1 className="font-serif text-3xl sm:text-4xl font-medium">{product.title}</h1>
             <div className="flex items-end justify-between">
               <p className="text-2xl font-medium mt-4">{prettyPrice}</p>
               <AddFavorite productID={product.id} />
@@ -67,9 +59,7 @@ export default async function ProductPage({
           </div>
 
           {/* description */}
-          <p className="text-muted-foreground leading-relaxed">
-            {product.description}
-          </p>
+          <p className="text-muted-foreground leading-relaxed">{product.description}</p>
 
           <div className="inline-flex gap-2">
             <Package className="text-slate-600 w-5" />
@@ -90,25 +80,40 @@ export default async function ProductPage({
           </Form>
 
           {/* details and shipping */}
-          <div className="pt-8 border-t border-border space-y-4">
-            <div className="space-y-2">
-              <h3 className="text-sm font-semibold">Details</h3>
-              <ul className="text-sm text-muted-foreground space-y-1">
-                <li>Premium quality materials</li>
-                <li>Ethically manufactured</li>
-                <li>Designed in Stockholm</li>
-              </ul>
+          <section className="flex gap-32">
+            <div className="pt-8 border-t border-border space-y-4">
+              <div className="space-y-2">
+                <h3 className="text-sm font-semibold">Details</h3>
+                <ul className="text-sm text-muted-foreground space-y-1">
+                  <li>Premium quality materials</li>
+                  <li>Ethically manufactured</li>
+                  <li>Designed in Stockholm</li>
+                </ul>
+              </div>
+
+              <div className="space-y-2">
+                <h3 className="text-sm font-semibold">Shipping</h3>
+                <ul className="text-sm text-muted-foreground space-y-1">
+                  <li>{product.availabilityStatus}</li>
+                  <li>{product.shippingInformation}</li>
+                  <li>{product.warrantyInformation}</li>
+                </ul>
+              </div>
             </div>
 
-            <div className="space-y-2">
-              <h3 className="text-sm font-semibold">Shipping</h3>
+            <div className="pt-8 border-t border-border space-y-4">
+              <h3 className="text-sm font-semibold">Reviews</h3>
               <ul className="text-sm text-muted-foreground space-y-1">
-                <li>{product.availabilityStatus}</li>
-                <li>{product.shippingInformation}</li>
-                <li>{product.warrantyInformation}</li>
+                {reviews.map((review) => (
+                  <li>
+                    <i className="font-semibold">{review.reviewer_name}: </i>
+                    {review.comment}
+                    <p>{review.rating}/5</p>
+                  </li>
+                ))}
               </ul>
             </div>
-          </div>
+          </section>
         </section>
       </div>
     </main>
