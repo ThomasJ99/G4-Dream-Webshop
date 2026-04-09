@@ -183,13 +183,11 @@ export async function PUT(
 // DELETE /api/products/[id] - Delete a product
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
-    const { error } = await supabase
-      .from("products")
-      .delete()
-      .eq("id", params.id);
+    const { id } = await params;
+    const { error } = await supabase.from("products").delete().eq("id", id);
 
     if (error) {
       console.error("Supabase error:", error);

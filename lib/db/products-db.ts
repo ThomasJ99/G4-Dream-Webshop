@@ -65,3 +65,22 @@ export async function updateProduct(
 }
 
 //#endregion
+
+//#region DELETE
+
+export async function deleteProduct(id: string): Promise<Response> {
+  try {
+    const response = await fetch(`${API_URL}/api/products/${id}`, {
+      method: "DELETE",
+    });
+
+    return response;
+  } catch (error) {
+    if (error instanceof Error) {
+      throw new Error(error.message);
+    }
+    throw new Error("Failed to delete product");
+  }
+}
+
+//
