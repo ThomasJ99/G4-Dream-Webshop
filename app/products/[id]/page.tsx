@@ -9,7 +9,6 @@ import { addToCart } from "@/lib/actions/cart-actions";
 import { getProductById } from "@/lib/db/products-db";
 import { formatPrice } from "@/utils/utils";
 import { getReviewsByProductId } from "@/lib/db/reviews-db";
-import { li } from "framer-motion/client";
 
 export default async function ProductPage({ params }: PageProps<"/products/[id]">) {
   const { id } = await params;
@@ -92,12 +91,13 @@ export default async function ProductPage({ params }: PageProps<"/products/[id]"
             </div>
 
             <div className="pt-8 border-t border-border space-y-4">
-              <h3 className="text-sm font-semibold">Reviews:</h3>
+              <h3 className="text-sm font-semibold">Reviews</h3>
               <ul className="text-sm text-muted-foreground space-y-1">
                 {reviews.map((review) => (
                   <li>
                     <i className="font-semibold">{review.reviewer_name}: </i>
                     {review.comment}
+                    <p>{review.rating}/5</p>
                   </li>
                 ))}
               </ul>
