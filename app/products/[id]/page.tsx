@@ -71,6 +71,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[id]"
             {product.description}
           </p>
 
+          {/* Handles badge on product page, checks if theres a badge, if not, dont render */}
           {hasBadge({
             availabilityStatus: product.availabilityStatus,
             stock: product.stock,
