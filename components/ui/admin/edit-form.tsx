@@ -1,20 +1,25 @@
 import Form from "next/form";
-import { updateProduct } from "@/lib/actions";
+import { updateProductAction } from "@/lib/actions/product-actions";
 import { API_URL } from "@/lib/config";
-import type { Product, Category } from "@/lib/types";
+import type { Category, Product } from "@/lib/types";
 
 export default async function EditForm({ product }: { product: Product }) {
- 
-  const categories: Category[] = await fetch(`${API_URL}/categories`).then(
-    (res) => res.json()
+  const categories: Category[] = await fetch(`${API_URL}/api/categories`).then(
+    (res) => res.json(),
   );
 
   return (
-    <Form action={updateProduct} className="w-full bg-[var(--color-bg)] p-12 rounded-3xl shadow-xl border border-[var(--color-border)]">
+    <Form
+      action={updateProductAction}
+      className="w-full bg-[var(--color-bg)] p-12 rounded-3xl shadow-xl border border-[var(--color-border)]"
+    >
       <input type="hidden" name="id" value={product.id} />
 
       <div className="grid grid-cols-[auto_1fr] gap-x-8 gap-y-6 items-center">
-        <label className="font-medium text-[var(--color-text-secondary)]" htmlFor="title">
+        <label
+          className="font-medium text-[var(--color-text-secondary)]"
+          htmlFor="title"
+        >
           Title
         </label>
         <input
@@ -28,7 +33,10 @@ export default async function EditForm({ product }: { product: Product }) {
           required
         />
 
-        <label className="font-medium text-[var(--color-text-secondary)]" htmlFor="brand">
+        <label
+          className="font-medium text-[var(--color-text-secondary)]"
+          htmlFor="brand"
+        >
           Brand
         </label>
         <input
@@ -40,7 +48,10 @@ export default async function EditForm({ product }: { product: Product }) {
           required
         />
 
-        <label className="font-medium text-[var(--color-text-secondary)]" htmlFor="price">
+        <label
+          className="font-medium text-[var(--color-text-secondary)]"
+          htmlFor="price"
+        >
           Price
         </label>
         <input
@@ -55,7 +66,10 @@ export default async function EditForm({ product }: { product: Product }) {
           required
         />
 
-        <label className="font-medium text-[var(--color-text-secondary)]" htmlFor="stock">
+        <label
+          className="font-medium text-[var(--color-text-secondary)]"
+          htmlFor="stock"
+        >
           Stock
         </label>
         <input
@@ -67,7 +81,10 @@ export default async function EditForm({ product }: { product: Product }) {
           required
         />
 
-        <label className="font-medium text-[var(--color-text-secondary)]" htmlFor="categoryId">
+        <label
+          className="font-medium text-[var(--color-text-secondary)]"
+          htmlFor="categoryId"
+        >
           Category
         </label>
         <select
@@ -87,7 +104,10 @@ export default async function EditForm({ product }: { product: Product }) {
           ))}
         </select>
 
-        <label className="font-medium text-[var(--color-text-secondary)]" htmlFor="description">
+        <label
+          className="font-medium text-[var(--color-text-secondary)]"
+          htmlFor="description"
+        >
           Description
         </label>
         <textarea
@@ -100,7 +120,10 @@ export default async function EditForm({ product }: { product: Product }) {
           required
         />
 
-        <label className="font-medium text-[var(--color-text-secondary)]" htmlFor="thumbnail">
+        <label
+          className="font-medium text-[var(--color-text-secondary)]"
+          htmlFor="thumbnail"
+        >
           Thumbnail
         </label>
         <input
@@ -122,14 +145,3 @@ export default async function EditForm({ product }: { product: Product }) {
     </Form>
   );
 }
-
-
-
-
-
-
-
-
-
-
-

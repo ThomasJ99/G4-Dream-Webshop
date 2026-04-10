@@ -1,3 +1,5 @@
+import { Toaster } from "react-hot-toast";
+import { ToastListener } from "@/components/toast-listener";
 import Header from "@/components/ui/admin/header";
 import ProductTable from "@/components/ui/admin/product-table";
 import Sidebar from "@/components/ui/admin/sidebar";
@@ -8,8 +10,31 @@ import { getCategories } from "@/lib/db/categories-db";
 export default async function Admin(params: PageProps<"/">) {
   const categories = await getCategories();
 
+import { getFeaturedProducts, getProducts } from "@/lib/db/products-db";
+import InventoryWidget from "../../components/ui/admin/dashboard-widget";
+import SearchWidget from "../../components/ui/admin/search-widget";
+
+const defaultLimit = "6";
+
+export default async function Admin(params: PageProps<"/">) {
+  // we use the fetch() method to get the products from the API
+  // in this fetch we sort using _sort and _order and we limit the number of products using _limit
+  // we also use _expand to get the relational category data
+  // we can use the other destructed variables like page, total and so on to create pagination or show info
+  const defaultParams = new URLSearchParams({
+    _limit: defaultLimit.toString(),
+  });
+  const { page = "1", limit = "5", q = "" } = await params.searchParams;
+  const searchParams = new URLSearchParams({
+    _limit: limit.toString(),
+    _page: page.toString(),
+  });
+  const allProductResponse = await getProducts(searchParams.toString());
+  const featuredProducts = await getFeaturedProducts();
   return (
     <main className="flex flex-row min-h-screen">
+      <Toaster position="top-center" />
+      <ToastListener />
       <Sidebar />
 
       <section className="flex flex-col w-full gap-4 bg-gray-100">
@@ -17,7 +42,17 @@ export default async function Admin(params: PageProps<"/">) {
         <div className="pr-4 pl-4 pb-4 flex flex-col gap-4">
           <InventoryWidget />
           <SearchWidget categories={categories} />
-          <ProductTable searchParams={params.searchParams} />
+          <ProductTable
+            searchParams={params.searchParams}
+            productResponse={allProductResponse}
+            tableType="all"
+          />
+          <h2 className={`mt-4 text-2xl leading-tight`}>Featured Products</h2>
+          <ProductTable
+            searchParams={params.searchParams}
+            productResponse={featuredProducts}
+            tableType="featured"
+          />
         </div>
       </section>
 

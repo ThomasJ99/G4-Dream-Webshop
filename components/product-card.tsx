@@ -17,7 +17,9 @@ export function ProductCard({
   index = 0,
 }: ProductCardProps) {
   // Choose the first image in the array of image urls
-  const firstImage = product.images?.[0];
+  const imgURL =
+    product.images?.[0] ||
+    "https://placehold.co/1000x1000/png?text=No image available";
 
   return (
     <motion.div
@@ -30,7 +32,7 @@ export function ProductCard({
         <article className="space-y-3">
           <div className="aspect-3/4 relative overflow-hidden rounded-lg bg-secondary">
             <Image
-              src={firstImage}
+              src={imgURL}
               alt={product.title}
               fill
               className="object-cover transition-transform duration-500 group-hover:scale-105"

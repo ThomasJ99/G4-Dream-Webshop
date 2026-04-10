@@ -24,12 +24,12 @@ export function ToastListener() {
       toast.success("Product updated successfully!");
       const newParams = new URLSearchParams(searchParams.toString());
       newParams.delete("status");
-      router.replace(`/?${newParams.toString()}`);
+      router.push(`/?${newParams.toString()}`);
     } else if (status === "deleted") {
       toast.success("Product deleted successfully!");
       const newParams = new URLSearchParams(searchParams.toString());
       newParams.delete("status");
-      router.replace(`/?${newParams.toString()}`);
+      router.push(`/?${newParams.toString()}`);
     }
   }, [searchParams, router]);
 

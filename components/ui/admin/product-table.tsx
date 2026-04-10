@@ -1,10 +1,15 @@
-import { FilePenLine } from "lucide-react";
+import { FilePenLine, SmilePlus, SquareMinus } from "lucide-react";
+import Form from "next/form";
 import Image from "next/image";
 import Link from "next/link";
 import { ProductActions } from "@/components/ui/admin/delete-actions";
+import {
+  addToFeaturedProductsById,
+  removeFeaturedProductById,
+} from "@/lib/actions/product-actions";
 import { getCategories } from "@/lib/db/categories-db";
-import { getProducts } from "@/lib/db/products-db";
-import type { Category } from "@/lib/types";
+import { getFeaturedProducts, getProducts } from "@/lib/db/products-db";
+import type { Category, ProductsResponse } from "@/lib/types";
 import { getSearchParamsAsString } from "@/utils/getSearchParams";
 import ProductTablePagination from "./product-table-pagination";
 
@@ -28,27 +33,27 @@ function titleCaseWord(word: string) {
 
 export default async function ProductTable({
   searchParams,
+  productResponse,
+  tableType,
 }: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+  productResponse: ProductsResponse;
+  tableType: string;
 }) {
-  const { page = "1", limit = "5", _categoryId = "", q = "" } = await searchParams;
+  const { products, pages, total } = productResponse;
 
-  const currentLimit = getSearchParamsAsString(limit) as string;
-  const currentPage = getSearchParamsAsString(page) as string;
-  const currentCategoryId = getSearchParamsAsString(_categoryId) as string;
-  const currentQuery = getSearchParamsAsString(q) as string;
-
-  const params = new URLSearchParams({
-    _limit: currentLimit.toString(),
-    _page: currentPage.toString(),
-    _q: currentQuery.toString(),
-    _categoryId: currentCategoryId.toString(),
-  });
-
-  const { products, pages, total } = await getProducts(params.toString());
-
+  // Calculate pages
   const totalProducts = total ?? 0;
-  const totalPages = Math.ceil(totalProducts);
+  const leftover = totalProducts % 8;
+  let totalPages = (totalProducts - leftover) / 8;
+
+  if (leftover > 0) {
+    totalPages += 1;
+  }
+
+  if (totalPages < 1) {
+    totalPages = 1;
+  }
 
   const categories: Category[] = await getCategories();
 
@@ -102,21 +107,59 @@ export default async function ProductTable({
                     ? "Low Stock"
                     : "In Stock"}
               </td>
-              <td className={`${tdStyle}`}>
-                <Link href={`/products/edit/${product.id}`}>
-                  <button type="button" className="mr-1">
-                    <FilePenLine color="purple" size={24} />
-                  </button>
-                </Link>
-
-                <ProductActions id={String(product.id)} />
+              <td className={`${tdStyle} space-x-1.5`}>
+                {tableType === "all" ? (
+                  <div>
+                    <Form
+                      className="inline-flex "
+                      action={addToFeaturedProductsById}
+                    >
+                      <input
+                        type="hidden"
+                        name="product_id"
+                        value={product.id}
+                      ></input>
+                      <button type="submit">
+                        <SmilePlus color="blue" size={24}></SmilePlus>
+                      </button>
+                    </Form>
+                    <Link href={`/products/edit/${product.id}`}>
+                      <button type="button" className="mr-1">
+                        <FilePenLine color="purple" size={24} />
+                      </button>
+                    </Link>
+                    <ProductActions id={String(product.id)} />
+                  </div>
+                ) : tableType === "featured" ? (
+                  <Form
+                    className="inline-flex "
+                    action={removeFeaturedProductById}
+                  >
+                    <input
+                      type="hidden"
+                      name="product_id"
+                      value={product.id}
+                    ></input>
+                    <button type="submit">
+                      <SquareMinus color="red" size={24}></SquareMinus>
+                    </button>
+                  </Form>
+                ) : (
+                  <div></div>
+                )}
               </td>
             </tr>
           ))}
         </tbody>
       </table>
       <div className="p-4 bg-gray-50 border-t border-t-gray-300 rounded-b-2xl">
-        <ProductTablePagination totalPages={totalPages ?? 0}></ProductTablePagination>
+        {tableType === "all" ? (
+          <ProductTablePagination
+            totalPages={totalPages ?? 0}
+          ></ProductTablePagination>
+        ) : (
+          <div></div>
+        )}
       </div>
     </div>
   );
