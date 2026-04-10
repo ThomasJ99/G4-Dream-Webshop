@@ -14,7 +14,7 @@ export default async function CategoryGrid() {
     <section className="py-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between mb-8">
-          <h2 className="font-serif text-2xl sm:text-3xl">Shop by Category</h2>
+          <h2 className="font-serif text-2xl sm:text-3xl tracking-tight">Shop by Category</h2>
 
           <Link
             href={"/products"}
@@ -40,9 +40,9 @@ export default async function CategoryGrid() {
                 />
 
                 {/* Adds bg to card on the bottom for text to pop */}
-                <div className="absolute inset-0 bg-linear-to-t from-black/50 to-transparent"></div>
+                <div className="absolute inset-x-0 bottom-0 h-[40%] bg-linear-to-t from-black to-transparent" />
                 <div className="absolute bottom-6 left-6 right-6">
-                  <h3 className="text-white text-xl leading-relaxed">
+                  <h3 className="text-white text-xl leading-relaxed font-semibold">
                     {category.name}
                   </h3>
                   <span className="text-white/80 text-sm">
