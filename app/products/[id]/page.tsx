@@ -1,4 +1,4 @@
-import { ChevronLeft } from "lucide-react";
+import { ChevronLeft, Package } from "lucide-react";
 import Form from "next/form";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,10 +8,10 @@ import { Button } from "@/components/ui/button";
 import { addToCart } from "@/lib/actions/cart-actions";
 import { getProductById } from "@/lib/db/products-db";
 import { formatPrice } from "@/utils/utils";
+import ProductBadge, { hasBadge } from "@/components/product-badge";
+import { getReviewsByProductId } from "@/lib/db/reviews-db";
 
-export default async function ProductPage({
-  params,
-}: PageProps<"/products/[id]">) {
+export default async function ProductPage({ params }: PageProps<"/products/[id]">) {
   const { id } = await params;
 
   let product = {};
@@ -21,9 +21,10 @@ export default async function ProductPage({
     notFound();
   }
 
+  const reviews = await getReviewsByProductId(id);
+
   const imgURL =
-    product.images?.[0] ||
-    "https://placehold.co/1000x1000/png?text=No image available";
+    product.images?.[0] || "https://placehold.co/1000x1000/png?text=No image available";
   const prettyPrice = formatPrice(product.price);
 
   return (
@@ -70,6 +71,24 @@ export default async function ProductPage({
             {product.description}
           </p>
 
+          {/* Handles badge on product page, checks if theres a badge, if not, dont render */}
+          {hasBadge({
+            availabilityStatus: product.availabilityStatus,
+            stock: product.stock,
+            discountPercentage: product.discountPercentage,
+            rating: product.rating,
+          }) && (
+            <div className="inline-flex gap-2">
+              <Package className="text-slate-600 w-5" />
+              <ProductBadge
+                availabilityStatus={product.availabilityStatus}
+                discountPercentage={product.discountPercentage}
+                stock={product.stock}
+                rating={product.rating}
+              />
+            </div>
+          )}
+
           {/* add to cart */}
           <Form action={addToCart}>
             <input type="hidden" name="product_id" value={product.id}></input>
@@ -79,25 +98,40 @@ export default async function ProductPage({
           </Form>
 
           {/* details and shipping */}
-          <div className="pt-8 border-t border-border space-y-4">
-            <div className="space-y-2">
-              <h3 className="text-sm font-semibold">Details</h3>
-              <ul className="text-sm text-muted-foreground space-y-1">
-                <li>Premium quality materials</li>
-                <li>Ethically manufactured</li>
-                <li>Designed in Stockholm</li>
-              </ul>
+          <section className="flex gap-32">
+            <div className="pt-8 border-t border-border space-y-4">
+              <div className="space-y-2">
+                <h3 className="text-sm font-semibold">Details</h3>
+                <ul className="text-sm text-muted-foreground space-y-1">
+                  <li>Premium quality materials</li>
+                  <li>Ethically manufactured</li>
+                  <li>Designed in Stockholm</li>
+                </ul>
+              </div>
+
+              <div className="space-y-2">
+                <h3 className="text-sm font-semibold">Shipping</h3>
+                <ul className="text-sm text-muted-foreground space-y-1">
+                  <li>{product.availabilityStatus}</li>
+                  <li>{product.shippingInformation}</li>
+                  <li>{product.warrantyInformation}</li>
+                </ul>
+              </div>
             </div>
 
-            <div className="space-y-2">
-              <h3 className="text-sm font-semibold">Shipping</h3>
+            <div className="pt-8 border-t border-border space-y-4">
+              <h3 className="text-sm font-semibold">Reviews</h3>
               <ul className="text-sm text-muted-foreground space-y-1">
-                <li>{product.availabilityStatus}</li>
-                <li>{product.shippingInformation}</li>
-                <li>{product.warrantyInformation}</li>
+                {reviews.map((review) => (
+                  <li key={review.id}>
+                    <i className="font-semibold">{review.reviewer_name}: </i>
+                    {review.comment}
+                    <p>{review.rating}/5</p>
+                  </li>
+                ))}
               </ul>
             </div>
-          </div>
+          </section>
         </section>
       </div>
     </main>

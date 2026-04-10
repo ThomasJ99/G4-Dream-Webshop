@@ -48,7 +48,7 @@ export default function FilterProducts({ categories }: { categories: Category[] 
         <button
           type="button"
           className={`cursor-pointer rounded-lg p-2 mr-2 mt-4 border-2 ${
-            currentActive === "" ? "border-purple-800 bg-purple-800 text-white" : "border-gray-300"
+            currentActive === "" ? "border-blue-600 bg-blue-600 text-white" : "border-gray-300"
           }`}
           onClick={() => {
             setParam("_categoryId", "");
@@ -64,7 +64,7 @@ export default function FilterProducts({ categories }: { categories: Category[] 
               type="button"
               key={category.id}
               className={`cursor-pointer rounded-lg p-2 mr-2 mt-2 border-2 ${
-                isActive ? "border-purple-800 bg-purple-800 text-white" : "border-gray-300"
+                isActive ? "border-blue-600 bg-blue-600 text-white" : "border-gray-300"
               }`}
               onClick={() => {
                 setParam("_categoryId", category.id.toString());
