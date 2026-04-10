@@ -1,4 +1,6 @@
+import { NextResponse } from "next/server";
 import type { Product, ProductsResponse } from "@/lib/types";
+import { supabase } from "@/supabaseClient";
 import { API_URL } from "../config";
 
 //#region GET
@@ -37,6 +39,30 @@ export async function getProductById(id: string): Promise<Product> {
       throw new Error(error.message);
     }
     throw new Error("Failed to fetch product");
+  }
+}
+
+export async function getFeaturedProducts(): Promise<ProductsResponse> {
+  try {
+    const { data, error } = await supabase
+      .from("featured_products")
+      .select(`product_id`);
+
+    const productIds = data?.map((i) => i.product_id) as string[];
+    if (data) {
+      const { data, error, count } = await supabase
+        .from("products")
+        .select(`*`, { count: "exact" })
+        .in("id", productIds);
+
+      const response: ProductsResponse = { products: data as Product[] };
+
+      return response;
+    }
+    const response: ProductsResponse = { products: [] };
+    return response;
+  } catch (error) {
+    throw new Error("Could not find featured products");
   }
 }
 

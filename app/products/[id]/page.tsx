@@ -3,15 +3,17 @@ import Form from "next/form";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import ProductBadge, { hasBadge } from "@/components/product-badge";
 import AddFavorite from "@/components/ui/add-favorite";
 import { Button } from "@/components/ui/button";
 import { addToCart } from "@/lib/actions/cart-actions";
 import { getProductById } from "@/lib/db/products-db";
-import { formatPrice } from "@/utils/utils";
-import ProductBadge, { hasBadge } from "@/components/product-badge";
 import { getReviewsByProductId } from "@/lib/db/reviews-db";
+import { formatPrice } from "@/utils/utils";
 
-export default async function ProductPage({ params }: PageProps<"/products/[id]">) {
+export default async function ProductPage({
+  params,
+}: PageProps<"/products/[id]">) {
   const { id } = await params;
 
   let product = {};
@@ -24,7 +26,8 @@ export default async function ProductPage({ params }: PageProps<"/products/[id]"
   const reviews = await getReviewsByProductId(id);
 
   const imgURL =
-    product.images?.[0] || "https://placehold.co/1000x1000/png?text=No image available";
+    product.images?.[0] ||
+    "https://placehold.co/1000x1000/png?text=No image available";
   const prettyPrice = formatPrice(product.price);
 
   return (
