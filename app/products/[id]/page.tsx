@@ -1,4 +1,4 @@
-import { ChevronLeft } from "lucide-react";
+import { ChevronLeft, Package } from "lucide-react";
 import Form from "next/form";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { addToCart } from "@/lib/actions/cart-actions";
 import { getProductById } from "@/lib/db/products-db";
 import { formatPrice } from "@/utils/utils";
+import ProductBadge, { hasBadge } from "@/components/product-badge";
 import { getReviewsByProductId } from "@/lib/db/reviews-db";
 
 export default async function ProductPage({ params }: PageProps<"/products/[id]">) {
@@ -41,7 +42,13 @@ export default async function ProductPage({ params }: PageProps<"/products/[id]"
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12">
         {/* image */}
         <div className="relative bg-secondary">
-          <Image className="object-cover" src={imgURL} alt="" width={1000} height={1000} />
+          <Image
+            className="object-cover"
+            src={imgURL}
+            alt=""
+            width={1000}
+            height={1000}
+          />
         </div>
 
         <section className="flex flex-col gap-8">
@@ -50,7 +57,9 @@ export default async function ProductPage({ params }: PageProps<"/products/[id]"
             <p className="text-sm text-muted-foreground uppercase tracking-wide">
               {product.category.name}
             </p>
-            <h1 className="font-serif text-3xl sm:text-4xl font-medium">{product.title}</h1>
+            <h1 className="font-serif text-3xl sm:text-4xl font-medium">
+              {product.title}
+            </h1>
             <div className="flex items-end justify-between">
               <p className="text-2xl font-medium mt-4">{prettyPrice}</p>
               <AddFavorite productID={product.id} />
@@ -58,7 +67,27 @@ export default async function ProductPage({ params }: PageProps<"/products/[id]"
           </div>
 
           {/* description */}
-          <p className="text-muted-foreground leading-relaxed">{product.description}</p>
+          <p className="text-muted-foreground leading-relaxed">
+            {product.description}
+          </p>
+
+          {/* Handles badge on product page, checks if theres a badge, if not, dont render */}
+          {hasBadge({
+            availabilityStatus: product.availabilityStatus,
+            stock: product.stock,
+            discountPercentage: product.discountPercentage,
+            rating: product.rating,
+          }) && (
+            <div className="inline-flex gap-2">
+              <Package className="text-slate-600 w-5" />
+              <ProductBadge
+                availabilityStatus={product.availabilityStatus}
+                discountPercentage={product.discountPercentage}
+                stock={product.stock}
+                rating={product.rating}
+              />
+            </div>
+          )}
 
           {/* add to cart */}
           <Form action={addToCart}>

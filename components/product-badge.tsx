@@ -51,3 +51,13 @@ export default function ProductBadge({
   // Return null here because they can be undefined
   return null
 }
+
+export function hasBadge(props: ProductBadgeProps): boolean {
+  return (
+    props.availabilityStatus === "Out of Stock" ||
+    (props.stock !== undefined && props.stock <= 5) ||
+    (props.discountPercentage !== undefined &&
+      props.discountPercentage >= 15) ||
+    (props.rating !== undefined && props.rating >= 4.5)
+  );
+}
