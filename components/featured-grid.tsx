@@ -1,13 +1,37 @@
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { getProducts } from "@/lib/db/products-db";
+import { getFeaturedProducts, getProducts } from "@/lib/db/products-db";
 import { ProductCard } from "./product-card";
 
 export default async function FeaturedGrid() {
   // TODO: REMOVE THIS LINE OF CODE LATER, GOOD TO TEST SKELETONS
   //   await new Promise((resolve) => setTimeout(resolve, 2000));
 
-  const featuredProducts = (await getProducts()).products.slice(0, 4);
+  const featuredProducts = (await getFeaturedProducts()).products;
+
+  const randomFeaturedProducts = [];
+
+  const productIndexes = [];
+  let j = 0;
+  //create numbers array to keep track of which indexes are picked
+  for (const item in featuredProducts) {
+    productIndexes.push(j);
+    j++;
+  }
+  //loop through and make sure there are no duplicates
+  for (let i = 0; i < 4; i++) {
+    const randomNum = Math.random();
+    const length = productIndexes.length;
+    const selectIndex = Math.floor(length * randomNum);
+
+    const selectProductIndex = featuredProducts[productIndexes[selectIndex]];
+
+    //remove picked number from the "tracking" array to avoid duplicates type thing
+    productIndexes.splice(selectIndex, 1);
+    //console.log(productIndexes);
+
+    randomFeaturedProducts.push(selectProductIndex);
+  }
 
   return (
     <section className="py-16">
@@ -25,7 +49,7 @@ export default async function FeaturedGrid() {
 
         <span className="text-black/80 mb-8 block">Popular right now</span>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {featuredProducts.map((product, index) => (
+          {randomFeaturedProducts.map((product, index) => (
             <ProductCard key={product.id} product={product} index={index} />
           ))}
         </div>

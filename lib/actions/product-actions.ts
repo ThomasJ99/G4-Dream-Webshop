@@ -1,7 +1,8 @@
 "use server";
-import { revalidatePath } from "next/cache";
+import { refresh, revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { URLSearchParams } from "url";
+import { supabase } from "@/supabaseClient";
 import { deleteProduct, updateProduct } from "../db/products-db";
 
 export type ActionState = {
@@ -77,4 +78,32 @@ export async function deleteProductActionState(
     data: null,
     timestamp: Date.now(),
   };
+}
+
+export async function addToFeaturedProductsById(formData: FormData) {
+  const productId = formData.get("product_id") as string;
+
+  const productData = {
+    product_id: productId,
+  };
+
+  const { data, error } = await supabase
+    .from("featured_products")
+    .insert([productData])
+    .select(`*`);
+
+  console.log("data" + data);
+  console.log(error);
+
+  refresh();
+}
+export async function removeFeaturedProductById(formData: FormData) {
+  const productId = formData.get("product_id") as string;
+
+  const { error } = await supabase
+    .from("featured_products")
+    .delete()
+    .eq("product_id", productId);
+
+  refresh();
 }
