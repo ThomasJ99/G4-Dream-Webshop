@@ -44,8 +44,18 @@ export default async function ProductTable({
   });
   const { products, pages, total } = await getProducts(params.toString());
 
+  // Calculate pages
   const totalProducts = total ?? 0;
-  const totalPages = Math.ceil(totalProducts);
+  const leftover = totalProducts % 8;
+  let totalPages = (totalProducts - leftover) / 8;
+
+  if (leftover > 0) {
+    totalPages += 1;
+  }
+
+  if (totalPages < 1) {
+    totalPages = 1;
+  }
 
   const categories: Category[] = await getCategories();
 
