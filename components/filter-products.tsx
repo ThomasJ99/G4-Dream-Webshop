@@ -28,7 +28,7 @@ export default function FilterProducts({ categories }: { categories: Category[] 
   };
 
   return (
-    <section className="mt-16">
+    <section>
       {/* Search by text */}
       <form action="" className="relative max-w-md">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />

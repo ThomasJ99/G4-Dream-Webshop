@@ -1,9 +1,9 @@
 "use client";
 
 import { Trash } from "lucide-react";
-import { useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { deleteProductActionState } from "@/lib/actions";
+import { useTransition } from "react";
+import { deleteProductActionState } from "@/lib/actions/product-actions";
 
 export function ProductActions({ id }: { id: string }) {
   // Track if server action is running
@@ -18,11 +18,11 @@ export function ProductActions({ id }: { id: string }) {
       // Call server action to delete product
       await deleteProductActionState(
         { data: null, timestamp: Date.now() },
-        formData
+        formData,
       );
 
       // Change URL - ToastListener reacts to this
-      router.push("/?status=deleted");
+      router.push("?status=deleted");
     });
   };
 

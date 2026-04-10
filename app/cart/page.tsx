@@ -9,6 +9,9 @@ import { supabase } from "@/supabaseClient";
 import { formatPrice } from "@/utils/utils";
 
 export default async function Cart() {
+  // TODO: REMOVE THIS LINE OF CODE LATER, GOOD TO TEST SKELETONS
+  // await new Promise((resolve) => setTimeout(resolve, 2000))
+
   const cookieStore = await cookies();
   const cartId = cookieStore.get("cartId")?.value as string;
   const reqParams = new URLSearchParams({
@@ -64,7 +67,7 @@ export default async function Cart() {
         <h1 className="font-serif text-3xl sm:text-4xl leading-relaxed">
           Shopping Cart
         </h1>
-        {/* TODO: LOGIC FOR AMOUNT OF ITEMS */}
+
         <span className="text-muted-foreground">
           {productsWithQuantity ? productsWithQuantity.length : "0"} items in
           your cart
