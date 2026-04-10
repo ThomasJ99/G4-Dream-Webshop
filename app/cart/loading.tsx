@@ -5,9 +5,9 @@ export default function CartSkeleton() {
     <main>
       {/* Persistent */}
       <header className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
-        <Skeleton className="h-4 w-38 mb-4" />
+        <Skeleton className="h-4 w-36 mb-4" />
         <Skeleton className="h-10 w-60 mb-2" />
-        <Skeleton className="h-4 w-32" />
+        <Skeleton className="h-4 w-36" />
       </header>
 
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-3 gap-12">
