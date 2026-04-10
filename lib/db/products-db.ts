@@ -44,4 +44,43 @@ export async function getProductById(id: string): Promise<Product> {
 
 //#region UPDATE
 
+export async function updateProduct(
+  id: string,
+  params?: string,
+): Promise<Product> {
+  try {
+    console.log("PARAMS: " + params);
+    const response = await fetch(`${API_URL}/api/products/${id}/?${params}`, {
+      method: "PUT",
+    });
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    if (error instanceof Error) {
+      throw new Error(error.message);
+    }
+    throw new Error("Failed to update product");
+  }
+}
+
 //#endregion
+
+//#region DELETE
+
+export async function deleteProduct(id: string): Promise<Response> {
+  try {
+    const response = await fetch(`${API_URL}/api/products/${id}`, {
+      method: "DELETE",
+    });
+
+    return response;
+  } catch (error) {
+    if (error instanceof Error) {
+      throw new Error(error.message);
+    }
+    throw new Error("Failed to delete product");
+  }
+}
+
+//
