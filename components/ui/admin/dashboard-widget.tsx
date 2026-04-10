@@ -2,6 +2,7 @@ import "server-only";
 import { AlertTriangle, CheckCircle2, Package2, XCircle } from "lucide-react";
 import { getInventoryProducts } from "@/lib/db";
 import type { Product } from "@/lib/types";
+import { getProducts } from "@/lib/db/products-db";
 
 type ProductForInventoryWidget = Pick<Product, "stock">;
 
@@ -14,39 +15,33 @@ const getAvailabilityStatus = (stock: number | null | undefined) => {
 
 export default async function InventoryWidget() {
   try {
-    const products: ProductForInventoryWidget[] = await getInventoryProducts();
+    const { products, total } = await getProducts();
 
     const stats = [
       {
         label: "Total products",
-        value: products.length,
+        value: total,
         icon: Package2,
         iconColor: "text-purple-800",
         iconBg: "bg-purple-100",
       },
       {
         label: "In stock",
-        value: products.filter(
-          (p) => getAvailabilityStatus(p.stock) === "In Stock",
-        ).length,
+        value: products.filter((p) => getAvailabilityStatus(p.stock) === "In Stock").length,
         icon: CheckCircle2,
         iconColor: "text-green-500",
         iconBg: "bg-green-100",
       },
       {
         label: "Low stock",
-        value: products.filter(
-          (p) => getAvailabilityStatus(p.stock) === "Low Stock",
-        ).length,
+        value: products.filter((p) => getAvailabilityStatus(p.stock) === "Low Stock").length,
         icon: AlertTriangle,
         iconColor: "text-orange-500",
         iconBg: "bg-orange-100",
       },
       {
         label: "Out of stock",
-        value: products.filter(
-          (p) => getAvailabilityStatus(p.stock) === "Out of Stock",
-        ).length,
+        value: products.filter((p) => getAvailabilityStatus(p.stock) === "Out of Stock").length,
         icon: XCircle,
         iconColor: "text-red-500",
         iconBg: "bg-red-100",
@@ -64,9 +59,7 @@ export default async function InventoryWidget() {
               <div className="flex items-center justify-between">
                 <div>
                   <h2 className="text-xs font-medium text-gray-500">{label}</h2>
-                  <h2 className="text-2xl font-bold text-black mt-1">
-                    {value}
-                  </h2>
+                  <h2 className="text-2xl font-bold text-black mt-1">{value}</h2>
                 </div>
                 <div className={`${iconBg} ${iconColor} p-3 rounded-xl`}>
                   <Icon size={25} aria-hidden="true" />
