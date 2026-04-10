@@ -13,6 +13,8 @@ async function getProduct(id: number) {
 }
 
 export default async function Favorites() {
+  // TODO: remove delay.
+  // Delay för att se skeleton under dev, MEN produkter tas bort efter 5 sec då.
   await new Promise((resolve) => setTimeout(resolve, 5000));
   // await new Promise(() => {}); // This promise never resolves → loading.tsx stays forever
 
