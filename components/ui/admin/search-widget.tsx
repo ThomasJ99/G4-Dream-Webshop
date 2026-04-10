@@ -1,27 +1,29 @@
 "use client";
 
+import { Category } from "@/lib/types";
 import { ChevronDown, Funnel, Search } from "lucide-react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { ChangeEvent } from "react";
+import { useSearchParams, usePathname, useRouter } from "next/navigation";
 
-export default function SearchWidget() {
-  const router = useRouter();
-  const pathname = usePathname();
+export default function SearchWidget({ categories }: { categories: Category[] }) {
   const searchParams = useSearchParams();
-  const currentLimit = Number(searchParams.get("limit")) || 5;
+  const pathname = usePathname();
+  const { replace } = useRouter();
 
-  const createPageURL = (query: string) => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set("q", query.toString());
-    params.set("page", "1");
-    params.set("limit", currentLimit.toString());
-    router.push(`${pathname}?${params.toString()}`);
-  };
+  const setParam = (key: string, value: string) => {
+    const params = new URLSearchParams(searchParams);
 
-  const searchHandler = (e: ChangeEvent) => {
-      const target = e.target as HTMLInputElement;
-      console.log(target.value);
-      createPageURL(target.value);
+    if (value) {
+      params.set(key, value);
+    } else {
+      params.delete(key);
+    }
+
+    if (key === "_categoryId" || key === "_q") {
+      params.set("_page", "1");
+    }
+
+    replace(`${pathname}?${params.toString()}`);
   };
 
   return (
@@ -33,26 +35,31 @@ export default function SearchWidget() {
           placeholder="Search products..."
           className="w-full pl-10 focus:outline-none"
           onChange={(e) => {
-            searchHandler(e);
+            setParam("q", e.target.value);
           }}
         />
       </div>
 
       <div className="flex p-1.5 border border-gray-300 rounded-xl">
-        <button
+        <select
           className="flex whitespace-nowrap gap-4 px-2 items-center"
-          type="button"
+          onChange={(e) => {
+            setParam("_categoryId", e.target.value);
+          }}
         >
-          All categories
-          <ChevronDown />
-        </button>
+          <option value="" selected>
+            All categories
+            {/* <ChevronDown /> */}
+          </option>
+
+          {categories.map((category) => (
+            <option value={category.id}>{category.name}</option>
+          ))}
+        </select>
       </div>
 
       <div className="flex p-1.5 border border-gray-300 rounded-xl">
-        <button
-          className="flex whitespace-nowrap gap-4 px-2 items-center"
-          type="button"
-        >
+        <button className="flex whitespace-nowrap gap-4 px-2 items-center" type="button">
           All status
           <ChevronDown />
         </button>

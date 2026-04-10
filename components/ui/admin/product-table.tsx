@@ -9,8 +9,7 @@ import { getSearchParamsAsString } from "@/utils/getSearchParams";
 import ProductTablePagination from "./product-table-pagination";
 
 const thStyle = "p-4 text-sm font-semibold text-gray-500";
-const tdStyle =
-  "border-t border-gray-300 text-center p-4 text-ellipsis truncate";
+const tdStyle = "border-t border-gray-300 text-center p-4 text-ellipsis truncate";
 
 const getColourFromAvailabilityStatus = (stock: number): string => {
   if (stock === 0) {
@@ -32,18 +31,22 @@ export default async function ProductTable({
 }: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
-  const { page = "1", limit = "5", q = "" } = await searchParams;
+  const { page = "1", limit = "5", _categoryId = "", q = "" } = await searchParams;
 
-  const currentLimit = getSearchParamsAsString(limit);
-  const currentPage = getSearchParamsAsString(page);
-  const currentQuery = getSearchParamsAsString(q);
+  const currentLimit = getSearchParamsAsString(limit) as string;
+  const currentPage = getSearchParamsAsString(page) as string;
+  const currentCategoryId = getSearchParamsAsString(_categoryId) as string;
+  const currentQuery = getSearchParamsAsString(q) as string;
 
   const params = new URLSearchParams({
-    _limit: limit.toString(),
-    _page: page.toString(),
+    _limit: currentLimit.toString(),
+    _page: currentPage.toString(),
+    _q: currentQuery.toString(),
+    _categoryId: currentCategoryId.toString(),
   });
+
   const { products, pages, total } = await getProducts(params.toString());
-  console.log(page);
+
   const totalProducts = total ?? 0;
   const totalPages = Math.ceil(totalProducts);
 
@@ -85,17 +88,14 @@ export default async function ProductTable({
               </td>
 
               <td className={`${tdStyle}`}>
-                {categories.find((cat) => cat.id === product.categoryId)
-                  ?.name ??
+                {categories.find((cat) => cat.id === product.categoryId)?.name ??
                   titleCaseWord(product.tags![0]) ??
                   ""}
               </td>
               <td className={`${tdStyle}`}> {`${product.price} kr`}</td>
               <td className={`${tdStyle}`}>{product.stock}</td>
 
-              <td
-                className={`${tdStyle} ${getColourFromAvailabilityStatus(product.stock ?? 0)}`}
-              >
+              <td className={`${tdStyle} ${getColourFromAvailabilityStatus(product.stock ?? 0)}`}>
                 {(product.stock ?? 0) === 0
                   ? "Out of Stock"
                   : (product.stock ?? 0) < 45
@@ -116,9 +116,7 @@ export default async function ProductTable({
         </tbody>
       </table>
       <div className="p-4 bg-gray-50 border-t border-t-gray-300 rounded-b-2xl">
-        <ProductTablePagination
-          totalPages={totalPages ?? 0}
-        ></ProductTablePagination>
+        <ProductTablePagination totalPages={totalPages ?? 0}></ProductTablePagination>
       </div>
     </div>
   );
