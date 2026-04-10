@@ -184,10 +184,10 @@ export default function Navigation({
                 >
                   {/* Top Bar Wrapper */}
                   <div
-                    className={`w-full transition-transform ease-in-out ${isOpen ? "duration-400 delay-100 translate-y-[2px]" : "duration-400 translate-y-0 delay-300"}`}
+                    className={`w-full transition-transform ease-in-out ${isOpen ? "duration-400 delay-100 translate-y-0.5" : "duration-400 translate-y-0 delay-300"}`}
                   >
                     <div
-                      className={`bg-current h-[2px] w-full transition-transform duration-400 ease-in-out ${isOpen ? "duration-400 rotate-45 delay-400" : "duration-400 rotate-0 delay-0"}`}
+                      className={`bg-current h-0.5 w-full transition-transform duration-400 ease-in-out ${isOpen ? "duration-400 rotate-45 delay-400" : "duration-400 rotate-0 delay-0"}`}
                     />
                   </div>
 
@@ -196,16 +196,16 @@ export default function Navigation({
                     className={`w-full transition-[margin] duration-500 ${isOpen ? "my-0" : "my-2 delay-300"}`}
                   >
                     <div
-                      className={`bg-current h-[2px] w-full transition-transform ease-in-out ${isOpen ? "duration-300 scale-x-0" : "duration-300 delay-400 scale-x-100"}`}
+                      className={`bg-current h-0.5 w-full transition-transform ease-in-out ${isOpen ? "duration-300 scale-x-0" : "duration-300 delay-400 scale-x-100"}`}
                     />
                   </div>
 
                   {/* Bottom Bar Wrapper */}
                   <div
-                    className={`w-full transition-transform ease-in-out ${isOpen ? "duration-400 delay-100 -translate-y-[2px]" : "duration-400 translate-y-0 delay-300"}`}
+                    className={`w-full transition-transform ease-in-out ${isOpen ? "duration-400 delay-100 -translate-y-0.5" : "duration-400 translate-y-0 delay-300"}`}
                   >
                     <div
-                      className={`bg-current h-[2px] w-full transition-transform ease-in-out ${isOpen ? "duration-400 -rotate-45 delay-400" : "duration-400 rotate-0 delay-0"}`}
+                      className={`bg-current h-0.5 w-full transition-transform ease-in-out ${isOpen ? "duration-400 -rotate-45 delay-400" : "duration-400 rotate-0 delay-0"}`}
                     />
                   </div>
                 </div>
