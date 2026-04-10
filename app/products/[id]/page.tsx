@@ -94,7 +94,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[id]"
               <h3 className="text-sm font-semibold">Reviews</h3>
               <ul className="text-sm text-muted-foreground space-y-1">
                 {reviews.map((review) => (
-                  <li>
+                  <li key={review.id}>
                     <i className="font-semibold">{review.reviewer_name}: </i>
                     {review.comment}
                     <p>{review.rating}/5</p>
