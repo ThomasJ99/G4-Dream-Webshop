@@ -42,13 +42,15 @@ export default async function ProductPage(params: PageProps<"/">) {
   }
 
   return (
-    <main className="mx-auto max-w-7xl">
-      <h1 className="text-3xl font-serif mt-16">All Products</h1>
-      <span className="text-black/60 mb-8 block mt-2">{total} products found</span>
+    <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <h1 className="text-3xl sm:text-4xl font-serif mt-16">All Products</h1>
+      <span className="text-black/60 mb-8 block mt-2">
+        {total} products found
+      </span>
 
       <FilterProducts categories={categories} />
 
-      <ProductGrid products={products} categories={categories}></ProductGrid>
+      <ProductGrid products={products} categories={categories}/>
 
       <ProductGridPagination totalPages={totalPages} />
     </main>
