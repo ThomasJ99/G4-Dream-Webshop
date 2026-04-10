@@ -1,6 +1,7 @@
 "use client";
 import confetti from "canvas-confetti";
 import { Star } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { API_URL } from "@/lib/config";
 import { Button } from "./button";
@@ -8,6 +9,8 @@ import { Button } from "./button";
 export default function AddFavorite({ productID }: { productID: number }) {
   const [isFavorite, setIsFavorite] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
     const checkFavorite = async () => {
@@ -35,6 +38,7 @@ export default function AddFavorite({ productID }: { productID: number }) {
         console.error("Failed to remove favorite");
       } else {
         setIsFavorite(false);
+        router.refresh();
       }
     } else {
       const response = await fetch(`${API_URL}/api/favorites`, {
@@ -46,27 +50,35 @@ export default function AddFavorite({ productID }: { productID: number }) {
         console.error("Failed to add favorite");
       } else {
         setIsFavorite(true);
-        const rect = buttonRef.current?.getBoundingClientRect();
-        if (!rect) return;
-        const x = (rect.left + rect.width / 2) / window.innerWidth;
-        const y = (rect.top + rect.height / 2) / window.innerHeight;
-        confetti({
-          particleCount: 30,
-          spread: 50,
-          startVelocity: 10,
-          scalar: 1,
-          origin: { x, y },
-          gravity: 0.5,
-          ticks: 100,
-        });
+        router.refresh();
+        if (pathname.includes("favorites")) {
+          const rect = buttonRef.current?.getBoundingClientRect();
+          if (!rect) return;
+          const x = (rect.left + rect.width / 2) / window.innerWidth;
+          const y = (rect.top + rect.height / 2) / window.innerHeight;
+          confetti({
+            particleCount: 50,
+            spread: 60,
+            startVelocity: 14,
+            scalar: 1,
+            origin: { x, y },
+            gravity: 0.5,
+            angle: 80,
+            ticks: 100,
+          });
+        }
       }
     }
   };
 
   return (
-    <Button ref={buttonRef} className="w-fit group" onClick={handleClick}>
+    <Button
+      ref={buttonRef}
+      className="w-fit group hover:cursor-pointer"
+      onClick={handleClick}
+    >
       <Star
-        className={`transition-all duration-500 group-hover:scale-120 group-hover:rotate-[360deg] ${
+        className={` group-hover:scale-120 group-hover:rotate-[360deg] ${
           isFavorite ? "fill-yellow-400 text-yellow-400" : "fill-white"
         }`}
       />
