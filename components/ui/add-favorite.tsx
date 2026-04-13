@@ -78,7 +78,7 @@ export default function AddFavorite({ productID }: { productID: number }) {
       onClick={handleClick}
     >
       <Star
-        className={` group-hover:scale-120 group-hover:rotate-[360deg] ${
+        className={`transition-transform group-hover:scale-120 group-hover:rotate-[360deg] ${
           isFavorite ? "fill-yellow-400 text-yellow-400" : "fill-white"
         }`}
       />
