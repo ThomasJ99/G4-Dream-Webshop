@@ -37,7 +37,9 @@ export default async function FeaturedGrid() {
     <section className="py-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between mb-2">
-          <h2 className="font-serif text-2xl sm:text-3xl">Featured Products</h2>
+          <h2 className="font-serif text-2xl sm:text-3xl tracking-tight">
+            Featured Products
+          </h2>
 
           <Link
             href={"/products"}
