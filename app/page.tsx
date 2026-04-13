@@ -5,6 +5,21 @@ import FeaturedGrid from "@/components/featured-grid";
 import FeaturedGridSkeleton from "@/components/featured-grid-skeleton";
 import Hero from "@/components/ui/hero";
 
+export const metadata = {
+  title: "DreamStore",
+  description:
+    "Shop electronics, furniture, beauty, fashion and more — curated products from trusted brands, all in one place.",
+  keywords: [
+    "Next.js",
+    "React",
+    "TypeScript",
+    "e-commerce",
+    "frontend",
+    "backend",
+    "Supabase",
+  ],
+};
+
 export default async function Home() {
   // const cookieStore = await cookies();
   // const cartId = cookieStore.get("cartId")?.value;
