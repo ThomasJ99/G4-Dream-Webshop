@@ -1,4 +1,5 @@
 import { ChevronLeft, ShoppingBag } from "lucide-react";
+import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import Link from "next/link";
 import { CartItemCard } from "@/components/cart-item-card";
@@ -7,6 +8,11 @@ import { getCartAction } from "@/lib/actions/cart-actions";
 import { getCartItemsByIdParams } from "@/lib/db/carts-db";
 import { supabase } from "@/supabaseClient";
 import { formatPrice } from "@/utils/utils";
+
+export const metadata: Metadata = {
+  title: "Your cart | DreamStore",
+  description: "Handle your wares here before checkout.",
+};
 
 export default async function Cart() {
   // TODO: REMOVE THIS LINE OF CODE LATER, GOOD TO TEST SKELETONS
