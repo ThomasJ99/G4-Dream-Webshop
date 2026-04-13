@@ -27,28 +27,27 @@ export default function Hero() {
           className="object-cover"
           priority
         />
-        {/* Gradient looks pretty bad in mobile view */}
-        <div className="absolute inset-0 bg-linear-to-r from-white/95 via-white/70 sm:to-transparent to-white/70 transition-colors"></div>
+        <div className="absolute inset-0 bg-linear-to-r from-black/80 via-black/30 to-transparent transition-colors"></div>
       </div>
 
       {/* Text section */}
-      <section className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 lg:py-32 w-full">
-        <div className="max-w-lg text-shadow-xs">
-          <span className="text-sm font-semibold text-blue-600 uppercase tracking-wide ps-1">
+      <section className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 lg:py-32 w-full text-white">
+        <div className="max-w-lg text-shadow-md">
+          <span className="text-xl font-semibold uppercase tracking-wide">
             New arrivals
           </span>
 
-          <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-medium tracking-tight text-balance leading-tight">
+          <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl font-semibold tracking-tight text-balance leading-none">
             Everything you need, all in one place
           </h1>
 
-          <p className="mt-6 text-lg text-black max-w-md leading-relaxed text-balance">
+          <p className="mt-6 text-xl max-w-md leading-relaxed text-balance">
             From electronics to furniture to beauty and fashion - curated
             products from trusted brands, all in one place.
           </p>
 
           <Link
-            className="bg-blue-600 text-center hover:bg-blue-700 items-center text-white inline-flex gap-2 py-2.5 px-5 mt-8 rounded-lg cursor-pointer"
+            className="bg-blue-600 text-center hover:bg-blue-700 items-center inline-flex gap-2 py-2.5 px-5 mt-8 rounded-lg cursor-pointer"
             href={"/products"}
           >
             Explore collection
@@ -56,17 +55,6 @@ export default function Hero() {
           </Link>
         </div>
       </section>
-
-      {/* Shipping info / Badges, will wait with these for now!!!! */}
-      {/* <section className="border-b">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-8 sm:gap-48">
-
-          </div>
-
-        </div>
-          
-      </section> */}
     </header>
   );
 }

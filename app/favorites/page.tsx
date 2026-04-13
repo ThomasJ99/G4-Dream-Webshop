@@ -1,4 +1,5 @@
 import { ProductCard } from "@/components/product-card";
+import AddFavorite from "@/components/ui/add-favorite";
 import RemoveFavorite from "@/components/ui/delete-favorite";
 import { Skeleton } from "@/components/ui/skeleton";
 import { API_URL } from "@/lib/config";
@@ -37,7 +38,11 @@ export default async function Favorites() {
             {products.map((product) => (
               <div key={product.id} className="relative">
                 <ProductCard product={product} />
-                <RemoveFavorite productId={product.id} />
+                {/* TODO: Remove RemoveFavorite */}
+                {/* <RemoveFavorite productId={product.id} /> */}
+                <div className="absolute bottom-1 right-0">
+                  <AddFavorite productID={product.id} />
+                </div>
               </div>
             ))}
           </div>
