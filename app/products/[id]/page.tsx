@@ -7,23 +7,15 @@ import ProductBadge, { hasBadge } from "@/components/product-badge";
 import AddFavorite from "@/components/ui/add-favorite";
 import { Button } from "@/components/ui/button";
 import { addToCart } from "@/lib/actions/cart-actions";
-import { getProductById } from "@/lib/db/products-db";
-import { getReviewsByProductId } from "@/lib/db/reviews-db";
+import { getProductById, getReviewsByProductId } from "@/lib/db";
 import { formatPrice } from "@/utils/utils";
 
 export default async function ProductPage({
   params,
 }: PageProps<"/products/[id]">) {
   const { id } = await params;
-
-  let product = {};
-  try {
-    product = await getProductById(id);
-  } catch {
-    notFound();
-  }
-
-  const reviews = await getReviewsByProductId(id);
+  const product = await getProductById(id) || notFound();
+  const reviews = await getReviewsByProductId(id) || [];
 
   const imgURL =
     product.images?.[0] ||
