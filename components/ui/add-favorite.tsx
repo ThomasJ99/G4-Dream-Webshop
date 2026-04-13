@@ -51,7 +51,7 @@ export default function AddFavorite({ productID }: { productID: number }) {
       } else {
         setIsFavorite(true);
         router.refresh();
-        if (pathname.includes("favorites")) {
+        if (pathname.includes("products")) {
           const rect = buttonRef.current?.getBoundingClientRect();
           if (!rect) return;
           const x = (rect.left + rect.width / 2) / window.innerWidth;
