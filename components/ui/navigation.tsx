@@ -47,10 +47,8 @@ export default function Navigation({
     >
       <div className="w-full h-16 backdrop-blur-sm">
         <nav className="flex items-center justify-between mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16">
-          <Link
-            href="/"
-            className="text-xl font-serif font-bold tracking-tight hover:text-blue-400 transition-colors"
-          >
+          <Link href="/">
+          
             {/* Full logo — desktop */}
             <svg
               className="hidden sm:block"
@@ -62,7 +60,6 @@ export default function Navigation({
               role="img"
               aria-label="DreamShop Logo"
             >
-              <title>DreamShop Logo</title>
               <rect
                 x="0"
                 y="0"
@@ -97,7 +94,7 @@ export default function Navigation({
                 fontSize="22"
                 fontWeight="300"
                 fill="currentColor"
-                x="127"
+                x="129"
                 y="28"
               >
                 Shop
@@ -108,14 +105,13 @@ export default function Navigation({
             <svg
               className="sm:hidden"
               width="40"
-              height="40"
+              height="38"
               viewBox="0 0 40 40"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
               role="img"
               aria-label="DreamShop Logo"
             >
-              <title>DreamShop Logo</title>
               <rect
                 x="0"
                 y="0"
@@ -177,6 +173,9 @@ export default function Navigation({
               <button
                 className="cursor-pointer p-2 rounded-sm w-10 h-10 flex hover:bg-blue-900/20 hover:text-blue-400 transition-colors focus:outline-none"
                 type="button"
+                aria-label="Toggle menu"
+                aria-expanded={isOpen}
+                aria-controls="mobile-menu"
                 onClick={() => setIsOpen(!isOpen)}
               >
                 <div
@@ -218,6 +217,7 @@ export default function Navigation({
       <AnimatePresence>
         {isOpen && (
           <motion.div
+            id="mobile-menu"
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
@@ -225,10 +225,9 @@ export default function Navigation({
               height: { duration: 0.7, ease: "easeInOut" },
               opacity: { duration: 0.7, ease: "easeInOut" },
             }}
-            className="md:hidden absolute top-16 w-full
-              
-                 border-t border-black/20 backdrop-blur-sm bg-white/50 shadow-sm 
-                 overflow-hidden z-50"
+            className={`md:hidden absolute top-16 w-full
+            border-t border-black/20 backdrop-blur-sm
+            bg-white/50 shadow-sm overflow-hidden z-50`}
           >
             <ul className="flex flex-col gap-3 px-6 py-6 items-center">
               {menuItems.map((item) => (
