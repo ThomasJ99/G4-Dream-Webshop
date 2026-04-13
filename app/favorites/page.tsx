@@ -16,7 +16,7 @@ async function getProduct(id: number) {
 export default async function Favorites() {
   // TODO: remove delay.
   // Delay för att se skeleton under dev, MEN produkter tas bort efter 5 sec då.
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+  // await new Promise((resolve) => setTimeout(resolve, 1000));
   // await new Promise(() => {}); // This promise never resolves → loading.tsx stays forever
 
   const favorites = await getFavorites();
@@ -40,7 +40,7 @@ export default async function Favorites() {
                 <ProductCard product={product} />
                 {/* TODO: Remove RemoveFavorite */}
                 {/* <RemoveFavorite productId={product.id} /> */}
-                <div className="absolute bottom-1 right-0">
+                <div className="absolute top-2 right-1">
                   <AddFavorite productID={product.id} />
                 </div>
               </div>
