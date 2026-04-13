@@ -43,35 +43,112 @@ export default function Navigation({
   return (
     <header
       ref={menuRef}
-      className="sticky z-50 top-0 w-full bg-white/50  shadow-sm"
+      className="sticky z-50 top-0 w-full bg-white/50 shadow-sm"
     >
       <div className="w-full h-16 backdrop-blur-sm">
         <nav className="flex items-center justify-between mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16">
-          <div className="flex-1">
-            <Link
-              className="text-xl font-serif font-bold tracking-tight shrink-0 hover:text-blue-400 transition-colors"
-              href="/"
+          <Link href="/">
+          
+            {/* Full logo — desktop */}
+            <svg
+              className="hidden sm:block"
+              width="200"
+              height="38"
+              viewBox="0 0 200 40"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              role="img"
+              aria-label="DreamShop Logo"
             >
-              DreamShop
-            </Link>
-          </div>
+              <rect
+                x="0"
+                y="0"
+                width="40"
+                height="40"
+                rx="9"
+                fill="currentColor"
+              />
+              <text
+                fontFamily="Georgia, 'Times New Roman', serif"
+                fontSize="18"
+                fontWeight="700"
+                fill="white"
+                x="20"
+                y="26"
+                textAnchor="middle"
+              >
+                DS
+              </text>
+              <text
+                fontFamily="Georgia, 'Times New Roman', serif"
+                fontSize="22"
+                fontWeight="700"
+                fill="currentColor"
+                x="52"
+                y="28"
+              >
+                Dream
+              </text>
+              <text
+                fontFamily="Georgia, 'Times New Roman', serif"
+                fontSize="22"
+                fontWeight="300"
+                fill="currentColor"
+                x="129"
+                y="28"
+              >
+                Shop
+              </text>
+            </svg>
 
-          <ul className="hidden md:flex items-center gap-5">
-            {menuItems.map((item) => (
-              <li key={item.name}>
-                <Link
-                  className="p-2 text-md font-semibold hover:text-blue-400 transition-colors"
-                  href={item.href}
-                >
-                  {item.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
+            {/* Badge only — mobile */}
+            <svg
+              className="sm:hidden"
+              width="40"
+              height="38"
+              viewBox="0 0 40 40"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              role="img"
+              aria-label="DreamShop Logo"
+            >
+              <rect
+                x="0"
+                y="0"
+                width="40"
+                height="40"
+                rx="9"
+                fill="currentColor"
+              />
+              <text
+                fontFamily="Georgia, 'Times New Roman', serif"
+                fontSize="18"
+                fontWeight="700"
+                fill="white"
+                x="20"
+                y="26"
+                textAnchor="middle"
+              >
+                DS
+              </text>
+            </svg>
+          </Link>
 
-          <div className="flex-1 flex items-center justify-end gap-2">
+          <div className="flex-1 flex items-center justify-end gap-5">
+            <ul className="hidden md:flex items-center gap-5">
+              {menuItems.map((item) => (
+                <li key={item.name}>
+                  <Link
+                    className="p-2 text-xs uppercase tracking-widest font-semibold text-gray-600 hover:text-blue-400 transition-colors"
+                    href={item.href}
+                  >
+                    {item.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
             <Link
-              className="relative p-2 rounded-sm hover:bg-blue-900/20 hover:text-blue-400 transition-colors"
+              className="relative p-2 rounded-sm hover:text-blue-400 transition-colors"
               href="/cart"
             >
               <div className="absolute -top-1 -right-1 w-4 h-4 bg-blue-400 rounded-full text-white flex items-center justify-center text-xs">
@@ -96,6 +173,9 @@ export default function Navigation({
               <button
                 className="cursor-pointer p-2 rounded-sm w-10 h-10 flex hover:bg-blue-900/20 hover:text-blue-400 transition-colors focus:outline-none"
                 type="button"
+                aria-label="Toggle menu"
+                aria-expanded={isOpen}
+                aria-controls="mobile-menu"
                 onClick={() => setIsOpen(!isOpen)}
               >
                 <div
@@ -103,10 +183,10 @@ export default function Navigation({
                 >
                   {/* Top Bar Wrapper */}
                   <div
-                    className={`w-full transition-transform ease-in-out ${isOpen ? "duration-400 delay-100 translate-y-[2px]" : "duration-400 translate-y-0 delay-300"}`}
+                    className={`w-full transition-transform ease-in-out ${isOpen ? "duration-400 delay-100 translate-y-0.5" : "duration-400 translate-y-0 delay-300"}`}
                   >
                     <div
-                      className={`bg-current h-[2px] w-full transition-transform duration-400 ease-in-out ${isOpen ? "duration-400 rotate-45 delay-400" : "duration-400 rotate-0 delay-0"}`}
+                      className={`bg-current h-0.5 w-full transition-transform duration-400 ease-in-out ${isOpen ? "duration-400 rotate-45 delay-400" : "duration-400 rotate-0 delay-0"}`}
                     />
                   </div>
 
@@ -115,16 +195,16 @@ export default function Navigation({
                     className={`w-full transition-[margin] duration-500 ${isOpen ? "my-0" : "my-2 delay-300"}`}
                   >
                     <div
-                      className={`bg-current h-[2px] w-full transition-transform ease-in-out ${isOpen ? "duration-300 scale-x-0" : "duration-300 delay-400 scale-x-100"}`}
+                      className={`bg-current h-0.5 w-full transition-transform ease-in-out ${isOpen ? "duration-300 scale-x-0" : "duration-300 delay-400 scale-x-100"}`}
                     />
                   </div>
 
                   {/* Bottom Bar Wrapper */}
                   <div
-                    className={`w-full transition-transform ease-in-out ${isOpen ? "duration-400 delay-100 -translate-y-[2px]" : "duration-400 translate-y-0 delay-300"}`}
+                    className={`w-full transition-transform ease-in-out ${isOpen ? "duration-400 delay-100 -translate-y-0.5" : "duration-400 translate-y-0 delay-300"}`}
                   >
                     <div
-                      className={`bg-current h-[2px] w-full transition-transform ease-in-out ${isOpen ? "duration-400 -rotate-45 delay-400" : "duration-400 rotate-0 delay-0"}`}
+                      className={`bg-current h-0.5 w-full transition-transform ease-in-out ${isOpen ? "duration-400 -rotate-45 delay-400" : "duration-400 rotate-0 delay-0"}`}
                     />
                   </div>
                 </div>
@@ -137,6 +217,7 @@ export default function Navigation({
       <AnimatePresence>
         {isOpen && (
           <motion.div
+            id="mobile-menu"
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
@@ -144,10 +225,9 @@ export default function Navigation({
               height: { duration: 0.7, ease: "easeInOut" },
               opacity: { duration: 0.7, ease: "easeInOut" },
             }}
-            className="md:hidden absolute top-16 w-full
-              
-                 border-t border-black/20 backdrop-blur-sm bg-white/50 shadow-sm 
-                 overflow-hidden z-50"
+            className={`md:hidden absolute top-16 w-full
+            border-t border-black/20 backdrop-blur-sm
+            bg-white/50 shadow-sm overflow-hidden z-50`}
           >
             <ul className="flex flex-col gap-3 px-6 py-6 items-center">
               {menuItems.map((item) => (
