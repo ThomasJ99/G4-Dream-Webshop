@@ -12,7 +12,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import SidebarRight from "./sidebar-right";
-import SidebarWrapper from "./sidebar-wrapper";
 
 export default function Navigation({
   cartItemsLength,
@@ -51,7 +50,7 @@ export default function Navigation({
   if (pathname.includes("admin")) return null;
 
   return (
-    <div>
+    <>
       <header
         ref={menuRef}
         className="sticky z-50 top-0 w-full bg-white/50 shadow-sm"
@@ -268,7 +267,7 @@ export default function Navigation({
           )}
         </AnimatePresence>
       </header>
-      <SidebarWrapper hidden={sidebarHidden} />
-    </div>
+      <SidebarRight hidden={sidebarHidden} />
+    </>
   );
 }
