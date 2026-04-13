@@ -10,8 +10,9 @@ import { supabase } from "@/supabaseClient";
 import { formatPrice } from "@/utils/utils";
 
 export const metadata: Metadata = {
-  title: "Your cart | DreamStore",
-  description: "Handle your wares here before checkout.",
+  title: "Shopping Cart | DreamShop",
+  description:
+    "Review your items, update quantities, and proceed to checkout securely.",
 };
 
 export default async function Cart() {
