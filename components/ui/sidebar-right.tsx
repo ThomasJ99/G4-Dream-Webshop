@@ -85,8 +85,8 @@ export default function SidebarRight({
       <motion.aside
         className="flex overflow-hidden"
         variants={{
-          visible: { width: "100%" },
-          hidden: { width: "0%" },
+          visible: { width: 420, height: "40vh" },
+          hidden: { width: 0, height: 0 },
         }}
         animate={hidden ? "hidden" : "visible"}
         initial={hidden ? "hidden" : "visible"}
