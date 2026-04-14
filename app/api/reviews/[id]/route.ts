@@ -4,10 +4,10 @@ import { supabase } from "@/supabaseClient";
 // GET /api/reviews/[id] - Get a single review
 export async function GET(
   request: NextRequest,
-  { params }: { params: Promise<{ id: number }> },
+  { params }: { params: Promise<{ id: string }> },
 ) {
-  const { id } = await params;
   try {
+    const id = await params;
     const { data, error } = await supabase
       .from("reviews")
       .select("*")
@@ -45,9 +45,10 @@ export async function GET(
 // PUT /api/reviews/[id] - Update a review
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
+    const id = await params;
     const body = await request.json();
     const { rating, comment, date, reviewerName, reviewerEmail } = body;
 
@@ -69,7 +70,7 @@ export async function PUT(
     const { data, error } = await supabase
       .from("reviews")
       .update(updateData)
-      .eq("id", params.id)
+      .eq("id", id)
       .select();
 
     if (error) {
@@ -101,13 +102,11 @@ export async function PUT(
 // DELETE /api/reviews/[id] - Delete a review
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
-    const { error } = await supabase
-      .from("reviews")
-      .delete()
-      .eq("id", params.id);
+    const id = await params;
+    const { error } = await supabase.from("reviews").delete().eq("id", id);
 
     if (error) {
       console.error("Supabase error:", error);

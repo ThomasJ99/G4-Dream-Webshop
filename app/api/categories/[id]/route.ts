@@ -1,16 +1,17 @@
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/supabaseClient";
 
 // GET /api/categories/[id] - Get a single category
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
+    const id = await params;
     const { data, error } = await supabase
       .from("categories")
       .select("*")
-      .eq("id", params.id)
+      .eq("id", id)
       .single();
 
     if (error) {
@@ -37,9 +38,10 @@ export async function GET(
 // PUT /api/categories/[id] - Update a category
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
+    const id = await params;
     const body = await request.json();
     const { name, slug, image } = body;
 
@@ -51,7 +53,7 @@ export async function PUT(
     const { data, error } = await supabase
       .from("categories")
       .update(updateData)
-      .eq("id", params.id)
+      .eq("id", id)
       .select();
 
     if (error) {
@@ -79,13 +81,11 @@ export async function PUT(
 // DELETE /api/categories/[id] - Delete a category
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
-    const { error } = await supabase
-      .from("categories")
-      .delete()
-      .eq("id", params.id);
+    const id = await params;
+    const { error } = await supabase.from("categories").delete().eq("id", id);
 
     if (error) {
       console.error("Supabase error:", error);

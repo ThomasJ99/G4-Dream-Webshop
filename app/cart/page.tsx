@@ -54,7 +54,7 @@ export default async function Cart() {
   }
 
   let totalPrice = 0;
-  productsWithQuantity?.map((item) => {
+  productsWithQuantity?.map((item: any) => {
     totalPrice += +item.price * +item.quantity;
     return totalPrice;
   });
@@ -86,7 +86,7 @@ export default async function Cart() {
         <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-3 gap-12">
           {/* Cart items — spans 2 columns */}
           <div className="lg:col-span-2 space-y-4">
-            {productsWithQuantity?.map((item) => (
+            {productsWithQuantity?.map((item: any) => (
               <CartItemCard
                 key={item.id}
                 item={item}

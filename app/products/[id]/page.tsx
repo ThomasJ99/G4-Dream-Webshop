@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { addToCart } from "@/lib/actions/cart-actions";
 import { getProductById } from "@/lib/db/products-db";
 import { getReviewsByProductId } from "@/lib/db/reviews-db";
+import type { Product } from "@/lib/types";
 import { formatPrice } from "@/utils/utils";
 
 export async function generateMetadata({
@@ -38,7 +39,16 @@ export default async function ProductPage({
 }: PageProps<"/products/[id]">) {
   const { id } = await params;
 
-  let product = {};
+  let product: Product = {
+    id: 0,
+    title: "",
+    description: "",
+    categoryId: 0,
+    price: 0,
+    meta: { createdAt: "", updatedAt: "" },
+    images: [],
+    thumbnail: "",
+  };
   try {
     product = await getProductById(id);
   } catch {
@@ -80,7 +90,7 @@ export default async function ProductPage({
           {/* summary */}
           <div className="flex flex-col gap-2">
             <p className="text-sm text-muted-foreground uppercase tracking-wide">
-              {product.category.name}
+              {product?.category?.name}
             </p>
             <h1 className="font-serif text-3xl sm:text-4xl font-medium">
               {product.title}
