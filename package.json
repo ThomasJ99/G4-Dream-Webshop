@@ -12,6 +12,7 @@
     "seed": "node seed.js"
   },
   "dependencies": {
+    "@radix-ui/react-tooltip": "^1.2.8",
     "@supabase/supabase-js": "^2.100.0",
     "@types/js-cookie": "^3.0.6",
     "canvas-confetti": "^1.9.4",

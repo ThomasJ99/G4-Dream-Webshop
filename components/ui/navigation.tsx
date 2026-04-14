@@ -18,7 +18,7 @@ export default function Navigation({
 }: {
   cartItemsLength: number;
 }) {
-  const [sidebarHidden, setSidebarHidden] = useState(true);
+  const [sidebarHidden, setSidebarHidden] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
@@ -167,7 +167,7 @@ export default function Navigation({
               </Link>
               <div className=" absolute -right-2 top-3">
                 <motion.button
-                  className="cursor-pointer hidden md:block p-2  transition-colors  hover:text-blue-400 "
+                  className="cursor-pointer p-2  transition-colors  hover:text-blue-400 "
                   onClick={() => setSidebarHidden(!sidebarHidden)}
                 >
                   <motion.div
@@ -268,6 +268,7 @@ export default function Navigation({
         </AnimatePresence>
       </header>
       <SidebarRight hidden={sidebarHidden} />
+      {/* className="hidden md:block" if not want sidebar on mobile */}
     </>
   );
 }

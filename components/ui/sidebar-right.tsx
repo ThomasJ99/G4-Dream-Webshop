@@ -8,6 +8,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { removeCartItem, updateQuantity } from "@/lib/actions/cart-actions";
 import { supabase } from "@/supabaseClient";
+import Tooltip from "./tooltip";
 
 type Product = {
   id: number;
@@ -77,27 +78,35 @@ export default function SidebarRight({
   }, []);
 
   return (
+    // <div className="fixed z-40 top-16 -right-3 bg-black/10 w-[430px] h-[44.6vh] rounded-bl-lg ">
     <div
-      className={`${className ?? ""} fixed z-40 top-16 right-0 bg-white/50 backdrop-blur-sm shadow-sm rounded-bl-4xl`}
+      className={`${className ?? ""} fixed w-full md:w-auto z-40 top-16 right-0 bg-white/50 backdrop-blur-sm shadow-sm md:rounded-bl-lg`}
     >
       <motion.aside
         className="flex overflow-hidden"
         variants={{
-          visible: { width: 420 },
-          hidden: { width: 0 },
+          visible: { width: "100%" },
+          hidden: { width: "0%" },
         }}
         animate={hidden ? "hidden" : "visible"}
         initial={hidden ? "hidden" : "visible"}
         transition={{ duration: 1.5, ease: "easeInOut" }}
       >
-        <div className="flex flex-col w-[430px] overflow-hidden text-gray-600">
-          <header className="py-3 border-b-3 border-border px-3 flex min-w-[400px]">
+        <div className="flex flex-col w-full md:w-[430px] overflow-hidden text-gray-600">
+          <header className=" py-3 border-b-3 border-gray-600 px-3 flex md:w-[430px]">
             <h2 className="flex items-center text-md font-bold mx-auto">
               Items in Cart
             </h2>
           </header>
 
-          <ul className="flex flex-col min-w-[430px] overflow-y-auto max-h-[40vh]">
+          <ul
+            className="flex flex-col w-full md:min-w-[420px] overflow-y-auto max-h-[40vh]
+          [&::-webkit-scrollbar]:w-2
+           [&::-webkit-scrollbar-track]:bg-transparent
+           [&::-webkit-scrollbar-thumb]:bg-gray-400/80
+           [&::-webkit-scrollbar-thumb]:hover:bg-gray-500
+           [&::-webkit-scrollbar-thumb]:rounded-full"
+          >
             {loading ? (
               <li className="text-center text-sm text-gray-400 p-4">
                 Loading...
@@ -110,8 +119,8 @@ export default function SidebarRight({
               products.map((product, index) => (
                 <li
                   key={product.id}
-                  className={`flex items-center gap-2 px-2 pb-2 ${
-                    index > 0 ? "border-t-2 border-border pt-2" : "pt-2"
+                  className={`flex items-center gap-2 px-2 py-5 ${
+                    index > 0 ? "border-t-2 border-border " : ""
                   }`}
                 >
                   <Link href={`/products/${product.id}`}>
@@ -126,7 +135,7 @@ export default function SidebarRight({
                       className="rounded-lg object-cover h-full"
                     />
                   </Link>
-                  <div className="h-full flex flex-col gap-1 ml-2 flex-1 mt-auto">
+                  <div className="h-full w-full flex flex-col gap-1 ml-2 flex-1 mt-0">
                     <span className="text-sm font-bold leading-tight hover:text-blue-400">
                       <Link href={`/products/${product.id}`}>
                         {product.title}
@@ -140,21 +149,28 @@ export default function SidebarRight({
                         {product.categories.name}
                       </Link>
                     )}
-                    <span className="text-sm font-semibold mt-auto mb-2">
+                    <span className="text-sm font-semibold mt-auto mb-1">
                       ${product.price}
                     </span>
                   </div>
 
-                  <div className="h-full flex flex-col group relative">
+                  <div className="h-full flex flex-col ">
                     {/* Remove button */}
-                    <button
-                      type="button"
-                      className="text-xs text-gray-400 hover:text-red-500 flex justify-end gap-1 transition-colors"
-                      onClick={() => removeCartItem(product.id)}
-                      aria-label="Remove item"
-                    >
-                      <Trash2 className="h-5 w-5 mt-px mr-1 hover:cursor-pointer" />
-                    </button>
+                    <div className="relative flex justify-end ">
+                      <Tooltip text="Remove item" position="left" arrow={false}>
+                        <button
+                          type="button"
+                          className="text-xs peer text-gray-400 hover:text-red-500 flex justify-end gap-1 transition-colors"
+                          onClick={() => removeCartItem(product.id)}
+                          aria-label="Remove item"
+                        >
+                          <Trash2 className="h-3.5 w-3.5  ml-auto mr-1.5 " />
+                        </button>
+                      </Tooltip>
+                      {/* <span className="absolute right-10 px-2 py-1 text-xs text-white bg-gray-800 rounded opacity-0 peer-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                        Remove item
+                      </span> */}
+                    </div>
 
                     {/* Quantity controls */}
                     <div className="flex items-center w-20 h-8 border mt-auto border-input rounded-md">
@@ -167,7 +183,13 @@ export default function SidebarRight({
                         disabled={product.quantity <= 1}
                         aria-label="Decrease quantity"
                       >
-                        <Minus className="h-3 w-3 hover:cursor-pointer" />
+                        <Tooltip
+                          text="Decrease quantity"
+                          position="left"
+                          arrow={false}
+                        >
+                          <Minus className="h-3 w-3 hover:cursor-pointer" />
+                        </Tooltip>
                       </button>
                       <span className="w-8 text-center text-sm font-medium">
                         {product.quantity}
@@ -181,7 +203,13 @@ export default function SidebarRight({
                         disabled={product.quantity >= 10}
                         aria-label="Increase quantity"
                       >
-                        <Plus className="h-3 w-3 hover:cursor-pointer" />
+                        <Tooltip
+                          text="Increase quantity"
+                          position="left"
+                          arrow={false}
+                        >
+                          <Plus className="h-3 w-3 hover:cursor-pointer" />
+                        </Tooltip>
                       </button>
                     </div>
                   </div>
