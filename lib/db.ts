@@ -1,4 +1,4 @@
-import type { Category, Product, Review } from "@/lib/types";
+import type { Category, Product, ProductsResponse, Review } from "@/lib/types";
 import { supabase } from "@/supabaseClient";
 
 export const getCategories = async (): Promise<Category[]> => {
@@ -8,7 +8,7 @@ export const getCategories = async (): Promise<Category[]> => {
     .order("name");
 
   if (error) {
-    return;
+    return [];
   }
 
   return data;
@@ -19,7 +19,7 @@ export const getProducts = async (
   page = 0,
   query = "",
   categoryId = 0,
-): Promise<Product[]> => {
+): Promise<ProductsResponse> => {
   let queryBuilder = supabase
     .from("products")
     .select("*, categories (id, name, slug, image)", { count: "exact" });
@@ -46,7 +46,7 @@ export const getProducts = async (
   const { data: products, error, count } = await queryBuilder;
 
   if (error) {
-    return;
+    return {};
   }
 
   const transformed = products?.map((product) => ({
@@ -77,10 +77,10 @@ export const getProductById = async (id): Promise<Product> => {
     .single();
 
   if (error) {
-    return;
+    return {};
   }
 
-  const product = {
+  const transformed = {
     ...data,
     categoryId: data.category_id,
     discountPercentage: data.discount_percentage,
@@ -92,7 +92,7 @@ export const getProductById = async (id): Promise<Product> => {
     category: data.categories,
   };
 
-  return product;
+  return transformed;
 };
 
 export const getReviewsByProductId = async (id): Promise<Review[]> => {
@@ -102,14 +102,45 @@ export const getReviewsByProductId = async (id): Promise<Review[]> => {
     .eq("product_id", id);
 
   if (error) {
-    return;
+    return [];
   }
 
-  const reviews = data?.map((review) => ({
+  const transformed = data?.map((review) => ({
     ...review,
     reviewerName: review.reviewer_name,
     reviewerEmail: review.reviewer_email,
   }));
 
-  return reviews;
+  return transformed;
+};
+
+export const deleteProduct = async (id) => {
+  const { error } = await supabase.from("products").delete().eq("id", id);
+  return { error: error?.message };
+};
+
+export const updateProduct = async (id): Promise<ProductsResponse> => {
+  const { data, error } = await supabase
+    .from("products")
+    .update(updateData)
+    .eq("id", id)
+    .select("*, categories (id, name, slug, image)");
+
+  if (error) {
+    return {};
+  }
+
+  const transformed = {
+    ...data[0],
+    categoryId: data[0].category_id,
+    discountPercentage: data[0].discount_percentage,
+    warrantyInformation: data[0].warranty_information,
+    shippingInformation: data[0].shipping_information,
+    availabilityStatus: data[0].availability_status,
+    returnPolicy: data[0].return_policy,
+    minimumOrderQuantity: data[0].minimum_order_quantity,
+    category: data[0].categories,
+  };
+
+  return transformed;
 };
