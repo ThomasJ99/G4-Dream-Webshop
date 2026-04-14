@@ -14,8 +14,7 @@ import { getSearchParamsAsString } from "@/utils/getSearchParams";
 import ProductTablePagination from "./product-table-pagination";
 
 const thStyle = "p-4 text-sm font-semibold text-gray-500";
-const tdStyle =
-  "border-t border-gray-300 text-center p-4 text-ellipsis truncate";
+const tdStyle = "border-t border-gray-300 text-center p-4 text-ellipsis truncate";
 
 const getColourFromAvailabilityStatus = (stock: number): string => {
   if (stock === 0) {
@@ -94,17 +93,14 @@ export default async function ProductTable({
               </td>
 
               <td className={`${tdStyle}`}>
-                {categories.find((cat) => cat.id === product.categoryId)
-                  ?.name ??
+                {categories.find((cat) => cat.id === product.categoryId)?.name ??
                   titleCaseWord(product.tags![0]) ??
                   ""}
               </td>
               <td className={`${tdStyle}`}> {`${product.price} kr`}</td>
               <td className={`${tdStyle}`}>{product.stock}</td>
 
-              <td
-                className={`${tdStyle} ${getColourFromAvailabilityStatus(product.stock ?? 0)}`}
-              >
+              <td className={`${tdStyle} ${getColourFromAvailabilityStatus(product.stock ?? 0)}`}>
                 {(product.stock ?? 0) === 0
                   ? "Out of Stock"
                   : (product.stock ?? 0) < 45

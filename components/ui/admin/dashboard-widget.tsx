@@ -1,10 +1,6 @@
 import "server-only";
 import { AlertTriangle, CheckCircle2, Package2, XCircle } from "lucide-react";
-import { getInventoryProducts } from "@/lib/db";
-import type { Product } from "@/lib/types";
 import { getProducts } from "@/lib/db/products-db";
-
-type ProductForInventoryWidget = Pick<Product, "stock">;
 
 const getAvailabilityStatus = (stock: number | null | undefined) => {
   const s = stock ?? 0;
