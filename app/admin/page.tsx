@@ -3,27 +3,24 @@ import { ToastListener } from "@/components/toast-listener";
 import Header from "@/components/ui/admin/header";
 import ProductTable from "@/components/ui/admin/product-table";
 import Sidebar from "@/components/ui/admin/sidebar";
-import { getFeaturedProducts, getProducts } from "@/lib/db/products-db";
 import InventoryWidget from "../../components/ui/admin/dashboard-widget";
 import SearchWidget from "../../components/ui/admin/search-widget";
-
-const defaultLimit = "6";
+import { getCategories } from "@/lib/db/categories-db";
+import { getFeaturedProducts, getProducts } from "@/lib/db/products-db";
 
 export default async function Admin(params: PageProps<"/">) {
-  // we use the fetch() method to get the products from the API
-  // in this fetch we sort using _sort and _order and we limit the number of products using _limit
-  // we also use _expand to get the relational category data
-  // we can use the other destructed variables like page, total and so on to create pagination or show info
-  const defaultParams = new URLSearchParams({
-    _limit: defaultLimit.toString(),
-  });
-  const { page = "1", limit = "5", q = "" } = await params.searchParams;
+  const { page = "1", limit = "5", q = "", _categoryId = "" } = await params.searchParams;
   const searchParams = new URLSearchParams({
     _limit: limit.toString(),
     _page: page.toString(),
+    _q: q.toString(),
+    _categoryId: _categoryId.toString(),
   });
+
+  const categories = await getCategories();
   const allProductResponse = await getProducts(searchParams.toString());
   const featuredProducts = await getFeaturedProducts();
+
   return (
     <main className="flex flex-row min-h-screen">
       <Toaster position="top-center" />
@@ -34,7 +31,7 @@ export default async function Admin(params: PageProps<"/">) {
         <Header />
         <div className="pr-4 pl-4 pb-4 flex flex-col gap-4">
           <InventoryWidget />
-          <SearchWidget />
+          <SearchWidget categories={categories} />
           <ProductTable
             searchParams={params.searchParams}
             productResponse={allProductResponse}
