@@ -1,6 +1,7 @@
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { Button } from "./button";
 
 const heroImages = [
   // Mall
@@ -47,11 +48,13 @@ export default function Hero() {
           </p>
 
           <Link
-            className="bg-blue-600 text-center hover:bg-blue-700 items-center inline-flex gap-2 py-2.5 px-5 mt-8 rounded-lg cursor-pointer"
+            className="text-centeritems-center inline-flex mt-6 rounded-lg cursor-pointer"
             href={"/products"}
           >
-            Explore collection
-            <ArrowRight className="ml-2 size-4" />
+            <Button type="button" size={"lg"} className="py-5 px-5">
+              Explore collection
+              <ArrowRight className="ml-2 size-4" />
+            </Button>
           </Link>
         </div>
       </section>

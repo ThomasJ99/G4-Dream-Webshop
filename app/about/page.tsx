@@ -44,8 +44,8 @@ export default async function About() {
             product meets our standards — so you can shop with confidence.
           </p>
 
-          <Link href="/products" className="inline-flex items-center gap-4">
-            <Button type="button" size={"lg"}>
+          <Link href="/products">
+            <Button type="button" size={"lg"} className="py-5 px-5">
               Discover Our Collection
               <ArrowRight className="h-4 w-4" />
             </Button>
