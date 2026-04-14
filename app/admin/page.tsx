@@ -16,6 +16,8 @@ export const metadata: Metadata = {
 };
 
 const defaultLimit = "6";
+import { getCategories } from "@/lib/db/categories-db";
+import { getFeaturedProducts, getProducts } from "@/lib/db/products-db";
 
 
 export default async function Admin(params: PageProps<"/">) {
