@@ -18,7 +18,7 @@ export default function Hero() {
   const randomImage = heroImages[Math.floor(Math.random() * heroImages.length)];
 
   return (
-    <header className="relative min-h-[70vh] flex items-center">
+    <header className="relative min-h-[35vh] sm:min-h-[70vh] flex items-center">
       <div className="absolute inset-0">
         <Image
           src={randomImage}
@@ -37,7 +37,7 @@ export default function Hero() {
             New arrivals
           </span>
 
-          <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl font-semibold tracking-tight text-balance leading-none">
+          <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl max-w-[10ch] font-semibold tracking-tight text-balance leading-none">
             Everything you need, all in one place
           </h1>
 
