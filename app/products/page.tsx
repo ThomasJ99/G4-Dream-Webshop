@@ -6,6 +6,13 @@ import { getProducts } from "@/lib/db/products-db";
 import type { Category } from "@/lib/types";
 import { getSearchParamsAsString } from "@/utils/getSearchParams";
 
+export const metadata = {
+  title: "Products | DreamShop",
+  description:
+    "Browse the full product catalogue. Filter by category and pagination, all driven through the URL.",
+  keywords: ["products", "catalogue", "pagination", "filter", "e-commerce"],
+};
+
 export default async function ProductPage(params: PageProps<"/">) {
   // "params: PageProps<'/'>" contains searchParams, able to fetch async without 'use client'
   const { _q = "", _categoryId = "", _page = "1", _limit = "8" } = await params.searchParams;

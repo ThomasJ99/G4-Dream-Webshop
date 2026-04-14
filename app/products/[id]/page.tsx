@@ -1,4 +1,5 @@
 import { ChevronLeft, Package } from "lucide-react";
+import type { Metadata } from "next";
 import Form from "next/form";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,6 +11,27 @@ import { addToCart } from "@/lib/actions/cart-actions";
 import { getProductById } from "@/lib/db/products-db";
 import { getReviewsByProductId } from "@/lib/db/reviews-db";
 import { formatPrice } from "@/utils/utils";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+
+  try {
+    const product = await getProductById(id);
+
+    return {
+      title: `${product.title} | DreamShop`,
+      description: product.description,
+    };
+  } catch {
+    return {
+      title: "Product not found",
+    };
+  }
+}
 
 export default async function ProductPage({
   params,

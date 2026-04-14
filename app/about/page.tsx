@@ -1,7 +1,13 @@
 import { ArrowRight } from "lucide-react";
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+
+export const metadata: Metadata = {
+  title: "About | DreamShop",
+  description: "Find out about DreamStore's rich history.",
+};
 
 export default async function About() {
   // TODO: REMOVE THIS LINE OF CODE LATER, GOOD TO TEST SKELETONS
@@ -101,5 +107,7 @@ export default async function About() {
             </div>
           </section>
         </div>
-      </div>
-    </section> */
+      </section>
+    </article>
+  );
+}
