@@ -61,11 +61,25 @@ export default function ProductGridPagination({
       >
         {currentPage}
       </Link>
-
+      <select
+        className="border border-blue-400 rounded-xl px-2"
+        onChange={(e) => {
+          const value = +e.target.value;
+          if (value > 0) {
+            const url = createPageURL(value);
+            router.replace(url);
+            e.target.selectedIndex = 0;
+          }
+        }}
+      >
+        {pages.map((page) => (
+          <option key={page} value={page}>
+            {page}
+          </option>
+        ))}
+      </select>
       {currentPage < totalPages && (
         <>
-          <span className="flex items-end text-blue-400 text-2xl">...</span>
-
           <Link
             className="bg-white text-blue-600 border border-blue-400 p-1 min-w-10 text-center rounded-lg"
             href={createPageURL(totalPages)}
@@ -89,23 +103,6 @@ export default function ProductGridPagination({
       >
         <ChevronsRight />
       </Link>
-      <select
-        className="border rounded-xl px-2"
-        onChange={(e) => {
-          const value = +e.target.value;
-          if (value > 0) {
-            const url = createPageURL(value);
-            router.replace(url);
-            e.target.selectedIndex = 0;
-          }
-        }}
-      >
-        {pages.map((page) => (
-          <option key={page} value={page}>
-            {page}
-          </option>
-        ))}
-      </select>
     </div>
   );
 }
