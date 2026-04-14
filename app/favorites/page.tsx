@@ -1,9 +1,15 @@
+import type { Metadata } from "next";
 import { ProductCard } from "@/components/product-card";
 import AddFavorite from "@/components/ui/add-favorite";
 import RemoveFavorite from "@/components/ui/delete-favorite";
 import { Skeleton } from "@/components/ui/skeleton";
 import { API_URL } from "@/lib/config";
 import { getFavorites } from "@/lib/db/favorites-db";
+
+export const metadata: Metadata = {
+  title: "Your Favorites | DreamShop",
+  description: "Save products you love and come back to them anytime.",
+};
 
 async function getProduct(id: number) {
   const response = await fetch(`${API_URL}/api/products/${id}`, {

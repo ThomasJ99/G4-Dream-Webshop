@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "About | DreamStore",
+  title: "About | DreamShop",
   description: "Find out about DreamStore's rich history.",
 };
 

@@ -6,7 +6,7 @@ import FeaturedGridSkeleton from "@/components/featured-grid-skeleton";
 import Hero from "@/components/ui/hero";
 
 export const metadata = {
-  title: "DreamStore",
+  title: "DreamShop",
   description:
     "Shop electronics, furniture, beauty, fashion and more — curated products from trusted brands, all in one place.",
   keywords: [

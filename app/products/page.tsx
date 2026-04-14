@@ -7,7 +7,7 @@ import type { Category } from "@/lib/types";
 import { getSearchParamsAsString } from "@/utils/getSearchParams";
 
 export const metadata = {
-  title: "Products | DreamStore",
+  title: "Products | DreamShop",
   description:
     "Browse the full product catalogue. Filter by category and pagination, all driven through the URL.",
   keywords: ["products", "catalogue", "pagination", "filter", "e-commerce"],

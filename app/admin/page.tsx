@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Toaster } from "react-hot-toast";
 import { ToastListener } from "@/components/toast-listener";
 import Header from "@/components/ui/admin/header";
@@ -6,6 +7,12 @@ import Sidebar from "@/components/ui/admin/sidebar";
 import { getFeaturedProducts, getProducts } from "@/lib/db/products-db";
 import InventoryWidget from "../../components/ui/admin/dashboard-widget";
 import SearchWidget from "../../components/ui/admin/search-widget";
+
+export const metadata: Metadata = {
+  title: "Admin Dashboard | DreamShop",
+  description:
+    "Manage products, inventory, and featured items in your store dashboard.",
+};
 
 const defaultLimit = "6";
 
