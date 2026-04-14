@@ -52,7 +52,9 @@ export default function SearchWidget({ categories }: { categories: Category[] })
           </option>
 
           {categories.map((category) => (
-            <option value={category.id}>{category.name}</option>
+            <option key={category.id} value={category.id}>
+              {category.name}
+            </option>
           ))}
         </select>
       </div>
