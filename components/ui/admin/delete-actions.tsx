@@ -28,7 +28,12 @@ export function ProductActions({ id }: { id: string }) {
 
   return (
     // Button is disabled while isPending = true
-    <button type="button" onClick={handleDelete} disabled={isPending}>
+    <button
+      type="button"
+      className="cursor-pointer active:scale-105"
+      onClick={handleDelete}
+      disabled={isPending}
+    >
       <Trash color="red" size={24} />
     </button>
   );
