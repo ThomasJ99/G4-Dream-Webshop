@@ -2,7 +2,6 @@
 
 import { Category } from "@/lib/types";
 import { ChevronDown, Funnel, Search } from "lucide-react";
-import { ChangeEvent } from "react";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 
 export default function SearchWidget({ categories }: { categories: Category[] }) {
@@ -47,7 +46,7 @@ export default function SearchWidget({ categories }: { categories: Category[] })
             setParam("_categoryId", e.target.value);
           }}
         >
-          <option value="" selected>
+          <option value="" defaultValue="">
             All categories
             {/* <ChevronDown /> */}
           </option>
