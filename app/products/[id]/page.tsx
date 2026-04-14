@@ -52,6 +52,9 @@ export default async function ProductPage({
     "https://placehold.co/1000x1000/png?text=No image available";
   const prettyPrice = formatPrice(product.price);
 
+  const isOutOfStock =
+    product.stock === 0 || product.availabilityStatus === "OUT_OF_STOCK";
+
   return (
     <main className="my-8">
       <header className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-8">
@@ -117,8 +120,13 @@ export default async function ProductPage({
           {/* add to cart */}
           <Form action={addToCart}>
             <input type="hidden" name="product_id" value={product.id}></input>
-            <Button type="submit" size={"lg"} className="cursor-pointer w-full">
-              Add to Cart
+            <Button
+              type="submit"
+              size={"lg"}
+              className={` w-full cursor-pointer`}
+              disabled={isOutOfStock}
+            >
+              {isOutOfStock ? "Not currently available for purchase" : "Add to Cart"}
             </Button>
           </Form>
 
