@@ -144,7 +144,7 @@ export default async function ProductPage({
           <section className="flex gap-32">
             <div className="pt-8 border-t border-border space-y-4">
               <div className="space-y-2">
-                <h3 className="text-sm font-semibold">Details</h3>
+                <h2 className="text-sm font-semibold">Details</h2>
                 <ul className="text-sm text-muted-foreground space-y-1">
                   <li>Premium quality materials</li>
                   <li>Ethically manufactured</li>
@@ -153,7 +153,7 @@ export default async function ProductPage({
               </div>
 
               <div className="space-y-2">
-                <h3 className="text-sm font-semibold">Shipping</h3>
+                <h2 className="text-sm font-semibold">Shipping</h2>
                 <ul className="text-sm text-muted-foreground space-y-1">
                   <li>{product.availabilityStatus}</li>
                   <li>{product.shippingInformation}</li>
@@ -163,7 +163,7 @@ export default async function ProductPage({
             </div>
 
             <div className="pt-8 border-t border-border space-y-4">
-              <h3 className="text-sm font-semibold">Reviews</h3>
+              <h2 className="text-sm font-semibold">Reviews</h2>
               <ul className="text-sm text-muted-foreground space-y-1">
                 {reviews.map((review) => (
                   <li key={review.id}>
