@@ -73,9 +73,25 @@ export default function SidebarRight({
     }
 
     loadCartProducts();
-    const interval = setInterval(loadCartProducts, 3000);
+    const interval = setInterval(loadCartProducts, 1000);
     return () => clearInterval(interval);
   }, []);
+
+  // loadCartProducts();
+
+  //   const channel = supabase
+  //     .channel("cart-changes")
+  //     .on(
+  //       "postgres_changes",
+  //       { event: "*", schema: "public", table: "cart_items" },
+  //       loadCartProducts,
+  //     )
+  //     .subscribe();
+
+  //   return () => {
+  //     supabase.removeChannel(channel);
+  //   };
+  // }, []);
 
   return (
     // <div className="fixed z-40 top-16 -right-3 bg-black/10 w-[430px] h-[44.6vh] rounded-bl-lg ">
