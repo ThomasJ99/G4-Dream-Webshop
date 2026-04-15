@@ -267,7 +267,7 @@ export default function Navigation({
           )}
         </AnimatePresence>
       </header>
-      <SidebarRight hidden={sidebarHidden} />
+      <SidebarRight hidden={sidebarHidden} setHidden={setSidebarHidden} />
       {/* className="hidden md:block" if not want sidebar on mobile */}
     </>
   );
