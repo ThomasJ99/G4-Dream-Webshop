@@ -59,6 +59,14 @@ export default async function Cart() {
     return totalPrice;
   });
 
+  // VAT & subtotal price
+  const VAT_RATE = 0.25;
+  const subtotal = productsWithQuantity.reduce((sum, item) => {
+    return sum + Number(item.price) * Number(item.quantity);
+  }, 0);
+
+  const vatAmount = subtotal * VAT_RATE;
+
   return (
     <main>
       {/* Persistent */}
@@ -71,6 +79,7 @@ export default async function Cart() {
           Continue shopping
         </Link>
 
+        {/* mt-2 to match other pages position on y-axis */}
         <h1 className="font-serif text-3xl sm:text-4xl leading-relaxed mt-2">
           Shopping Cart
         </h1>
@@ -100,9 +109,9 @@ export default async function Cart() {
             <h2 className="font-semibold text-lg">Order Summary</h2>
 
             <div className="space-y-4">
-              <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">Subtotal</span>
-                <span>Price nr</span>
+              <div className="flex justify-between text-sm text-muted-foreground">
+                <span>Subtotal</span>
+                <span>{formatPrice(subtotal)}</span>
               </div>
 
               <div className="flex justify-between text-sm text-muted-foreground">
@@ -111,15 +120,15 @@ export default async function Cart() {
               </div>
 
               <div className="flex justify-between text-sm text-muted-foreground">
-                <span>VAT (included)</span>
+                <span>VAT (25%)</span>
                 {/* Format tax price here with math */}
-                <span>Price</span>
+                <span>{formatPrice(vatAmount)}</span>
               </div>
 
               <div className="border-t border-border pt-4 mb-6">
-                <div className="flex justify-between">
+                <div className="flex justify-between font-semibold text-xl">
                   <span>Total</span>
-                  {formatPrice(totalPrice)}
+                  {formatPrice(totalPrice + vatAmount)}
                 </div>
               </div>
 
