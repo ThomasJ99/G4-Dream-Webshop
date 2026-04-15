@@ -11,12 +11,8 @@ import { getFeaturedProducts, getProducts } from "@/lib/db/products-db";
 
 export const metadata: Metadata = {
   title: "Admin Dashboard | DreamShop",
-  description:
-    "Manage products, inventory, and featured items in your store dashboard.",
+  description: "Manage products, inventory, and featured items in your store dashboard.",
 };
-
-const defaultLimit = "6";
-
 
 export default async function Admin(params: PageProps<"/">) {
   const { page = "1", limit = "5", q = "", _categoryId = "" } = await params.searchParams;
@@ -40,7 +36,7 @@ export default async function Admin(params: PageProps<"/">) {
       <section className="flex flex-col w-full gap-4 bg-gray-100">
         <Header />
         <div className="pr-4 pl-4 pb-4 flex flex-col gap-4">
-          <InventoryWidget />
+          <InventoryWidget data={allProductResponse} />
           <SearchWidget categories={categories} />
           <ProductTable
             searchParams={params.searchParams}
