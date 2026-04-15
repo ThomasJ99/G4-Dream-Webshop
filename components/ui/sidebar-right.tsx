@@ -99,8 +99,8 @@ export default function SidebarRight({
   }, []);
 
   const cartContent = (
-    <div className="flex flex-col w-full text-gray-600 h-full">
-      <header className="py-3 border-b-3 border-gray-600 px-3 flex">
+    <div className="flex mx-auto lg:min-w-[420px] flex-col w-full text-gray-600 h-full">
+      <header className="py-3 shadow-md px-3 flex">
         <h2 className="flex items-center text-md font-bold mx-auto">
           Items in Cart
         </h2>
@@ -123,7 +123,7 @@ export default function SidebarRight({
           products.map((product, index) => (
             <li
               key={product.id}
-              className={`flex items-center gap-2 px-2 py-2 h-30  ${
+              className={`flex items-center  px-[3.3%] lg:gap-2 lg:pl-2 lg:pr-5 py-5 h-35  ${
                 index > 0 ? "border-t-2 border-border" : ""
               }`}
             >
@@ -164,7 +164,7 @@ export default function SidebarRight({
                       onClick={() => removeCartItem(product.id)}
                       aria-label="Remove item"
                     >
-                      <Trash2 className="h-3.5 w-3.5 ml-auto mr-1.5 hover:cursor-pointer" />
+                      <Trash2 className="h-3.5 w-3.5 ml-auto mt-1 mr-1.5 hover:cursor-pointer" />
                     </button>
                   </Tooltip>
                 </div>
