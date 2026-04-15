@@ -139,6 +139,8 @@ export default function SidebarRight({
                     index > 0 ? "border-t-2 border-border " : ""
                   }`}
                 >
+                  {/* TODO: Remove Tooltip on IMG */}
+                  {/* <Tooltip text="Image" position="bottom" arrow={true}> */}
                   <Link href={`/products/${product.id}`}>
                     <Image
                       src={
@@ -151,6 +153,7 @@ export default function SidebarRight({
                       className="rounded-lg object-cover h-full"
                     />
                   </Link>
+                  {/* </Tooltip> */}
                   <div className="h-full w-full flex flex-col gap-1 ml-2 flex-1 mt-0">
                     <span className="text-sm font-bold leading-tight hover:text-blue-400">
                       <Link href={`/products/${product.id}`}>
@@ -180,7 +183,7 @@ export default function SidebarRight({
                           onClick={() => removeCartItem(product.id)}
                           aria-label="Remove item"
                         >
-                          <Trash2 className="h-3.5 w-3.5  ml-auto mr-1.5 " />
+                          <Trash2 className="h-3.5 w-3.5  ml-auto mr-1.5 hover:cursor-pointer" />
                         </button>
                       </Tooltip>
                       {/* <span className="absolute right-10 px-2 py-1 text-xs text-white bg-gray-800 rounded opacity-0 peer-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
@@ -192,7 +195,7 @@ export default function SidebarRight({
                     <div className="flex items-center w-20 h-8 border mt-auto border-input rounded-md">
                       <button
                         type="button"
-                        className="h-8 w-8 flex items-center justify-center hover:text-blue-400 disabled:opacity-40"
+                        className="h-8 w-8 flex items-center justify-center hover:hover:text-red-500 disabled:opacity-40"
                         onClick={() =>
                           updateQuantity(product.id, product.quantity - 1)
                         }
