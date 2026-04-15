@@ -71,7 +71,7 @@ export default async function Cart() {
           Continue shopping
         </Link>
 
-        <h1 className="font-serif text-3xl sm:text-4xl leading-relaxed">
+        <h1 className="font-serif text-3xl sm:text-4xl leading-relaxed mt-2">
           Shopping Cart
         </h1>
 
