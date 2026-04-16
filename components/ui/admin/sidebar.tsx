@@ -23,7 +23,7 @@ const NavItem = ({
 }) => {
   return (
     <Link href={href}>
-      <li className="flex flex-row items-center gap-4 hover:bg-purple-800 hover:text-white p-2 rounded-md">
+      <li className="flex flex-row items-center gap-4 hover:bg-blue-600 hover:text-white p-2 rounded-md">
         {icon}
         {label}
       </li>
@@ -91,7 +91,7 @@ export default function Sidebar() {
           <User
             height={52}
             width={52}
-            className={`bg-purple-800 rounded-full p-3 text-white`}
+            className={`bg-blue-600 rounded-full p-3 text-white`}
           />
           <div className="flex flex-col">
             <span className="text-sm font-semibold text-gray-700">
