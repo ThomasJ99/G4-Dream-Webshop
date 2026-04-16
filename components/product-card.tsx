@@ -26,16 +26,16 @@ export function ProductCard({
       // Card animations, initial is the initial card value | animate is what it gets set to | transition handles the duration and smoothness
       initial={{ opacity: 0, y: 24, filter: "blur(2px)" }}
       animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-      transition={{ delay: index * 0.08, duration: 0.4, ease: "easeOut" }}
+      transition={{ delay: index * 0.12, duration: 0.4, ease: "easeOut" }}
     >
       <Link href={`/products/${product.id}`} className="group">
         <article className="space-y-3">
           <div className="aspect-3/4 relative overflow-hidden rounded-lg bg-secondary">
             <Image
               src={imgURL}
-              alt={product.title}
+              alt={""}
               fill
-              className="object-cover transition-transform duration-500 group-hover:scale-105"
+              className="object-cover transition-transform group-hover:scale-105"
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
             />
 

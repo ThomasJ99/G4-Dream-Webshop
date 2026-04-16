@@ -18,7 +18,7 @@ export default async function CategoryGrid() {
 
           <Link
             href={"/products"}
-            className="flex items-center gap-1 text-sm text-blue-600 hover:text-blue-700 transition-colors"
+            className="flex items-center gap-1 text-sm text-blue-600 hover:text-blue-400 transition-colors"
           >
             View All <ArrowRight className="h-4 w-4" />
           </Link>
@@ -36,7 +36,7 @@ export default async function CategoryGrid() {
                   src={category.image}
                   alt={`Browse ${category.name} products`}
                   fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  className="object-cover transition-transform group-hover:scale-105"
                 />
 
                 {/* Adds bg to card on the bottom for text to pop */}

@@ -25,34 +25,55 @@ export default function ProductTablePagination({
   //&rarr;
   return (
     <div className="flex justify-end gap-4">
-
-      <Link scroll={false} className={`${currentPage > 1 ? 'text-purple-800' : 'text-gray-400'} p-1 text-center rounded-lg`}  href={createPageURL(1)}>
-        <ChevronsLeft/>
+      <Link
+        scroll={false}
+        className={`${currentPage > 1 ? "text-blue-400" : "text-gray-400"} p-1 text-center rounded-lg`}
+        href={createPageURL(1)}
+      >
+        <ChevronsLeft />
       </Link>
-      <Link scroll={false} className={`${currentPage > 1 ? 'text-purple-800' : 'text-gray-400'} p-1 text-center rounded-lg`}  href={createPageURL(Math.max(1, currentPage - 1))}>
-        <ChevronLeft/>
+      <Link
+        scroll={false}
+        className={`${currentPage > 1 ? "text-blue-400" : "text-gray-400"} p-1 text-center rounded-lg`}
+        href={createPageURL(Math.max(1, currentPage - 1))}
+      >
+        <ChevronLeft />
       </Link>
 
-      <Link scroll={false} className="bg-purple-800 text-white p-1 min-w-10 text-center rounded-lg" href={createPageURL(currentPage)}>
-        {currentPage} 
+      <Link
+        scroll={false}
+        className="bg-blue-600 text-white p-1 min-w-10 text-center rounded-lg"
+        href={createPageURL(currentPage)}
+      >
+        {currentPage}
       </Link>
 
       {currentPage < totalPages && (
-      <>
-      <span className="flex items-end text-purple-800 text-2xl">...</span>
-      <Link className="bg-white text-purple-800 border border-purple-800 p-1 min-w-10 text-center rounded-lg" href={createPageURL(totalPages)}>
-        {totalPages}
-      </Link>
-      </>
+        <>
+          <span className="flex items-end text-blue-400 text-2xl">...</span>
+          <Link
+            className="bg-white text-blue-400 border border-blue-400 p-1 min-w-10 text-center rounded-lg"
+            href={createPageURL(totalPages)}
+          >
+            {totalPages}
+          </Link>
+        </>
       )}
-    
-      <Link scroll={false} className={`${currentPage >= totalPages ? 'text-gray-400' : 'text-purple-800'} p-1 text-center rounded-lg`} href={createPageURL(Math.min(totalPages, currentPage + 1))}>
-        <ChevronRight/>
+
+      <Link
+        scroll={false}
+        className={`${currentPage >= totalPages ? "text-gray-400" : "text-blue-400"} p-1 text-center rounded-lg`}
+        href={createPageURL(Math.min(totalPages, currentPage + 1))}
+      >
+        <ChevronRight />
       </Link>
-      <Link scroll={false} className={`${currentPage >= totalPages ? 'text-gray-400' : 'text-purple-800'} p-1 text-center rounded-lg`} href={createPageURL(totalPages)}>
-        <ChevronsRight/>
+      <Link
+        scroll={false}
+        className={`${currentPage >= totalPages ? "text-gray-400" : "text-blue-400"} p-1 text-center rounded-lg`}
+        href={createPageURL(totalPages)}
+      >
+        <ChevronsRight />
       </Link>
-      
     </div>
   );
 }

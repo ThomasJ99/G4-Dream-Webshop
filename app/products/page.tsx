@@ -19,7 +19,7 @@ export default async function ProductPage(params: PageProps<"/">) {
     _q = "",
     _categoryId = "",
     _page = "1",
-    _limit = "8",
+    _limit = "16",
   } = await params.searchParams;
 
   const currentLimit = getSearchParamsAsString(_limit) as string;
@@ -42,8 +42,8 @@ export default async function ProductPage(params: PageProps<"/">) {
 
   // Calculate pages
   const totalProducts = total ?? 0;
-  const leftover = totalProducts % 8;
-  let totalPages = (totalProducts - leftover) / 8;
+  const leftover = totalProducts % 16;
+  let totalPages = (totalProducts - leftover) / 16;
 
   if (leftover > 0) {
     totalPages += 1;
@@ -56,7 +56,7 @@ export default async function ProductPage(params: PageProps<"/">) {
   return (
     <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <h1 className="text-3xl sm:text-4xl font-serif mt-16 leading-relaxed">All Products</h1>
-      <span className="text-black/60 mb-8 block">
+      <span className="text-muted-foreground mb-8 block">
         {total} products found
       </span>
 

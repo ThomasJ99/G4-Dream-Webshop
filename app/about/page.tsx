@@ -25,7 +25,7 @@ export default async function About() {
       />
 
       {/* Linear overlay — dark at bottom so text is more readable */}
-      <div className="absolute inset-0 bg-linear-to-r from-black/80 via-black/30 to-transparent" />
+      <div className="absolute inset-0 bg-linear-to-r from-black/80 via-black/50 to-transparent" />
 
       {/* Text content */}
       <section className="relative z-9 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 lg:py-32 w-full">

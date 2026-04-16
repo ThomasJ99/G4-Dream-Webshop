@@ -48,13 +48,12 @@ export default function Navigation({
       <div className="w-full h-16 backdrop-blur-sm">
         <nav className="flex items-center justify-between mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16">
           <Link href="/">
-          
             {/* Full logo — desktop */}
             <svg
               className="hidden sm:block"
               width="200"
               height="38"
-              viewBox="0 0 200 40"
+              viewBox="0 0 200 38"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
               role="img"
@@ -63,8 +62,8 @@ export default function Navigation({
               <rect
                 x="0"
                 y="0"
-                width="40"
-                height="40"
+                width="38"
+                height="38"
                 rx="9"
                 fill="currentColor"
               />
@@ -85,7 +84,7 @@ export default function Navigation({
                 fontWeight="700"
                 fill="currentColor"
                 x="52"
-                y="28"
+                y="26"
               >
                 Dream
               </text>
@@ -95,7 +94,7 @@ export default function Navigation({
                 fontWeight="300"
                 fill="currentColor"
                 x="129"
-                y="28"
+                y="26"
               >
                 Shop
               </text>
@@ -104,9 +103,9 @@ export default function Navigation({
             {/* Badge only — mobile */}
             <svg
               className="sm:hidden"
-              width="40"
+              width="38"
               height="38"
-              viewBox="0 0 40 40"
+              viewBox="0 0 38 38"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
               role="img"
@@ -115,8 +114,8 @@ export default function Navigation({
               <rect
                 x="0"
                 y="0"
-                width="40"
-                height="40"
+                width="38"
+                height="38"
                 rx="9"
                 fill="currentColor"
               />
@@ -148,7 +147,7 @@ export default function Navigation({
               ))}
             </ul>
             <Link
-              className="relative p-2 rounded-sm hover:text-blue-400 transition-colors"
+              className="relative p-2 rounded-sm hover:text-blue-400 transition-colors mr-1"
               href="/cart"
             >
               <div className="absolute -top-1 -right-1 w-4 h-4 bg-blue-400 rounded-full text-white flex items-center justify-center text-xs">
