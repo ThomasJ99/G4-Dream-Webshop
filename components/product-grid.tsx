@@ -1,21 +1,49 @@
-import { SearchParams } from "next/dist/server/request/search-params";
+"use client";
+
+import { useEffect, useState } from "react";
 import type { Category, Product } from "@/lib/types";
 import { ProductCard } from "./product-card";
+import { ProductGridSkeleton } from "./product-grid-skeleton";
 
-interface ProductCardProps {
-  products: Product[];
-  categories: Category[];
+interface ProductGridProps {
+  initialProducts: Product[];
+  initialCategories: Category[];
+  searchParams: string;
 }
 
 export default function ProductGrid({
-  products,
-  categories,
-}: ProductCardProps) {
-  //console.log(products[0]);
+  initialProducts,
+  initialCategories,
+  searchParams,
+}: ProductGridProps) {
+  const [products, setProducts] = useState<Product[]>(initialProducts);
+  const [categories, setCategories] = useState<Category[]>(initialCategories);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    async function fetchProducts() {
+      setIsLoading(true);
+      try {
+        const response = await fetch(`/api/products/?${searchParams}`);
+        const data = await response.json();
+        setProducts(data.products || []);
+      } catch (error) {
+        console.error("Failed to fetch products:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    fetchProducts();
+  }, [searchParams]);
+
+  if (isLoading) {
+    return <ProductGridSkeleton />;
+  }
+
   return (
     <div>
       {products.length > 0 ? (
-        // TODO: SHOULD ADD SOME PX ON SMALLER SCREENS - look at homepage for px values
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
           {products.map((product, index) => {
             const category = categories.find(
