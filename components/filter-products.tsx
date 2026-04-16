@@ -1,11 +1,15 @@
 "use client";
 
-import { Category } from "@/lib/types";
 import { ChevronLeft, ChevronRight, Search } from "lucide-react";
-import { useSearchParams, usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import type { Category } from "@/lib/types";
 
-export default function FilterProducts({ categories }: { categories: Category[] }) {
+export default function FilterProducts({
+  categories,
+}: {
+  categories: Category[];
+}) {
   const allCategories = [{ id: "", name: "All" }, ...categories];
 
   const searchParams = useSearchParams();
@@ -102,7 +106,7 @@ export default function FilterProducts({ categories }: { categories: Category[] 
       </form>
 
       {/* Category search buttons */}
-      <div className="hidden md:block mt-4">
+      <div className="hidden xl:block mt-4">
         <div className="relative">
           <button
             type="button"
@@ -124,19 +128,19 @@ export default function FilterProducts({ categories }: { categories: Category[] 
 
           {/* Fade vänster */}
           {canScrollLeft && (
-            <div className="pointer-events-none absolute inset-y-0 left-0 z-[5] w-12 bg-gradient-to-r from-background to-transparent" />
+            <div className="pointer-events-none absolute inset-y-0 left-0 z-5 w-12 bg-linear-to-r from-background to-transparent" />
           )}
 
           {/* Fade höger */}
           {canScrollRight && (
-            <div className="pointer-events-none absolute inset-y-0 right-0 z-[5] w-12 bg-gradient-to-l from-background to-transparent" />
+            <div className="pointer-events-none absolute inset-y-0 right-0 z-5 w-12 bg-linear-to-l from-background to-transparent" />
           )}
 
           <div
             ref={scrollRef}
-            className="no-scrollbar overflow-x-auto scroll-smooth px-10"
+            className="no-scrollbar overflow-x-auto scroll-smooth mx-10"
           >
-            <div className="flex w-max gap-2 py-1">
+            <div className="flex gap-2 py-1">
               {allCategories.map((category) => {
                 const isActive = currentActive === category.id.toString();
 
@@ -144,11 +148,12 @@ export default function FilterProducts({ categories }: { categories: Category[] 
                   <button
                     type="button"
                     key={category.id || "all"}
-                    className={`shrink-0 rounded-lg border px-4 py-2 text-sm transition-colors cursor-pointer font-semibold ${
-                      isActive
-                        ? "border-blue-600 bg-blue-600 text-white"
-                        : "border-gray-300 bg-white text-muted-foreground hover:border-gray-400"
-                    }`}
+                    className={`shrink-0 rounded-lg border px-4 py-2 text-sm transition-colors cursor-pointer font-semibold 
+                      ${
+                        isActive
+                          ? "border-blue-600 bg-blue-600 text-white"
+                          : "border-gray-300 bg-white text-muted-foreground hover:border-gray-400"
+                      }`}
                     onClick={() => {
                       setParam("_categoryId", category.id.toString());
                     }}
@@ -166,7 +171,7 @@ export default function FilterProducts({ categories }: { categories: Category[] 
       <select
         name="category"
         id="category"
-        className="max-w-md rounded-lg border border-input bg-background p-2 mt-4 md:hidden"
+        className="max-w-md rounded-lg border border-input bg-background p-2 mt-4 xl:hidden"
         value={currentActive}
         onChange={(e) => {
           setParam("_categoryId", e.target.value);

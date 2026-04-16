@@ -40,13 +40,13 @@ export default function ProductGridPagination({
   return (
     <div className="flex justify-end gap-4 w-fit m-auto my-12">
       <Link
-        className={`${currentPage > 1 ? "text-blue-400" : "text-gray-400"} p-1 text-center rounded-lg`}
+        className={`${currentPage > 1 ? "text-blue-400" : "text-gray-400"} p-1 hidden sm:block`}
         href={createPageURL(1)}
       >
         <ChevronsLeft />
       </Link>
       <Link
-        className={`${currentPage > 1 ? "text-blue-400" : "text-gray-400"} p-1 text-center rounded-lg`}
+        className={`${currentPage > 1 ? "text-blue-400" : "text-gray-400"} p-1 hidden sm:block`}
         href={createPageURL(Math.max(1, currentPage - 1))}
       >
         <ChevronLeft />
@@ -78,7 +78,7 @@ export default function ProductGridPagination({
       {currentPage < totalPages && (
         <>
           <Link
-            className="bg-white text-blue-600 border border-blue-400 p-1 min-w-10 text-center rounded-lg"
+            className="bg-white text-blue-600 border border-blue-400 p-1 min-w-10 text-center rounded-lg hidden sm:block"
             href={createPageURL(totalPages)}
           >
             {totalPages}
@@ -87,13 +87,13 @@ export default function ProductGridPagination({
       )}
 
       <Link
-        className={`${currentPage >= totalPages ? "text-gray-400" : "text-blue-600"} p-1 text-center rounded-lg`}
+        className={`${currentPage >= totalPages ? "text-gray-400" : "text-blue-600"} p-1 hidden sm:block`}
         href={createPageURL(Math.min(totalPages, currentPage + 1))}
       >
         <ChevronRight />
       </Link>
       <Link
-        className={`${currentPage >= totalPages ? "text-gray-400" : "text-blue-600"} p-1 text-center rounded-lg`}
+        className={`${currentPage >= totalPages ? "text-gray-400" : "text-blue-600"} p-1 hidden sm:block`}
         href={createPageURL(totalPages)}
       >
         <ChevronsRight />
