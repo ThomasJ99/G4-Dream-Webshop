@@ -15,7 +15,12 @@ export const metadata = {
 
 export default async function ProductPage(params: PageProps<"/">) {
   // "params: PageProps<'/'>" contains searchParams, able to fetch async without 'use client'
-  const { _q = "", _categoryId = "", _page = "1", _limit = "8" } = await params.searchParams;
+  const {
+    _q = "",
+    _categoryId = "",
+    _page = "1",
+    _limit = "8",
+  } = await params.searchParams;
 
   const currentLimit = getSearchParamsAsString(_limit) as string;
   const currentPage = getSearchParamsAsString(_page) as string;
@@ -31,7 +36,7 @@ export default async function ProductPage(params: PageProps<"/">) {
   });
 
   // getProducts accepts URL string for fetch
-  const { products, total } = await getProducts(searchParams.toString());
+  const { total, products } = await getProducts(searchParams.toString());
 
   const categories: Category[] = await getCategories();
 
@@ -57,7 +62,11 @@ export default async function ProductPage(params: PageProps<"/">) {
 
       <FilterProducts categories={categories} />
 
-      <ProductGrid products={products} categories={categories}/>
+      <ProductGrid
+        initialProducts={products}
+        initialCategories={categories}
+        searchParams={searchParams.toString()}
+      />
 
       <ProductGridPagination totalPages={totalPages} />
     </main>
