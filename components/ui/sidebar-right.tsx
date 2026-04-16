@@ -37,7 +37,7 @@ export default function SidebarRight({
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 1024);
+    const check = () => setIsMobile(window.innerWidth < 640);
     check();
     window.addEventListener("resize", check);
     return () => window.removeEventListener("resize", check);
@@ -99,14 +99,14 @@ export default function SidebarRight({
   }, []);
 
   const cartContent = (
-    <div className="flex mx-auto lg:min-w-[420px] flex-col w-full text-gray-600 h-full">
+    <div className="flex mx-auto sm:min-w-[420px] flex-col w-full text-gray-600 h-full">
       <header className="py-3 shadow-md px-3 flex">
         <h2 className="flex items-center text-md font-bold mx-auto">
           Items in Cart
         </h2>
       </header>
       <ul
-        className="flex flex-col w-full border-b-2 border-border overflow-y-auto flex-1 min-h-0
+        className="flex flex-col  border-b-2 border-border overflow-y-auto flex-1 min-h-0 
         [&::-webkit-scrollbar]:w-2
         [&::-webkit-scrollbar-track]:bg-transparent
         [&::-webkit-scrollbar-thumb]:bg-gray-400/80
@@ -123,7 +123,7 @@ export default function SidebarRight({
           products.map((product, index) => (
             <li
               key={product.id}
-              className={`flex items-center  px-[3.3%] lg:gap-2 lg:pl-2 lg:pr-5 py-5 h-35  ${
+              className={`flex items-center  px-[3.3%] lg:gap-2 lg:pl-2 lg:pr-5 py-5 h-35   ${
                 index > 0 ? "border-t-2 border-border" : ""
               }`}
             >
@@ -189,23 +189,23 @@ export default function SidebarRight({
                   <span className="w-8 text-center text-sm font-medium">
                     {product.quantity}
                   </span>
-                  <button
-                    type="button"
-                    className="h-8 w-8 flex items-center justify-center hover:text-blue-400 disabled:opacity-40"
-                    onClick={() =>
-                      updateQuantity(product.id, product.quantity + 1)
-                    }
-                    disabled={product.quantity >= 10}
-                    aria-label="Increase quantity"
+                  <Tooltip
+                    text="Increase quantity"
+                    position="top"
+                    arrow={false}
                   >
-                    <Tooltip
-                      text="Increase quantity"
-                      position="left"
-                      arrow={false}
+                    <button
+                      type="button"
+                      className="h-8 w-8 flex items-center justify-center hover:text-blue-400 disabled:opacity-40"
+                      onClick={() =>
+                        updateQuantity(product.id, product.quantity + 1)
+                      }
+                      disabled={product.quantity >= 10}
+                      aria-label="Increase quantity"
                     >
                       <Plus className="h-3 w-3 hover:cursor-pointer" />
-                    </Tooltip>
-                  </button>
+                    </button>
+                  </Tooltip>
                 </div>
               </div>
             </li>
@@ -248,8 +248,8 @@ export default function SidebarRight({
     <motion.aside
       className={`${className ?? ""} fixed z-40 top-16 right-0 overflow-hidden bg-white/50 backdrop-blur-sm shadow-sm rounded-bl-lg`}
       variants={{
-        visible: { width: 420, height: "40vh" },
-        hidden: { width: 0, height: "40vh" },
+        visible: { width: 420, height: "50vh" },
+        hidden: { width: 0, height: "50vh" },
       }}
       animate={hidden ? "hidden" : "visible"}
       initial={hidden ? "hidden" : "visible"}
