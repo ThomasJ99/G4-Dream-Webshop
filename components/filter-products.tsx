@@ -144,10 +144,10 @@ export default function FilterProducts({ categories }: { categories: Category[] 
                   <button
                     type="button"
                     key={category.id || "all"}
-                    className={`shrink-0 rounded-lg border px-4 py-2 text-sm font-medium transition-colors cursor-pointer ${
+                    className={`shrink-0 rounded-lg border px-4 py-2 text-sm transition-colors cursor-pointer font-semibold ${
                       isActive
                         ? "border-blue-600 bg-blue-600 text-white"
-                        : "border-gray-300 bg-white text-gray-700 hover:border-gray-400"
+                        : "border-gray-300 bg-white text-muted-foreground hover:border-gray-400"
                     }`}
                     onClick={() => {
                       setParam("_categoryId", category.id.toString());

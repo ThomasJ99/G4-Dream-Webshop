@@ -37,7 +37,7 @@ export default async function Favorites() {
           <h1 className="font-serif text-3xl sm:text-4xl leading-relaxed">
             Favorites
           </h1>
-          <span className="text-black/60 mb-8 block">
+          <span className="text-muted-foreground mb-8 block">
             {favorites.length} saved products
           </span>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
