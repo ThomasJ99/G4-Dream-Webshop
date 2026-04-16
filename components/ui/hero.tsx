@@ -4,8 +4,6 @@ import Link from "next/link";
 import { Button } from "./button";
 
 const heroImages = [
-  // Mall
-  "https://images.unsplash.com/photo-1580793241553-e9f1cce181af?q=80&w=2664&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   // Open Shop sign
   "https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=1920&q=80",
   // Red screen with SALE plastered on it
@@ -23,12 +21,12 @@ export default function Hero() {
       <div className="absolute inset-0">
         <Image
           src={randomImage}
-          alt="Dream Webshop hero image"
+          alt=""
           fill
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-linear-to-r from-black/80 via-black/30 to-transparent transition-colors"></div>
+        <div className="absolute inset-0 bg-linear-to-r from-black/80 via-black/50 to-transparent transition-colors"></div>
       </div>
 
       {/* Text section */}
