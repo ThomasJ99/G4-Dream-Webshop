@@ -1,11 +1,10 @@
 import { NextResponse } from "next/server";
 import type { Product, ProductsResponse } from "@/lib/types";
 import { supabase } from "@/supabaseClient";
-import { API_URL } from "../config";
 
 //#region GET
 export async function getProducts(params?: string): Promise<ProductsResponse> {
-  const response = await fetch(`${API_URL}/api/products/?${params}`, {
+  const response = await fetch(`/api/products/?${params}`, {
     method: "GET",
   });
 
@@ -20,7 +19,7 @@ export async function getProducts(params?: string): Promise<ProductsResponse> {
 
 export async function getProductById(id: string): Promise<Product> {
   try {
-    const response = await fetch(`${API_URL}/api/products/${id}`, {
+    const response = await fetch(`/api/products/${id}`, {
       method: "GET",
       cache: "no-store",
     });
@@ -76,7 +75,7 @@ export async function updateProduct(
 ): Promise<Product> {
   try {
     console.log("PARAMS: " + params);
-    const response = await fetch(`${API_URL}/api/products/${id}/?${params}`, {
+    const response = await fetch(`/api/products/${id}/?${params}`, {
       method: "PUT",
     });
 
@@ -96,7 +95,7 @@ export async function updateProduct(
 
 export async function deleteProduct(id: string): Promise<Response> {
   try {
-    const response = await fetch(`${API_URL}/api/products/${id}`, {
+    const response = await fetch(`/api/products/${id}`, {
       method: "DELETE",
     });
 

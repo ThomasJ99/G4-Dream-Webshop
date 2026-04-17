@@ -1,6 +1,5 @@
 import { cookies } from "next/headers";
 import { type NextRequest, NextResponse } from "next/server";
-import { API_URL } from "@/lib/config";
 import { supabase } from "@/supabaseClient";
 
 // GET /api/cart
