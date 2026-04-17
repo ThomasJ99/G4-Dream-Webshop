@@ -62,7 +62,7 @@ export default function Navigation({
               <rect
                 x="0"
                 y="0"
-                width="38"
+                width="40"
                 height="38"
                 rx="9"
                 fill="currentColor"
@@ -83,7 +83,7 @@ export default function Navigation({
                 fontSize="22"
                 fontWeight="700"
                 fill="currentColor"
-                x="52"
+                x="48"
                 y="26"
               >
                 Dream
@@ -93,7 +93,7 @@ export default function Navigation({
                 fontSize="22"
                 fontWeight="300"
                 fill="currentColor"
-                x="129"
+                x="125"
                 y="26"
               >
                 Shop
@@ -105,7 +105,7 @@ export default function Navigation({
               className="sm:hidden"
               width="38"
               height="38"
-              viewBox="0 0 38 38"
+              viewBox="0 0 40 38"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
               role="img"
@@ -114,7 +114,7 @@ export default function Navigation({
               <rect
                 x="0"
                 y="0"
-                width="38"
+                width="40"
                 height="38"
                 rx="9"
                 fill="currentColor"
