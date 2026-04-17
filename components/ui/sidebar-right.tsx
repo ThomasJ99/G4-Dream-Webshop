@@ -93,15 +93,15 @@ export default function SidebarRight({
   }, []);
 
   const cartContent = (
-    <div className="flex mx-auto sm:min-w-[420px] flex-col w-full  text-gray-600 h-full">
-      <header className="py-3 shadow-md px-3 flex">
+    <div className="flex mx-auto sm:min-w-[420px] flex-col w-full text-gray-600 h-full">
+      <header className="py-3 border-b-2 px-3 flex">
         <h2 className="flex items-center text-md font-bold mx-auto">
           Items in Cart
         </h2>
       </header>
 
       <ul
-        className="flex flex-col border-b-2 border-border overflow-y-auto flex-1 min-h-0 
+        className="flex flex-col overflow-y-auto flex-1 min-h-0 
         [&::-webkit-scrollbar]:w-2
         [&::-webkit-scrollbar-track]:bg-transparent
         [&::-webkit-scrollbar-thumb]:bg-gray-400/80
@@ -219,7 +219,7 @@ export default function SidebarRight({
               exit={{ opacity: 0, height: 0 }} // optional extra fade-out / collapse if you want
               variants={{
                 start: { height: "20vh", top: "55vh", opacity: "50%" },
-                end: { height: "20vh", top: "-15vh", opacity: "0%" },
+                end: { height: "20vh", top: "-20vh", opacity: "0%" },
               }}
               transition={{ duration: 1, ease: "easeInOut" }}
               onAnimationComplete={() => {
@@ -232,16 +232,18 @@ export default function SidebarRight({
       </ul>
 
       {isMobile && (
-        <button
-          className="group mx-auto my-1"
-          type="button"
-          onClick={() => setHidden(!hidden)}
-        >
-          <ChevronUp
-            className="group-hover:text-blue-400 group-hover:cursor-pointer"
-            size={24}
-          ></ChevronUp>
-        </button>
+        <div className="w-full flex border-border border-t-2">
+          <button
+            className="group mx-auto my-1"
+            type="button"
+            onClick={() => setHidden(!hidden)}
+          >
+            <ChevronUp
+              className=" group-hover:text-blue-400 group-hover:cursor-pointer"
+              size={24}
+            ></ChevronUp>
+          </button>
+        </div>
       )}
     </div>
   );
@@ -249,7 +251,7 @@ export default function SidebarRight({
   if (isMobile) {
     return (
       <motion.div
-        className={`${className ?? ""} fixed z-40 top-16 left-0 right-0 w-full overflow-hidden bg-white/50 backdrop-blur-sm shadow-sm`}
+        className={`${className ?? ""} fixed z-40 top-16 left-0 right-0 w-full overflow-hidden bg-white/50 backdrop-blur-sm shadow-md`}
         variants={{
           visible: { height: "50vh" },
           hidden: { height: 0 },
@@ -265,7 +267,7 @@ export default function SidebarRight({
 
   return (
     <motion.aside
-      className={`${className ?? ""} fixed z-40 top-16 right-0 h-[50vh] overflow-hidden bg-white/50 backdrop-blur-sm shadow-sm rounded-bl-lg`}
+      className={`${className ?? ""} fixed z-40 top-16 right-0 h-[50vh] overflow-hidden bg-white/50 backdrop-blur-sm shadow-md rounded-bl-lg`}
       variants={{
         visible: { width: 420 },
         hidden: { width: 0 },

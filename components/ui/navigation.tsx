@@ -56,7 +56,7 @@ export default function Navigation({
         className="sticky z-50 top-0 w-full bg-white/50 shadow-sm"
       >
         <div className="w-full h-16 backdrop-blur-sm">
-          <nav className="flex items-center justify-between mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16">
+          <nav className="flex items-center justify-between mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 mr-4 sm:mr-2 lg:mr-0">
             <Link href="/">
               {/* Full logo — desktop */}
               <svg
@@ -160,7 +160,7 @@ export default function Navigation({
                 className="relative p-2 rounded-sm hover:text-blue-400 transition-colors"
                 href="/cart"
               >
-                <div className="absolute -top-1 -right-1 w-4 h-4 bg-blue-400 rounded-full text-white flex items-center justify-center text-xs">
+                <div className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-blue-400 rounded-full text-white flex items-center justify-center text-xs">
                   {cartItemsLength}
                 </div>
                 <ShoppingCart size={24} />
