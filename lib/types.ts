@@ -46,10 +46,41 @@ export interface Product {
   thumbnail: string;
 }
 
+export interface Review {
+  id: number;
+  product_id: number;
+  rating: number;
+  comment?: string;
+  date: string;
+  reviewer_name: string;
+  reviewer_email: string;
+  created_at?: string;
+}
+
+export interface CartItem {
+  id: number;
+  cart_id?: number;
+  product_id: number;
+  user_id?: number;
+  quantity: number;
+  created_at?: string;
+}
+
 export interface ProductsResponse {
   products: Product[];
-  total: number;
-  limit: number;
-  page: number;
-  pages: number;
+  total?: number;
+  limit?: number;
+  page?: number;
+  pages?: number;
 }
+
+export type ProductFormData = Pick<
+  Product,
+  | "title"
+  | "brand"
+  | "price"
+  | "description"
+  | "thumbnail"
+  | "categoryId"
+  | "stock"
+>;

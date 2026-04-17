@@ -1,105 +1,136 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# DreamShop
 
-This project uses [json-server](https://github.com/typicode/json-server/tree/v0.17.4) to mock a backend API.
+A modern e-commerce storefront built with Next.js and Supabase, focused on scalable frontend architecture, URL-driven filtering, and reusable component design.
 
-Data in the json for the server is from [dummyjson.com](https://dummyjson.com/docs/products) but modified to fit the needs of this project. Most of the endpoints mirrors those in that documentation.
+---
+## Wishlist
+
+- [ ] Auth implementation
+- [ ] Error handling
+- [ ] Optimization
+- [ ] Skeletons - on its way!
+
+---
+
+## Tech Stack
+
+ Next.js | Framework, App Router, Server Components 
+ TypeScript | Type safety 
+ Tailwind CSS | Styling 
+ Supabase | Database & *authentication* 
+ shadcn/ui | UI component primitives 
+ Framer Motion | Animations 
+ Lucide React | Icons 
+ Biome | Linting & formatting 
+
+---
+
+## Features
+
+### Product Catalogue
+- Dynamic product grid with Framer Motion animations
+- Category filtering, search, and pagination
+- Reusable `ProductCard` with image hover previews and availability badges
+
+### Shopping Cart
+- Cookie-based cart persistence
+- Add, remove, and update item quantities
+- Order summary with dynamic total and VAT calculation
+
+### Favorites
+- Save and remove favorite products
+- Persistent favorites storage
+
+### Filtering System
+Filters are driven entirely by URL parameters — no global state required:
+`/products?_categoryId=3&_q=shirt&_limit=12&_page=2`
+
+This gives you shareable filtered URLs, server-side filtering, and zero client-side state overhead.
+
+### Admin Dashboard
+- Full product CRUD (create, edit, delete)
+- Product table with pagination and search
+- Inventory and stats widgets
+
+---
+
+## Architecture
+
+The project follows a strict server/client split using Next.js App Router conventions.
+
+**Server components** handle data fetching, filtering, pagination, and layout rendering.  
+**Client components** handle interactions — filters, cart, favorites, and form submissions.
+```
+src/
+├── app/
+│   ├── page.tsx
+│   ├── about/
+│   ├── cart/
+│   ├── favorites/
+│   ├── admin/
+│   └── products/
+│       ├── page.tsx
+│       ├── [id]/
+│       ├── add-product/
+│       └── edit/[id]/
+│
+├── components/
+│   ├── ui/                  # Primitives and layout components
+│   │   └── admin/           # Admin-specific components
+│   ├── product-card.tsx
+│   ├── product-grid.tsx
+│   ├── cart-item-card.tsx
+│   └── ...
+│
+├── lib/
+│   ├── db/                  # Supabase query functions
+│   ├── actions/             # Server actions
+│   ├── types.ts
+│   ├── utils.ts
+│   └── config.ts
+│
+└── utils/
+```
+---
 
 ## Getting Started
 
-First, install the dependencies:
+1. **Clone the repository**
 
+2. **Set up environment variables**
+
+   Create a `.env` file in the root:
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
+
+3. **Install dependencies**
 ```bash
-npm install
-# or
-yarn install
-# or
-pnpm install
-# or
-bun install
+   npm install
 ```
 
-To start the full development environment (Next.js frontend + JSON Server backend), use:
-
+4. **Seed the database**
 ```bash
-npm run dev:full
+   npm run seed
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+5. **Start the development server**
+```bash
+   npm run dev
+```
 
-The JSON server is running on [http://localhost:4000](http://localhost:4000). Here you can see the API endpoints and test them.
+### Available Scripts
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Script | Description |
+|--------|-------------|
+| `npm run dev` | Start development server |
+| `npm run build` | Build for production |
+| `npm run start` | Start production server |
+| `npm run lint` | Run Biome linter |
+| `npm run format` | Format code with Biome |
+| `npm run seed` | Seed the database |
 
-## JSON Server Setup
+---
 
-This project uses [json-server](https://github.com/typicode/json-server/tree/v0.17.4) to mock a backend API.
+## Team
 
-### Configuration
-
-The server configuration files are located in the `server/` directory:
-
--   `server/products.json`: The database file containing the product data.
--   `server/middleware.js`: Custom middleware for the server.
-
-### Scripts
-
-The following scripts are available in `package.json`:
-
--   `npm run mock-server`: Starts the json-server on port 4000.
--   `npm run dev:full`: Runs both the Next.js development server and the json-server concurrently.
-
-## API Endpoints
-
-The mock server (running on port 4000) provides the following endpoints:
-
-### Resources
-- `GET /products`: Get all products
-- `GET /products/:id`: Get a single product by ID
-- `GET /categories`: Get all categories
-- `GET /categories/:id`: Get a category by ID
-- `GET /categories?slug=:slug`: Get a category by slug
-
-### Create Product
-- `POST /products`: Create a new product
-
-**Required Fields:**
-- `title`: String
-- `price`: Number
-- `description`: String
-- `thumbnail`: URL String
-- `categoryId`: Number (ID of an existing category)
-- `brand`: String
-
-**Auto-generated Fields:**
-- `id`: Sequential ID
-- `sku`: Generated SKU (format: CAT-BRA-TIT-ID)
-- `meta`: Creation and update timestamps
-
-### Pagination & Sorting (json-server 0.17.4)
-See [json-server documentation](https://github.com/typicode/json-server/tree/v0.17.4) for more information.
-
-#### Pagination
-Use `_page` and `_limit` to paginate data:
-- `GET /products?_page=1&_limit=10` (First page, 10 items)
-- `GET /products?_page=2&_limit=10` (Second page, 10 items)
-
-The response will include the `Link` header with `first`, `prev`, `next`, and `last` links.
-Our custom middleware also adds `X-Total-Count` header and wraps the response to include pagination metadata (total, limit, page, pages).
-
-#### Sorting
-Use `_sort` and `_order` to sort data:
-- `GET /products?_sort=price&_order=asc` (Sort by price, ascending)
-- `GET /products?_sort=price&_order=desc` (Sort by price, descending)
-- `GET /products?_sort=price,title&_order=desc,asc` (Sort by multiple fields)
-
-#### Filtering
-- `GET /products?price_gte=10&price_lte=50` (Price between 10 and 50)
-- `GET /products?q=mascara` (Full-text search)
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
+Thomas · Victor · Gustav · Ed · Alex
