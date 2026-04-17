@@ -3,6 +3,7 @@ import { ProductCard } from "@/components/product-card";
 import AddFavorite from "@/components/ui/add-favorite";
 import RemoveFavorite from "@/components/ui/delete-favorite";
 import { Skeleton } from "@/components/ui/skeleton";
+import { API_URL } from "@/lib/config";
 import { getFavorites } from "@/lib/db/favorites-db";
 
 export const metadata: Metadata = {
@@ -11,7 +12,7 @@ export const metadata: Metadata = {
 };
 
 async function getProduct(id: number) {
-  const response = await fetch(`/api/products/${id}`, {
+  const response = await fetch(`${API_URL}/api/products/${id}`, {
     cache: "no-store",
   });
   if (!response.ok) throw new Error(`Failed to fetch product ${id}`);

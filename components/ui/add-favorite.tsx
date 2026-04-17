@@ -3,6 +3,7 @@ import confetti from "canvas-confetti";
 import { Star } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { API_URL } from "@/lib/config";
 import { Button } from "./button";
 
 export default function AddFavorite({ productID }: { productID: number }) {
@@ -14,7 +15,7 @@ export default function AddFavorite({ productID }: { productID: number }) {
 
   useEffect(() => {
     const checkFavorite = async () => {
-      const response = await fetch(`/api/favorites`);
+      const response = await fetch(`${API_URL}/api/favorites`);
       if (!response.ok) return;
       const favorites = await response.json();
       const exists = favorites.some(
@@ -33,7 +34,7 @@ export default function AddFavorite({ productID }: { productID: number }) {
 
     try {
       if (isFavorite) {
-        const response = await fetch(`/api/favorites`, {
+        const response = await fetch(`${API_URL}/api/favorites`, {
           method: "DELETE",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ product_id: productID }),
@@ -45,7 +46,7 @@ export default function AddFavorite({ productID }: { productID: number }) {
           router.refresh();
         }
       } else {
-        const response = await fetch(`/api/favorites`, {
+        const response = await fetch(`${API_URL}/api/favorites`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ product_id: productID }),
