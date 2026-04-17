@@ -1,1 +1,1 @@
-export const API_URL = "g4-dream-webshop.vercel.app";
+export const API_URL = "https://g4-dream-webshop.vercel.app";
