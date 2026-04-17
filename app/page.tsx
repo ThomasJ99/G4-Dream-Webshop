@@ -1,24 +1,44 @@
-import type { ProductsResponse } from "./types";
+import { Suspense } from "react";
+import CategoryGrid from "@/components/category-grid";
+import CategoryGridSkeleton from "@/components/category-grid-skeleton";
+import FeaturedGrid from "@/components/featured-grid";
+import FeaturedGridSkeleton from "@/components/featured-grid-skeleton";
+import Hero from "@/components/ui/hero";
 
-const API_URL = "http://localhost:4000";
-const defaultLimit = "6";
+export const metadata = {
+  title: "DreamShop",
+  description:
+    "Shop electronics, furniture, beauty, fashion and more — curated products from trusted brands, all in one place.",
+  keywords: [
+    "Next.js",
+    "React",
+    "TypeScript",
+    "e-commerce",
+    "frontend",
+    "backend",
+    "Supabase",
+  ],
+};
 
 export default async function Home() {
-  // we use the fetch() method to get the products from the API
-  // in this fetch we sort using _sort and _order and we limit the number of products using _limit
-  // we also use _expand to get the relational category data
-  // we can use the other destructed variables like page, total and so on to create pagination or show info
-  const { products, total, page, pages, limit }: ProductsResponse = await fetch(
-    `${API_URL}/products/?_limit=${defaultLimit}&_sort=id&_order=desc&_expand=category`,
-  ).then((res) => res.json());
-
-
-console.log(products);
+  // const cookieStore = await cookies();
+  // const cartId = cookieStore.get("cartId")?.value;
 
   return (
     <main>
-      <h1>Products</h1>
-      <div>{products.map((product) => <h2 key={product.id}>{product.title} - {product.category?.name}</h2>)}</div>
+      <Hero />
+
+      {/* Suspense around components that need to be async for skeleton to work */}
+
+      {/* Category section */}
+      <Suspense fallback={<CategoryGridSkeleton />}>
+        <CategoryGrid />
+      </Suspense>
+
+      {/* Featured section */}
+      <Suspense fallback={<FeaturedGridSkeleton />}>
+        <FeaturedGrid />
+      </Suspense>
     </main>
   );
 }
