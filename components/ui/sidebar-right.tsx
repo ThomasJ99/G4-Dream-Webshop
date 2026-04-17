@@ -46,16 +46,15 @@ export default function SidebarRight({
   }, []);
 
   useEffect(() => {
+    const cartId = Cookies.get("cartId");
+    if (!cartId) return;
+
     async function loadCartProducts() {
       try {
-        const cartId = Cookies.get("cartId");
-        if (!cartId) return;
-
         const { data: cartItems } = await supabase
           .from("cart_items")
           .select("product_id, quantity")
-          .eq("cart_id", cartId)
-          .limit(10);
+          .eq("cart_id", cartId);
 
         if (!cartItems || cartItems.length === 0) {
           setProducts([]);
@@ -86,18 +85,11 @@ export default function SidebarRight({
 
     loadCartProducts();
 
-    const channel = supabase
-      .channel("cart-changes")
-      .on(
-        "postgres_changes",
-        { event: "*", schema: "public", table: "cart_items" },
-        loadCartProducts,
-      )
-      .subscribe();
+    const interval = setInterval(() => {
+      loadCartProducts();
+    }, 1000);
 
-    return () => {
-      supabase.removeChannel(channel);
-    };
+    return () => clearInterval(interval);
   }, []);
 
   const cartContent = (
@@ -273,13 +265,13 @@ export default function SidebarRight({
 
   return (
     <motion.aside
-      className={`${className ?? ""} fixed z-40 top-16 right-0 overflow-hidden bg-white/50 backdrop-blur-sm shadow-sm rounded-bl-lg`}
+      className={`${className ?? ""} fixed z-40 top-16 right-0 h-[50vh] overflow-hidden bg-white/50 backdrop-blur-sm shadow-sm rounded-bl-lg`}
       variants={{
-        visible: { width: 420, height: "50vh" },
-        hidden: { width: 0, height: "50vh" },
+        visible: { width: 420 },
+        hidden: { width: 0 },
       }}
       animate={hidden ? "hidden" : "visible"}
-      initial={hidden ? "hidden" : "visible"}
+      initial={"hidden"}
       transition={{ duration: 1.5, ease: "easeInOut" }}
     >
       {cartContent}
