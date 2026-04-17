@@ -1,10 +1,11 @@
-import type { ProductFormData } from "@/lib/types";
+import { API_URL } from "@/lib/config";
+import type { ProductFormData, ProductsResponse } from "@/lib/types";
 import "server-only";
 
 //#region GET
 
 export async function getInventoryProducts() {
-  const response = await fetch(`/products`, {
+  const response = await fetch(`${API_URL}/products`, {
     cache: "no-store",
   });
 
@@ -21,7 +22,7 @@ export async function getInventoryProducts() {
 //#region POST
 
 export async function addProduct(newProduct: ProductFormData) {
-  const res = await fetch(`/products/`, {
+  const res = await fetch(`${API_URL}/products/`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(newProduct),
@@ -34,7 +35,7 @@ export async function addProduct(newProduct: ProductFormData) {
 }
 
 export async function updateProductById(id: string, product: ProductFormData) {
-  const res = await fetch(`/products/${id}`, {
+  const res = await fetch(`${API_URL}/products/${id}`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(product),

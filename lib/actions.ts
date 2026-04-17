@@ -2,7 +2,8 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { addProduct } from "@/lib/db";
+import { API_URL } from "@/lib/config";
+import { addProduct, updateProductById } from "@/lib/db";
 import type { ProductFormData } from "@/lib/types";
 
 export type ActionState = {

@@ -1,5 +1,7 @@
+import { API_URL } from "../config";
+
 export async function getFavorites() {
-  const response = await fetch(`/api/favorites`, {
+  const response = await fetch(`${API_URL}/api/favorites`, {
     method: "GET",
   });
 

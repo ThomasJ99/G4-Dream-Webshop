@@ -1,4 +1,5 @@
 import EditForm from "@/components/ui/admin/edit-form";
+import { API_URL } from "@/lib/config";
 import type { Category, Product } from "@/lib/types";
 
 export default async function UpdatePage({
@@ -8,8 +9,8 @@ export default async function UpdatePage({
 }) {
   const { id } = await params;
 
-  const product: Product = await fetch(`/api/products/${id}`).then((res) =>
-    res.json(),
+  const product: Product = await fetch(`${API_URL}/api/products/${id}`).then(
+    (res) => res.json(),
   );
 
   return (

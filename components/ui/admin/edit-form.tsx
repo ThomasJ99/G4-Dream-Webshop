@@ -1,10 +1,11 @@
 import Form from "next/form";
 import { updateProductAction } from "@/lib/actions/product-actions";
+import { API_URL } from "@/lib/config";
 import type { Category, Product } from "@/lib/types";
 
 export default async function EditForm({ product }: { product: Product }) {
-  const categories: Category[] = await fetch(`/api/categories`).then((res) =>
-    res.json(),
+  const categories: Category[] = await fetch(`${API_URL}/api/categories`).then(
+    (res) => res.json(),
   );
 
   return (
