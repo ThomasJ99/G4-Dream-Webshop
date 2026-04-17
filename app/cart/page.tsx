@@ -61,7 +61,7 @@ export default async function Cart() {
 
   // VAT & subtotal price
   const VAT_RATE = 0.25;
-  const subtotal = productsWithQuantity.reduce((sum: any, item: any) => {
+  const subtotal = productsWithQuantity?.reduce((sum: any, item: any) => {
     return sum + Number(item.price) * Number(item.quantity);
   }, 0);
 
