@@ -1,10 +1,9 @@
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { Button } from "./button";
 
 const heroImages = [
-  // Mall
-  "https://images.unsplash.com/photo-1580793241553-e9f1cce181af?q=80&w=2664&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   // Open Shop sign
   "https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=1920&q=80",
   // Red screen with SALE plastered on it
@@ -18,16 +17,16 @@ export default function Hero() {
   const randomImage = heroImages[Math.floor(Math.random() * heroImages.length)];
 
   return (
-    <header className="relative min-h-[70vh] flex items-center">
+    <header className="relative min-h-[35vh] sm:min-h-[70vh] flex items-center">
       <div className="absolute inset-0">
         <Image
           src={randomImage}
-          alt="Dream Webshop hero image"
+          alt=""
           fill
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-linear-to-r from-black/80 via-black/30 to-transparent transition-colors"></div>
+        <div className="absolute inset-0 bg-linear-to-r from-black/80 via-black/50 to-transparent transition-colors"></div>
       </div>
 
       {/* Text section */}
@@ -37,7 +36,7 @@ export default function Hero() {
             New arrivals
           </span>
 
-          <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl font-semibold tracking-tight text-balance leading-none">
+          <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl max-w-[10ch] font-semibold tracking-tight text-balance leading-none">
             Everything you need, all in one place
           </h1>
 
@@ -47,11 +46,13 @@ export default function Hero() {
           </p>
 
           <Link
-            className="bg-blue-600 text-center hover:bg-blue-700 items-center inline-flex gap-2 py-2.5 px-5 mt-8 rounded-lg cursor-pointer"
+            className="text-centeritems-center inline-flex mt-6 rounded-lg cursor-pointer"
             href={"/products"}
           >
-            Explore collection
-            <ArrowRight className="ml-2 size-4" />
+            <Button type="button" size={"lg"} className="py-5 px-5">
+              Explore collection
+              <ArrowRight className="ml-2 size-4" />
+            </Button>
           </Link>
         </div>
       </section>

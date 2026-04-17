@@ -14,8 +14,7 @@ import { getSearchParamsAsString } from "@/utils/getSearchParams";
 import ProductTablePagination from "./product-table-pagination";
 
 const thStyle = "p-4 text-sm font-semibold text-gray-500";
-const tdStyle =
-  "border-t border-gray-300 text-center p-4 text-ellipsis truncate";
+const tdStyle = "border-t border-gray-300 text-center p-4 text-ellipsis truncate";
 
 const getColourFromAvailabilityStatus = (stock: number): string => {
   if (stock === 0) {
@@ -123,12 +122,18 @@ export default async function ProductTable({
                         name="product_id"
                         value={product.id}
                       ></input>
-                      <button type="submit">
+                      <button
+                        type="submit"
+                        className="cursor-pointer active:scale-105"
+                      >
                         <SmilePlus color="blue" size={24}></SmilePlus>
                       </button>
                     </Form>
                     <Link href={`/products/edit/${product.id}`}>
-                      <button type="button" className="mr-1">
+                      <button
+                        type="button"
+                        className="cursor-pointer active:scale-105"
+                      >
                         <FilePenLine color="purple" size={24} />
                       </button>
                     </Link>
@@ -136,7 +141,7 @@ export default async function ProductTable({
                   </div>
                 ) : tableType === "featured" ? (
                   <Form
-                    className="inline-flex "
+                    className="inline-flex"
                     action={removeFeaturedProductById}
                   >
                     <input
@@ -144,7 +149,10 @@ export default async function ProductTable({
                       name="product_id"
                       value={product.id}
                     ></input>
-                    <button type="submit">
+                    <button
+                      type="submit"
+                      className="cursor-pointer active:scale-105"
+                    >
                       <SquareMinus color="red" size={24}></SquareMinus>
                     </button>
                   </Form>

@@ -1,4 +1,5 @@
 import { ChevronLeft, Package } from "lucide-react";
+import type { Metadata } from "next";
 import Form from "next/form";
 import Image from "next/image";
 import Link from "next/link";
@@ -9,14 +10,45 @@ import { Button } from "@/components/ui/button";
 import { addToCart } from "@/lib/actions/cart-actions";
 import { getProductById } from "@/lib/db/products-db";
 import { getReviewsByProductId } from "@/lib/db/reviews-db";
+import type { Product } from "@/lib/types";
 import { formatPrice } from "@/utils/utils";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+
+  try {
+    const product = await getProductById(id);
+
+    return {
+      title: `${product.title} | DreamShop`,
+      description: product.description,
+    };
+  } catch {
+    return {
+      title: "Product not found",
+    };
+  }
+}
 
 export default async function ProductPage({
   params,
 }: PageProps<"/products/[id]">) {
   const { id } = await params;
 
-  let product = {};
+  let product: Product = {
+    id: 0,
+    title: "",
+    description: "",
+    categoryId: 0,
+    price: 0,
+    meta: { createdAt: "", updatedAt: "" },
+    images: [],
+    thumbnail: "",
+  };
   try {
     product = await getProductById(id);
   } catch {
@@ -29,6 +61,9 @@ export default async function ProductPage({
     product.images?.[0] ||
     "https://placehold.co/1000x1000/png?text=No image available";
   const prettyPrice = formatPrice(product.price);
+
+  const isOutOfStock =
+    product.stock === 0 || product.availabilityStatus === "OUT_OF_STOCK";
 
   return (
     <main className="my-8">
@@ -58,7 +93,7 @@ export default async function ProductPage({
           {/* summary */}
           <div className="flex flex-col gap-2">
             <p className="text-sm text-muted-foreground uppercase tracking-wide">
-              {product.category.name}
+              {product?.category?.name}
             </p>
             <h1 className="font-serif text-3xl sm:text-4xl font-medium">
               {product.title}
@@ -95,8 +130,13 @@ export default async function ProductPage({
           {/* add to cart */}
           <Form action={addToCart}>
             <input type="hidden" name="product_id" value={product.id}></input>
-            <Button type="submit" size={"lg"} className="cursor-pointer w-full">
-              Add to Cart
+            <Button
+              type="submit"
+              size={"lg"}
+              className={` w-full cursor-pointer`}
+              disabled={isOutOfStock}
+            >
+              {isOutOfStock ? "Not currently available for purchase" : "Add to Cart"}
             </Button>
           </Form>
 
@@ -104,7 +144,7 @@ export default async function ProductPage({
           <section className="flex gap-32">
             <div className="pt-8 border-t border-border space-y-4">
               <div className="space-y-2">
-                <h3 className="text-sm font-semibold">Details</h3>
+                <h2 className="text-sm font-semibold">Details</h2>
                 <ul className="text-sm text-muted-foreground space-y-1">
                   <li>Premium quality materials</li>
                   <li>Ethically manufactured</li>
@@ -113,7 +153,7 @@ export default async function ProductPage({
               </div>
 
               <div className="space-y-2">
-                <h3 className="text-sm font-semibold">Shipping</h3>
+                <h2 className="text-sm font-semibold">Shipping</h2>
                 <ul className="text-sm text-muted-foreground space-y-1">
                   <li>{product.availabilityStatus}</li>
                   <li>{product.shippingInformation}</li>
@@ -123,7 +163,7 @@ export default async function ProductPage({
             </div>
 
             <div className="pt-8 border-t border-border space-y-4">
-              <h3 className="text-sm font-semibold">Reviews</h3>
+              <h2 className="text-sm font-semibold">Reviews</h2>
               <ul className="text-sm text-muted-foreground space-y-1">
                 {reviews.map((review) => (
                   <li key={review.id}>

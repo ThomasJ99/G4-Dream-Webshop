@@ -1,10 +1,6 @@
 import "server-only";
 import { AlertTriangle, CheckCircle2, Package2, XCircle } from "lucide-react";
-import { getInventoryProducts } from "@/lib/db";
-import type { Product } from "@/lib/types";
-import { getProducts } from "@/lib/db/products-db";
-
-type ProductForInventoryWidget = Pick<Product, "stock">;
+import { ProductsResponse } from "@/lib/types";
 
 const getAvailabilityStatus = (stock: number | null | undefined) => {
   const s = stock ?? 0;
@@ -13,9 +9,9 @@ const getAvailabilityStatus = (stock: number | null | undefined) => {
   return "In Stock";
 };
 
-export default async function InventoryWidget() {
+export default async function InventoryWidget({ data }: { data: ProductsResponse }) {
   try {
-    const { products, total } = await getProducts();
+    const { products, total } = data;
 
     const stats = [
       {

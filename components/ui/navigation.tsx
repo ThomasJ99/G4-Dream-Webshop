@@ -63,7 +63,7 @@ export default function Navigation({
                 className="hidden sm:block"
                 width="200"
                 height="38"
-                viewBox="0 0 200 40"
+                viewBox="0 0 200 38"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
                 role="img"
@@ -72,8 +72,8 @@ export default function Navigation({
                 <rect
                   x="0"
                   y="0"
-                  width="40"
-                  height="40"
+                  width="38"
+                  height="38"
                   rx="9"
                   fill="currentColor"
                 />
@@ -94,7 +94,7 @@ export default function Navigation({
                   fontWeight="700"
                   fill="currentColor"
                   x="52"
-                  y="28"
+                  y="26"
                 >
                   Dream
                 </text>
@@ -104,7 +104,7 @@ export default function Navigation({
                   fontWeight="300"
                   fill="currentColor"
                   x="129"
-                  y="28"
+                  y="26"
                 >
                   Shop
                 </text>
@@ -182,7 +182,7 @@ export default function Navigation({
               {/* Leaving old Button here for now. */}
               {/* <div className="md:hidden">
               <button
-                className="cursor-pointer p-2 rounded-sm hover:bg-blue-900/20 hover:text-blue-400 transition-colors"
+                className="cursor-pointer p-2 rounded-sm w-10 h-10 flex hover:text-blue-400 transition-colors focus:outline-none"
                 type="button"
                 onClick={() => setIsOpen(!isOpen)}
               >

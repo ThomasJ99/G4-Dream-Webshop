@@ -1,4 +1,5 @@
 import { ChevronLeft, ShoppingBag } from "lucide-react";
+import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import Link from "next/link";
 import { CartItemCard } from "@/components/cart-item-card";
@@ -7,6 +8,12 @@ import { getCartAction } from "@/lib/actions/cart-actions";
 import { getCartItemsByIdParams } from "@/lib/db/carts-db";
 import { supabase } from "@/supabaseClient";
 import { formatPrice } from "@/utils/utils";
+
+export const metadata: Metadata = {
+  title: "Shopping Cart | DreamShop",
+  description:
+    "Review your items, update quantities, and proceed to checkout securely.",
+};
 
 export default async function Cart() {
   // TODO: REMOVE THIS LINE OF CODE LATER, GOOD TO TEST SKELETONS
@@ -47,10 +54,18 @@ export default async function Cart() {
   }
 
   let totalPrice = 0;
-  productsWithQuantity?.map((item) => {
+  productsWithQuantity?.map((item: any) => {
     totalPrice += +item.price * +item.quantity;
     return totalPrice;
   });
+
+  // VAT & subtotal price
+  const VAT_RATE = 0.25;
+  const subtotal = productsWithQuantity.reduce((sum, item) => {
+    return sum + Number(item.price) * Number(item.quantity);
+  }, 0);
+
+  const vatAmount = subtotal * VAT_RATE;
 
   return (
     <main>
@@ -64,7 +79,8 @@ export default async function Cart() {
           Continue shopping
         </Link>
 
-        <h1 className="font-serif text-3xl sm:text-4xl leading-relaxed">
+        {/* mt-2 to match other pages position on y-axis */}
+        <h1 className="font-serif text-3xl sm:text-4xl leading-relaxed mt-2">
           Shopping Cart
         </h1>
 
@@ -79,7 +95,7 @@ export default async function Cart() {
         <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-3 gap-12">
           {/* Cart items — spans 2 columns */}
           <div className="lg:col-span-2 space-y-4">
-            {productsWithQuantity?.map((item) => (
+            {productsWithQuantity?.map((item: any) => (
               <CartItemCard
                 key={item.id}
                 item={item}
@@ -93,9 +109,9 @@ export default async function Cart() {
             <h2 className="font-semibold text-lg">Order Summary</h2>
 
             <div className="space-y-4">
-              <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">Subtotal</span>
-                <span>Price nr</span>
+              <div className="flex justify-between text-sm text-muted-foreground">
+                <span>Subtotal</span>
+                <span>{formatPrice(subtotal)}</span>
               </div>
 
               <div className="flex justify-between text-sm text-muted-foreground">
@@ -104,15 +120,15 @@ export default async function Cart() {
               </div>
 
               <div className="flex justify-between text-sm text-muted-foreground">
-                <span>VAT (included)</span>
+                <span>VAT (25%)</span>
                 {/* Format tax price here with math */}
-                <span>Price</span>
+                <span>{formatPrice(vatAmount)}</span>
               </div>
 
               <div className="border-t border-border pt-4 mb-6">
-                <div className="flex justify-between">
+                <div className="flex justify-between font-semibold text-xl">
                   <span>Total</span>
-                  {formatPrice(totalPrice)}
+                  {formatPrice(totalPrice + vatAmount)}
                 </div>
               </div>
 

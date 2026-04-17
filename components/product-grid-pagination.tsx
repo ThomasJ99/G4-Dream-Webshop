@@ -1,14 +1,26 @@
 "use client";
 
-import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  ChevronsLeft,
+  ChevronsRight,
+} from "lucide-react";
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
-export default function ProductGridPagination({ totalPages }: { totalPages: number }) {
+export default function ProductGridPagination({
+  totalPages,
+}: {
+  totalPages: number;
+}) {
+  const router = useRouter();
+
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const currentPage = Number(searchParams.get("_page") || 1);
-  const currentLimit = searchParams.get("_limit") || 8;
+  const currentLimit = searchParams.get("_limit") || 16;
   // const currentCategory = searchParams.get("_categoryId") || "";
 
   const createPageURL = (pageNumber: number) => {
@@ -20,36 +32,53 @@ export default function ProductGridPagination({ totalPages }: { totalPages: numb
     return `${pathname}?${params.toString()}`;
   };
 
+  const pages = ["Go to page..."];
+  for (let i = 1; i <= totalPages; i++) {
+    pages.push(i.toString());
+  }
+
   return (
     <div className="flex justify-end gap-4 w-fit m-auto my-12">
       <Link
-        scroll={false}
-        className={`${currentPage > 1 ? "text-blue-400" : "text-gray-400"} p-1 text-center rounded-lg`}
+        className={`${currentPage > 1 ? "text-blue-400" : "text-gray-400"} p-1 hidden sm:block`}
         href={createPageURL(1)}
       >
         <ChevronsLeft />
       </Link>
       <Link
-        scroll={false}
-        className={`${currentPage > 1 ? "text-blue-400" : "text-gray-400"} p-1 text-center rounded-lg`}
+        className={`${currentPage > 1 ? "text-blue-400" : "text-gray-400"} p-1 hidden sm:block`}
         href={createPageURL(Math.max(1, currentPage - 1))}
       >
         <ChevronLeft />
       </Link>
 
       <Link
-        scroll={false}
         className="bg-blue-600 text-white p-1 min-w-10 text-center rounded-lg"
         href={createPageURL(currentPage)}
       >
         {currentPage}
       </Link>
-
+      <select
+        className="border border-blue-400 rounded-xl px-2"
+        onChange={(e) => {
+          const value = +e.target.value;
+          if (value > 0) {
+            const url = createPageURL(value);
+            router.replace(url);
+            e.target.selectedIndex = 0;
+          }
+        }}
+      >
+        {pages.map((page) => (
+          <option key={page} value={page}>
+            {page}
+          </option>
+        ))}
+      </select>
       {currentPage < totalPages && (
         <>
-          <span className="flex items-end text-blue-400 text-2xl">...</span>
           <Link
-            className="bg-white text-blue-600 border border-blue-400 p-1 min-w-10 text-center rounded-lg"
+            className="bg-white text-blue-600 border border-blue-400 p-1 min-w-10 text-center rounded-lg hidden sm:block"
             href={createPageURL(totalPages)}
           >
             {totalPages}
@@ -58,15 +87,13 @@ export default function ProductGridPagination({ totalPages }: { totalPages: numb
       )}
 
       <Link
-        scroll={false}
-        className={`${currentPage >= totalPages ? "text-gray-400" : "text-blue-600"} p-1 text-center rounded-lg`}
+        className={`${currentPage >= totalPages ? "text-gray-400" : "text-blue-600"} p-1 hidden sm:block`}
         href={createPageURL(Math.min(totalPages, currentPage + 1))}
       >
         <ChevronRight />
       </Link>
       <Link
-        scroll={false}
-        className={`${currentPage >= totalPages ? "text-gray-400" : "text-blue-600"} p-1 text-center rounded-lg`}
+        className={`${currentPage >= totalPages ? "text-gray-400" : "text-blue-600"} p-1 hidden sm:block`}
         href={createPageURL(totalPages)}
       >
         <ChevronsRight />
