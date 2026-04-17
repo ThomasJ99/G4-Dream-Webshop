@@ -1,6 +1,4 @@
-import { ProductsResponse } from "@/lib/types";
-
-const API_URL = "http://localhost:4000";
+import type { ProductsResponse } from "@/lib/types";
 
 export async function getProducts(
   limit = "5",
@@ -12,7 +10,7 @@ export async function getProducts(
   });
 
   try {
-    const response = await fetch(`${API_URL}/products/?${params}`).then((res) =>
+    const response = await fetch(`/products/?${params}`).then((res) =>
       res.json(),
     );
 

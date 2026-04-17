@@ -1,8 +1,7 @@
-import { API_URL } from "../config";
 import type { Category } from "../types";
 
 export async function getCategories(): Promise<Category[]> {
-  const response = await fetch(`${API_URL}/api/categories`, {
+  const response = await fetch(`/api/categories`, {
     method: "GET",
   });
 

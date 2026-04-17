@@ -1,7 +1,6 @@
 "use client";
 import { X } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { API_URL } from "@/lib/config";
 
 export default function RemoveFavorite({ productId }: { productId: number }) {
   const router = useRouter();
@@ -9,7 +8,7 @@ export default function RemoveFavorite({ productId }: { productId: number }) {
   const handleClick = async (e: React.MouseEvent) => {
     e.preventDefault();
 
-    const response = await fetch(`${API_URL}/api/favorites`, {
+    const response = await fetch(`/api/favorites`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ product_id: productId }),
