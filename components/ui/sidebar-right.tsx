@@ -6,7 +6,6 @@ import { ChevronUp, Minus, Plus, Trash2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { start } from "repl";
 import { removeCartItem, updateQuantity } from "@/lib/actions/cart-actions";
 import { supabase } from "@/supabaseClient";
 import Tooltip from "./tooltip";
@@ -218,8 +217,8 @@ export default function SidebarRight({
               animate="end"
               exit={{ opacity: 0, height: 0 }} // optional extra fade-out / collapse if you want
               variants={{
-                start: { height: "20vh", top: "55vh", opacity: "50%" },
-                end: { height: "20vh", top: "-20vh", opacity: "0%" },
+                start: { height: "20vh", top: "55vh", opacity: 0.5 },
+                end: { height: "20vh", top: "-20vh", opacity: 0 },
               }}
               transition={{ duration: 1, ease: "easeInOut" }}
               onAnimationComplete={() => {

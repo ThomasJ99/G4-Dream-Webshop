@@ -56,7 +56,7 @@ export default function Navigation({
         className="sticky z-50 top-0 w-full bg-white/50 shadow-sm"
       >
         <div className="w-full h-16 backdrop-blur-sm">
-          <nav className="flex items-center justify-between mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 mr-4 sm:mr-2 lg:mr-0">
+          <nav className="flex items-center justify-between mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16">
             <Link href="/">
               {/* Full logo — desktop */}
               <svg
@@ -143,7 +143,7 @@ export default function Navigation({
               </svg>
             </Link>
 
-            <div className="flex-1 flex items-center justify-end gap-5">
+            <div className="flex-1 flex items-center justify-end gap-5 mr-4 sm:mr-2 lg:mr-0">
               <ul className="hidden md:flex items-center gap-5">
                 {menuItems.map((item) => (
                   <li key={item.name}>
