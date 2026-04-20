@@ -143,14 +143,7 @@ export default async function ProductPage({
           {/* details and shipping */}
           <section className="flex gap-32">
             <div className="pt-8 border-t border-border space-y-4">
-              <div className="space-y-2">
-                <h2 className="text-sm font-semibold">Details</h2>
-                <ul className="text-sm text-muted-foreground space-y-1">
-                  <li>Premium quality materials</li>
-                  <li>Ethically manufactured</li>
-                  <li>Designed in Stockholm</li>
-                </ul>
-              </div>
+            
 
               <div className="space-y-2">
                 <h2 className="text-sm font-semibold">Shipping</h2>
@@ -162,7 +155,7 @@ export default async function ProductPage({
               </div>
             </div>
 
-            <div className="pt-8 border-t border-border space-y-4">
+            <div className="pt-8 border-t border-border space-y-2">
               <h2 className="text-sm font-semibold">Reviews</h2>
               <ul className="text-sm text-muted-foreground space-y-1">
                 {reviews.map((review) => (
