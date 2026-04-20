@@ -65,7 +65,10 @@ export default function Sidebar() {
     <section className="flex flex-col gap-6 sticky left-0 top-0 h-screen shadow-md border-r  border-gray-300">
       <header className="p-6 pb-2 border-b  border-gray-300 ">
         <h1 className="text-gray-900 font-bold text-2xl mb-2">
-          <span className="line-through text-sm">Future Store</span> DreamShop
+          <span className="line-through text-sm">Future Store</span>
+          <Link href={"/"}>
+           DreamShop
+          </Link>
         </h1>
         <span className="text-gray-500">Admin Panel</span>
       </header>
@@ -97,7 +100,7 @@ export default function Sidebar() {
             <span className="text-sm font-semibold text-gray-700">
               Admin user
             </span>
-            <span className="text-gray-500 text-xs">admin@futurestore.com</span>
+            <span className="text-gray-500 text-xs">admin@dreamshop.com</span>
           </div>
         </button>
       </footer>
