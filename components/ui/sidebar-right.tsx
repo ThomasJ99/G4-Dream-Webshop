@@ -86,7 +86,7 @@ export default function SidebarRight({
 
     const interval = setInterval(() => {
       loadCartProducts();
-    }, 1000);
+    }, 500);
 
     return () => clearInterval(interval);
   }, []);
@@ -146,7 +146,7 @@ export default function SidebarRight({
                   </Link>
                 )}
                 <span className="text-sm font-semibold mt-auto mb-1">
-                  ${product.price}
+                  {product.price} kr
                 </span>
               </div>
               <div className="h-full flex flex-col justify-between">
