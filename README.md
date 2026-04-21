@@ -61,35 +61,115 @@ The project follows a strict server/client split using Next.js App Router conven
 **Server components** handle data fetching, filtering, pagination, and layout rendering.  
 **Client components** handle interactions — filters, cart, favorites, and form submissions.
 ```
-src/
+dream-webshop/
 ├── app/
 │   ├── page.tsx
-│   ├── about/
+│   ├── layout.tsx
+│   ├── globals.css
+│   │
+│   ├── products/
+│   │   ├── page.tsx
+│   │   ├── loading.tsx
+│   │   ├── add-product/
+│   │   │   └── page.tsx
+│   │   ├── edit/
+│   │   │   └── [id]/
+│   │   │       └── page.tsx
+│   │   └── [id]/
+│   │       ├── page.tsx
+│   │       ├── loading.tsx
+│   │       └── not-found.tsx
+│   │
 │   ├── cart/
+│   │   ├── page.tsx
+│   │   └── loading.tsx
+│   │
 │   ├── favorites/
-│   ├── admin/
-│   └── products/
+│   │   ├── page.tsx
+│   │   └── loading.tsx
+│   │
+│   ├── about/
+│   │   ├── page.tsx
+│   │   └── loading.tsx
+│   │
+│   └── admin/
 │       ├── page.tsx
-│       ├── [id]/
-│       ├── add-product/
-│       └── edit/[id]/
+│       └── layout.tsx
 │
 ├── components/
-│   ├── ui/                  # Primitives and layout components
-│   │   └── admin/           # Admin-specific components
 │   ├── product-card.tsx
 │   ├── product-grid.tsx
+│   ├── product-grid-pagination.tsx
+│   ├── product-grid-skeleton.tsx
+│   ├── product-badge.tsx
 │   ├── cart-item-card.tsx
-│   └── ...
+│   ├── category-grid.tsx
+│   ├── category-grid-skeleton.tsx
+│   ├── featured-grid.tsx
+│   ├── featured-grid-skeleton.tsx
+│   ├── filter-products.tsx
+│   ├── toast-listener.tsx
+│   │
+│   └── ui/
+│       ├── button.tsx
+│       ├── footer.tsx
+│       ├── hero.tsx
+│       ├── input.tsx
+│       ├── navigation.tsx
+│       ├── skeleton.tsx
+│       ├── add-favorite.tsx
+│       ├── delete-favorite.tsx
+│       │
+│       └── admin/
+│           ├── create-form.tsx
+│           ├── dashboard-widget.tsx
+│           ├── delete-actions.tsx
+│           ├── edit-form.tsx
+│           ├── header.tsx
+│           ├── product-table.tsx
+│           ├── product-table-pagination.tsx
+│           ├── profile-dropdown.tsx
+│           ├── search-widget.tsx
+│           └── sidebar.tsx
 │
 ├── lib/
-│   ├── db/                  # Supabase query functions
-│   ├── actions/             # Server actions
+│   ├── config.ts
 │   ├── types.ts
 │   ├── utils.ts
-│   └── config.ts
+│   ├── db.ts
+│   ├── actions.ts
+│   │
+│   ├── db/
+│   │   ├── categories-db.ts
+│   │   ├── carts-db.ts
+│   │   ├── favorites-db.ts
+│   │   ├── products-db.ts
+│   │   └── reviews-db.ts
+│   │
+│   └── actions/
+│       ├── cart-actions.ts
+│       ├── categories-actions.ts
+│       ├── product-actions.ts
+│       └── reviews-actions.ts
 │
-└── utils/
+├── utils/
+│   ├── getSearchParams.ts
+│   └── utils.ts
+│
+├── public/
+├── data/
+├── .env
+├── .gitignore
+├── biome.json
+├── components.json
+├── next.config.ts
+├── package.json
+├── postcss.config.mjs
+├── seed.js
+├── supabase-schema.sql
+├── supabaseClient.js
+├── tsconfig.json
+└── README.md
 ```
 ---
 
