@@ -222,8 +222,7 @@ export default function SidebarRight({
               }}
               transition={{ duration: 1, ease: "easeInOut" }}
               onAnimationComplete={() => {
-                // Optional: reset your animateDelete state here if you want to reuse the animation later
-                // setAnimateDelete(false);
+                setAnimateDelete(false);
               }}
             />
           )}
