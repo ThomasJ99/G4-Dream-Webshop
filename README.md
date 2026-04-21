@@ -7,8 +7,8 @@ A modern e-commerce storefront built with Next.js and Supabase, focused on scala
 
 - [ ] Auth implementation
 - [ ] Error handling
-- [ ] Optimization
-- [ ] Skeletons - on its way!
+- [x] Optimization
+- [x] Skeletons
 
 ---
 
