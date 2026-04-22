@@ -3,6 +3,10 @@
 A modern e-commerce storefront built with Next.js and Supabase, focused on scalable frontend architecture, URL-driven filtering, and reusable component design.
 
 ---
+## Deployment
+https://g4-dream-webshop.vercel.app/
+
+---
 ## Wishlist
 
 - [ ] Auth implementation
